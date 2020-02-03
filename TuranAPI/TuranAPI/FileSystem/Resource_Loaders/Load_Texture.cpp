@@ -97,15 +97,15 @@ void Save_a_Texture_toDisk(Resource_Type* Texture_Data) {
 unsigned int Sizeof_Real_ValueType(TuranAPI::TuranAPI_ENUMs value_type) {
 	switch (value_type)
 	{
-	case TuranAPI::VAR_UBYTE8:
+	case TuranAPI::TuranAPI_ENUMs::VAR_UBYTE8:
 		return 8;
-	case TuranAPI::VAR_BYTE8:
+	case TuranAPI::TuranAPI_ENUMs::VAR_BYTE8:
 		return 8;
-	case TuranAPI::VAR_UINT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_UINT32:
 		return 32;
-	case TuranAPI::VAR_INT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_INT32:
 		return 32;
-	case TuranAPI::VAR_FLOAT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32:
 		return 32;
 	default:
 		cout << "Error: Intended size of Real Valuetype isn't supported for now!\n";
@@ -116,9 +116,9 @@ unsigned int Sizeof_Real_ValueType(TuranAPI::TuranAPI_ENUMs value_type) {
 
 unsigned int Number_of_Channels(TuranAPI::TuranAPI_ENUMs channel_type) {
 	switch (channel_type) {
-	case TuranAPI::API_TEXTURE_RGB:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGB:
 		return 3;
-	case TuranAPI::API_TEXTURE_RGBA:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGBA:
 		return 4;
 	default:
 		cout << "Error: Intended Number_of_Channels() isn't supported for now!\n";
@@ -130,9 +130,9 @@ unsigned int Number_of_Channels(TuranAPI::TuranAPI_ENUMs channel_type) {
 GameContent::TEXTURE_CHANNELs Convert_in_GameContent_TextureChannels(TuranAPI::TuranAPI_ENUMs channel_type) {
 	switch (channel_type)
 	{
-	case TuranAPI::API_TEXTURE_RGB:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGB:
 		return GameContent::TEXTURE_CHANNELs_TEXTURE_RGB;
-	case TuranAPI::API_TEXTURE_RGBA:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGBA:
 		return GameContent::TEXTURE_CHANNELs_TEXTURE_RGBA;
 	default:
 		cout << "Error: Intended Convert_in_GameContent_TextureChannels() isn't supported for now!\n";
@@ -143,7 +143,7 @@ GameContent::TEXTURE_CHANNELs Convert_in_GameContent_TextureChannels(TuranAPI::T
 GameContent::TEXTURE_DIMENSION Convert_in_GameContent_TextureDimension(TuranAPI::TuranAPI_ENUMs dimension) {
 	switch (dimension)
 	{
-	case TuranAPI::API_TEXTURE_2D:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D:
 		return GameContent::TEXTURE_DIMENSION_TEXTURE_2D;
 	default:
 		cout << "Error: Intended Convert_in_GameContent_TextureDimension() isn't supported for now!\n";
@@ -153,15 +153,15 @@ GameContent::TEXTURE_DIMENSION Convert_in_GameContent_TextureDimension(TuranAPI:
 
 GameContent::TEXTURE_VALUETYPE Convert_in_GameContent_TextureValueType(TuranAPI::TuranAPI_ENUMs value_type) {
 	switch (value_type) {
-	case TuranAPI::VAR_UBYTE8:
+	case TuranAPI::TuranAPI_ENUMs::VAR_UBYTE8:
 		return GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_UBYTE8;
-	case TuranAPI::VAR_BYTE8:
+	case TuranAPI::TuranAPI_ENUMs::VAR_BYTE8:
 		return GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_BYTE8;
-	case TuranAPI::VAR_UINT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_UINT32:
 		return GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_UINT32;
-	case TuranAPI::VAR_INT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_INT32:
 		return GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_INT32;
-	case TuranAPI::VAR_FLOAT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32:
 		return GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_FLOAT32;
 	default:
 		cout << "Error: Intended Convert_in_GameContent_TextureValueType() isn't supported for now!\n";
@@ -171,13 +171,13 @@ GameContent::TEXTURE_VALUETYPE Convert_in_GameContent_TextureValueType(TuranAPI:
 
 GameContent::TEXTURE_MIPMAP_FILTERING Convert_in_GameContent_TextureMipmapFiltering(TuranAPI::TuranAPI_ENUMs mipmap_filtering) {
 	switch (mipmap_filtering) {
-	case TuranAPI::API_TEXTURE_LINEAR_FROM_1MIP:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_1MIP:
 		return GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_LINEAR_FROM_1MIP;
-	case TuranAPI::API_TEXTURE_LINEAR_FROM_2MIP:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_2MIP:
 		return GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_LINEAR_FROM_2MIP;
-	case TuranAPI::API_TEXTURE_NEAREST_FROM_1MIP:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_NEAREST_FROM_1MIP:
 		return GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_NEAREST_FROM_1MIP;
-	case TuranAPI::API_TEXTURE_NEAREST_FROM_2MIP:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_NEAREST_FROM_2MIP:
 		return GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_NEAREST_FROM_2MIP;
 	default:
 		cout << "Error: Intended Convert_in_GameContent_TextureMipmapFiltering() isn't supported for now!\n";
@@ -186,11 +186,11 @@ GameContent::TEXTURE_MIPMAP_FILTERING Convert_in_GameContent_TextureMipmapFilter
 }
 GameContent::TEXTURE_WRAPPING Convert_in_GameContent_TextureWrapping(TuranAPI::TuranAPI_ENUMs wrapping) {
 	switch (wrapping) {
-	case TuranAPI::API_TEXTURE_REPEAT:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_REPEAT:
 		return GameContent::TEXTURE_WRAPPING::TEXTURE_WRAPPING_REPEAT;
-	case TuranAPI::API_TEXTURE_MIRRORED_REPEAT:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_MIRRORED_REPEAT:
 		return GameContent::TEXTURE_WRAPPING::TEXTURE_WRAPPING_MIRRORED_REPEAT;
-	case TuranAPI::API_TEXTURE_CLAMP_TO_EDGE:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_CLAMP_TO_EDGE:
 		return GameContent::TEXTURE_WRAPPING::TEXTURE_WRAPPING_CLAMP_TO_EDGE;
 	default:
 		cout << "Error: Intended Convert_in_GameContent_TextureWrapping() isn't supported for now!\n";
@@ -206,9 +206,9 @@ TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureChannels(GameContent::T
 	switch (channel_type)
 	{
 	case GameContent::TEXTURE_CHANNELs_TEXTURE_RGB:
-		return TuranAPI::API_TEXTURE_RGB;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGB;
 	case GameContent::TEXTURE_CHANNELs_TEXTURE_RGBA:
-		return TuranAPI::API_TEXTURE_RGBA;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGBA;
 	default:
 		cout << "Error: Intended Convert_in_TuranAPIEnums_TextureChannels() isn't supported for now!\n";
 		this_thread::sleep_for(chrono::seconds(5));
@@ -219,7 +219,7 @@ TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureDimension(GameContent::
 	switch (dimension)
 	{
 	case GameContent::TEXTURE_DIMENSION_TEXTURE_2D:
-		return TuranAPI::API_TEXTURE_2D;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D;
 	default:
 		cout << "Error: Intended Convert_in_TuranAPIEnums_TextureDimension() isn't supported for now!\n";
 		this_thread::sleep_for(chrono::seconds(5));
@@ -229,15 +229,15 @@ TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureDimension(GameContent::
 TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureValueType(GameContent::TEXTURE_VALUETYPE value_type) {
 	switch (value_type) {
 	case GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_UBYTE8:
-		return TuranAPI::VAR_UBYTE8;
+		return TuranAPI::TuranAPI_ENUMs::VAR_UBYTE8;
 	case GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_BYTE8:
-		return TuranAPI::VAR_BYTE8;
+		return TuranAPI::TuranAPI_ENUMs::VAR_BYTE8;
 	case GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_UINT32:
-		return TuranAPI::VAR_UINT32;
+		return TuranAPI::TuranAPI_ENUMs::VAR_UINT32;
 	case GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_INT32:
-		return TuranAPI::VAR_INT32;
+		return TuranAPI::TuranAPI_ENUMs::VAR_INT32;
 	case GameContent::TEXTURE_VALUETYPE::TEXTURE_VALUETYPE_FLOAT32:
-		return TuranAPI::VAR_FLOAT32;
+		return TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32;
 	default:
 		cout << "Error: Intended Convert_in_TuranAPIEnums_TextureValueType() isn't supported for now!\n";
 		this_thread::sleep_for(chrono::seconds(5));
@@ -247,13 +247,13 @@ TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureValueType(GameContent::
 TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureMipmapFiltering(GameContent::TEXTURE_MIPMAP_FILTERING mipmap_filtering) {
 	switch (mipmap_filtering) {
 	case GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_LINEAR_FROM_1MIP:
-		return TuranAPI::API_TEXTURE_LINEAR_FROM_1MIP;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_1MIP;
 	case GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_LINEAR_FROM_2MIP:
-		return TuranAPI::API_TEXTURE_LINEAR_FROM_2MIP;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_2MIP;
 	case GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_NEAREST_FROM_1MIP:
-		return TuranAPI::API_TEXTURE_NEAREST_FROM_1MIP;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_NEAREST_FROM_1MIP;
 	case GameContent::TEXTURE_MIPMAP_FILTERING::TEXTURE_MIPMAP_FILTERING_NEAREST_FROM_2MIP:
-		return TuranAPI::API_TEXTURE_NEAREST_FROM_2MIP;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_NEAREST_FROM_2MIP;
 	default:
 		cout << "Error: Intended Convert_in_TuranAPIEnums_TextureMipmapFiltering() isn't supported for now!\n";
 		this_thread::sleep_for(chrono::seconds(5));
@@ -263,11 +263,11 @@ TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureMipmapFiltering(GameCon
 TuranAPI::TuranAPI_ENUMs Convert_in_TuranAPIEnums_TextureWrapping(GameContent::TEXTURE_WRAPPING wrapping) {
 	switch (wrapping) {
 	case GameContent::TEXTURE_WRAPPING::TEXTURE_WRAPPING_REPEAT:
-		return TuranAPI::API_TEXTURE_REPEAT;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_REPEAT;
 	case GameContent::TEXTURE_WRAPPING::TEXTURE_WRAPPING_MIRRORED_REPEAT:
-		return TuranAPI::API_TEXTURE_MIRRORED_REPEAT;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_MIRRORED_REPEAT;
 	case GameContent::TEXTURE_WRAPPING::TEXTURE_WRAPPING_CLAMP_TO_EDGE:
-		return TuranAPI::API_TEXTURE_CLAMP_TO_EDGE;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_CLAMP_TO_EDGE;
 	default:
 		cout << "Error: Intended Convert_in_TuranAPIEnums_TextureWrapping() isn't supported for now!\n";
 		this_thread::sleep_for(chrono::seconds(5));

@@ -16,7 +16,7 @@ using namespace TuranAPI::IMGUI;
 #include <stb_image.h>
 
 
-Texture_Import_Window::Texture_Import_Window(TuranAPI::File_System::FileList_Resource* filelist) : IMGUI_WINDOW("Texture Import"), FILELIST(filelist){}
+Texture_Import_Window::Texture_Import_Window(TuranAPI::File_System::FileSystem* filesystem) : IMGUI_WINDOW("Texture Import"), FILESYSTEM(filesystem){}
 
 void Texture_Import_Window::Run_Window() {
 	if (!Is_Window_Open) {
@@ -36,7 +36,7 @@ void Texture_Import_Window::Run_Window() {
 		string status;
 
 		//Check if this resource is already loaded to Content_List!
-		for (Resource_Type* RESOURCE : *FILELIST->Get_ContentListVector()) {
+		for (Resource_Type* RESOURCE : *FILESYSTEM->Get_Const_FileListContentVector()) {
 			if (TEXTURE_PATH == RESOURCE->PATH) {
 				status = "Resource is already loaded and is in the Resource List!";
 				Status_Window* error_window = new Status_Window(status);
@@ -49,8 +49,7 @@ void Texture_Import_Window::Run_Window() {
 		Resource_Type* imported_resource = Texture_Loader::Import_Texture(TEXTURE_PATH, &PATH, &status);
 		Status_Window* error_window = new Status_Window(status);
 		if (imported_resource) {
-			FILELIST->Get_ContentListVector()->push_back(imported_resource);
-			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(FILELIST);
+			FILESYSTEM->Add_Content_toFileList(imported_resource);
 		}
 	}
 
@@ -73,10 +72,10 @@ TuranAPI::File_System::Resource_Type* Texture_Loader::Import_Texture(const strin
 		*compilation_status = "Loaded texture's channel number is 0! Nothing has happened!";
 		return nullptr;
 	case 3:
-		CHANNEL_TYPE = TuranAPI::API_TEXTURE_RGB;
+		CHANNEL_TYPE = TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGB;
 		break;
 	case 4:
-		CHANNEL_TYPE = TuranAPI::API_TEXTURE_RGBA;
+		CHANNEL_TYPE = TuranAPI::TuranAPI_ENUMs::API_TEXTURE_RGBA;
 		break;
 	default:
 		*compilation_status = "Loaded texture's channel type isn't supported for now! Channel number is: " + CHANNELs;

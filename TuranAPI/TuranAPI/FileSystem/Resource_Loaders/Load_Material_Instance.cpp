@@ -8,22 +8,6 @@ Material_Type_Resource* Find_MaterialType_byID(unsigned int ID);
 TuranAPI::TuranAPI_ENUMs Convert_to_TuranAPIEnums_UniformVarType(GameContent::MATERIAL_INSTANCE_UNIFORM uniform_var_type);
 string Get_UniformName_fromFlatbuffer(const GameContent::MATERIAL_INSTANCE_UNIFORM_TABLE* flatbuffer_uniform, TuranAPI::TuranAPI_ENUMs uniform_var_type);
 
-//Output Path should be Directory + Name. Like "C:/dev/Content/First". Every Material Instance has .matinstcont extension!
-TuranAPI::File_System::Material_Instance* FileSystem::Create_Instance_ofMaterialType(TuranAPI::File_System::Material_Type_Resource* material_type, const string& output_path) {
-	Material_Instance* MATERIAL_INSTANCE = new Material_Instance;
-	MATERIAL_INSTANCE->ID = FileSystem::Create_Resource_ID();
-	MATERIAL_INSTANCE->Material_Type = material_type;
-	string NAME = output_path.substr(output_path.find_last_of('/') + 1);
-	NAME = NAME.substr(0, output_path.find_last_of('.'));
-	MATERIAL_INSTANCE->NAME = NAME;
-	for (Material_Uniform uniform : material_type->UNIFORMs) {
-		MATERIAL_INSTANCE->UNIFORM_LIST.push_back(Material_Uniform(uniform));
-	}
-	string PATH = output_path + ".matinstcont";
-	cout << "Path of Material Instance is: " << PATH << endl;
-	MATERIAL_INSTANCE->PATH = PATH;
-	return MATERIAL_INSTANCE;
-}
 
 
 Resource_Type* FileSystem::Load_Material_Inst(void* data, unsigned int id, const string& path) {

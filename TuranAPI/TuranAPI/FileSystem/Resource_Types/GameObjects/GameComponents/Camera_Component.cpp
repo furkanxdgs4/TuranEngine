@@ -4,7 +4,7 @@ using namespace TuranAPI::Game_Object;
 Camera_Component::Camera_Component(vec3 target) : Target(target) {}
 
 TuranAPI::TuranAPI_ENUMs Camera_Component::Get_Component_Type() {
-	return TuranAPI::CAMERA_COMP;
+	return TuranAPI::TuranAPI_ENUMs::CAMERA_COMP;
 }
 
 void Camera_Component::Set_Camera_Properties(unsigned short fov_in_Angle, float aspect_Width, float aspect_Height, float near_plane, float far_plane) {

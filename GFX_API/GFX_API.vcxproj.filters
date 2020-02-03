@@ -15,31 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GFXSource\Renderer\GFX_Draw_Pass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFX_Framebuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFX_Render_Target.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GFXSource\Renderer\GFX_Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GFXSource\Renderer\GFX_RenderGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFX_Shader_Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFXI_Draw_Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFXI_MESH_REPRESENTATION.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFXI_Render_Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GFXSource\GFX_Core.h">
@@ -51,20 +30,23 @@
     <ClInclude Include="GFXSource\GFX_Includes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GFXSource\GFX_Monitor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\GFX_Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GFXSource\GFX_FileSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\Renderer\GFX_APICommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\Renderer\GFX_RenderCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\Renderer\GFX_Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\GFX_Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GFXSource\Renderer\GFX_Draw_Pass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GFXSource\Renderer\GFX_Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -74,22 +56,19 @@
     <ClCompile Include="GFXSource\GFX_Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GFXSource\GFX_Monitor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXSource\GFX_Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXSource\Renderer\GFX_Framebuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXSource\Renderer\GFXI_MESH_REPRESENTATION.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GFXSource\GFX_FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GFXSource\Renderer\GFX_Render_Target.cpp">
+    <ClCompile Include="GFXSource\Renderer\GFX_RenderCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\Renderer\GFX_Resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\GFX_Display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\Renderer\GFX_APICommands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

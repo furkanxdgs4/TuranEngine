@@ -45,7 +45,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WINDOWS10_FORENGINE;TURANAPI_BUILD;TURAN_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WINDOWS10_FORENGINE;TURANAPI_BUILD;TURAN_PROFILE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
@@ -69,6 +69,8 @@ xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\T
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="TuranAPI\API_Logger.h" />
+    <ClInclude Include="TuranAPI\API_Profiler.h" />
     <ClInclude Include="TuranAPI\FileSystem\DataFormats\GameResource_generated.h" />
     <ClInclude Include="TuranAPI\FileSystem\DataFormats\TuranAPIFormats_generated.h" />
     <ClInclude Include="TuranAPI\FileSystem\Resource_Types\FileList_Resource.h" />
@@ -96,6 +98,7 @@ xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\T
     <ClInclude Include="TuranAPI\IMGUI\Includes\imstb_rectpack.h" />
     <ClInclude Include="TuranAPI\IMGUI\Includes\imstb_textedit.h" />
     <ClInclude Include="TuranAPI\IMGUI\Includes\imstb_truetype.h" />
+    <ClInclude Include="TuranAPI\Logger\Logger_Core.h" />
     <ClInclude Include="TuranAPI\Profiler\Profiler_Core.h" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +126,7 @@ xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\T
     <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_draw.cpp" />
     <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_stdlib.cpp" />
     <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_widgets.cpp" />
+    <ClCompile Include="TuranAPI\Logger\Logger_Core.cpp" />
     <ClCompile Include="TuranAPI\Profiler\Profiler_Core.cpp" />
   </ItemGroup>
   <ItemGroup>

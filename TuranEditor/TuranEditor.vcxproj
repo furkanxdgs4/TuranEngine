@@ -43,7 +43,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)TuranAPI;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL3;$(SolutionDir)$(ProjectName);$(SolutionDir)TuranEngine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TuranAPI;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL4;$(SolutionDir)$(ProjectName);$(SolutionDir)TuranEngine</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WINDOWS10_FORENGINE;EDITOR_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -60,6 +60,7 @@
     <ClCompile Include="EditorSource\Editors\Content_Browser.cpp" />
     <ClCompile Include="EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.cpp" />
     <ClCompile Include="EditorSource\Editors\Main_Window.cpp" />
+    <ClCompile Include="EditorSource\Editors\Profiling_Window.cpp" />
     <ClCompile Include="EditorSource\Editors\Properties_Window.cpp" />
     <ClCompile Include="EditorSource\Editors\Scene_Editor.cpp" />
     <ClCompile Include="EditorSource\Editors\Status_Window.cpp" />
@@ -68,6 +69,8 @@
     <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Material_Type_Loader.cpp" />
     <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Model_Loader.cpp" />
     <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Texture_Loader.cpp" />
+    <ClCompile Include="EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.cpp" />
+    <ClCompile Include="EditorSource\RenderContext\Game_RenderGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorSource\Editor.h" />
@@ -75,6 +78,7 @@
     <ClInclude Include="EditorSource\Editors\EDITORs.h" />
     <ClInclude Include="EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.h" />
     <ClInclude Include="EditorSource\Editors\Main_Window.h" />
+    <ClInclude Include="EditorSource\Editors\Profiling_Window.h" />
     <ClInclude Include="EditorSource\Editors\Properties_Window.h" />
     <ClInclude Include="EditorSource\Editors\Scene_Editor.h" />
     <ClInclude Include="EditorSource\Editors\Status_Window.h" />
@@ -84,13 +88,16 @@
     <ClInclude Include="EditorSource\FileSystem\ResourceLoaders\Material_Type_Loader.h" />
     <ClInclude Include="EditorSource\FileSystem\ResourceLoaders\Model_Loader.h" />
     <ClInclude Include="EditorSource\FileSystem\ResourceLoaders\Texture_Loader.h" />
+    <ClInclude Include="EditorSource\RenderContext\Draw Passes\Draw_Passes.h" />
+    <ClInclude Include="EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.h" />
+    <ClInclude Include="EditorSource\RenderContext\Game_RenderGraph.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GFX_API\GFX_API.vcxproj">
       <Project>{3859b6ef-aec4-48d8-b0bc-66b8d9f81b88}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\OpenGL3\OpenGL3.vcxproj">
-      <Project>{72926232-e64b-485e-9b9d-84ba815d0324}</Project>
+    <ProjectReference Include="..\OpenGL4\OpenGL4.vcxproj">
+      <Project>{fa27ae75-39f2-40a7-aa60-1092b7e3297d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TuranAPI\TuranAPI.vcxproj">
       <Project>{914f0aa8-3d8f-44de-a2bf-a3a93b8a858e}</Project>

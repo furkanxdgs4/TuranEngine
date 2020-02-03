@@ -11,6 +11,7 @@ namespace TuranAPI {
 			FileList_Resource(const string& path);
 			virtual TuranAPI::TuranAPI_ENUMs Get_Resource_Type() override;
 			vector<Resource_Type*>* Get_ContentListVector();
+			virtual bool Verify_Resource_Data();
 		};
 
 	}

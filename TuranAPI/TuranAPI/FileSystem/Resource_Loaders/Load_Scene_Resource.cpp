@@ -33,11 +33,11 @@ Resource_Type* FileSystem::Load_Scene(void* data, unsigned int id, const string&
 		TuranAPI::TuranAPI_ENUMs GameComponent_Type = Convert_fromFBGameCompType_toTuranAPIGameCompType(FB_GameComponent->COMPONENT_type());
 		GameComponent* Game_Component;
 		switch (GameComponent_Type) {
-		case TuranAPI::STATIC_MODEL_COMP:
+		case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_COMP:
 			cout << "Loading a StaticModel Component!\n";
 			Game_Component = Create_StaticModel_Component(FB_GameComponent);
 			break;
-		case TuranAPI::CAMERA_COMP:
+		case TuranAPI::TuranAPI_ENUMs::CAMERA_COMP:
 			cout << "Loading a Camera Component!\n";
 			Game_Component = Create_Camera_Component(FB_GameComponent);
 			break;
@@ -53,7 +53,6 @@ Resource_Type* FileSystem::Load_Scene(void* data, unsigned int id, const string&
 	SCENE->ID = id;
 	SCENE->PATH = path;
 	SCENE->NAME = RESOURCE->NAME()->str();
-	SCENE->SCENE = SCENE;
 	return SCENE;
 }
 
@@ -80,8 +79,7 @@ void Save_a_Scene_toDisk(Resource_Type* Scene_Data) {
 			Scene_GameComponents.push_back(Save_Camera_Component(&builder, GAMECOMPONENT));
 			break;
 		default:
-			cout << "ERROR: Intended GameComponent Type isn't supported to save to scene in Save_a_Scene_toDisk in TuranAPI!\n";
-			TuranAPI::Breakpoint();
+			TuranAPI::Breakpoint("Intended GameComponent Type isn't supported to save to scene in Save_a_Scene_toDisk in TuranAPI!");
 			break;
 		}
 	}
@@ -186,20 +184,20 @@ flatbuffers::Offset<GameContent::GameComponent> Save_Camera_Component(flatbuffer
 TuranAPI::TuranAPI_ENUMs Convert_fromFBGameCompType_toTuranAPIGameCompType(const GameContent::GameComponent_Type& GameComp_Type) {
 	switch (GameComp_Type) {
 	case GameContent::GameComponent_Type_StaticModel_Component:
-		return TuranAPI::STATIC_MODEL_COMP;
+		return TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_COMP;
 	case GameContent::GameComponent_Type_Camera_Component:
-		return TuranAPI::CAMERA_COMP;
+		return TuranAPI::TuranAPI_ENUMs::CAMERA_COMP;
 	default:
 		cout << "ERROR: Intended GameComponent type isn't found in Convert_fromFBGameCompType_toTuranAPIGameCompType() in TuranAPI! Probably, loading this type isn't supported for now!\n";
 		TuranAPI::Breakpoint();
-		return TuranAPI::TURAN_NULL;
+		return TuranAPI::TuranAPI_ENUMs::TURAN_NULL;
 	}
 }
 GameContent::GameComponent_Type Convert_fromTuranAPIGameCompType_toFBGameCompType(const TuranAPI::TuranAPI_ENUMs& GameComp_Type) {
 	switch (GameComp_Type) {
-	case TuranAPI::STATIC_MODEL_COMP:
+	case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_COMP:
 		return GameContent::GameComponent_Type_StaticModel_Component;
-	case TuranAPI::CAMERA_COMP:
+	case TuranAPI::TuranAPI_ENUMs::CAMERA_COMP:
 		return GameContent::GameComponent_Type_Camera_Component;
 	default:
 		cout << "ERROR: Intended GameComponent type couldn't convert to GameContent::GameComponentType in Load_Scene_Resource.cpp in TuranAPI!\n";

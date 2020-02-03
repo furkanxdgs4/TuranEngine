@@ -43,7 +43,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)TuranAPI;$(SolutionDir)$(ProjectName)\EngineSource;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TuranAPI;$(SolutionDir)$(ProjectName)\EngineSource;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WINDOWS10_FORENGINE;ENGINE_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -60,16 +60,11 @@
   <ItemGroup>
     <ClInclude Include="EngineSource\ENGINE_ENUMs.h" />
     <ClInclude Include="EngineSource\Engine\ENGINE_HEADER.h" />
-    <ClInclude Include="EngineSource\Graphics\RenderContext\Draw Passes\Draw_Passes.h" />
-    <ClInclude Include="EngineSource\Graphics\RenderContext\Draw Passes\GBuffer_DrawPass.h" />
-    <ClInclude Include="EngineSource\Graphics\RenderContext\Game_RenderGraph.h" />
     <ClInclude Include="EngineSource\Graphics\SYSTEM_INSPECTOR.h" />
     <ClInclude Include="EngineSource\Engine_Includes.h" />
     <ClInclude Include="EngineSource\TuranEngine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineSource\Graphics\RenderContext\Draw Passes\GBuffer_DrawPass.cpp" />
-    <ClCompile Include="EngineSource\Graphics\RenderContext\Game_RenderGraph.cpp" />
     <ClCompile Include="EngineSource\Graphics\SYSTEM_INSPECTOR.cpp" />
     <ClCompile Include="EngineSource\TuranEngine.cpp" />
   </ItemGroup>
@@ -80,8 +75,8 @@
     <ProjectReference Include="..\GFX_API\GFX_API.vcxproj">
       <Project>{3859b6ef-aec4-48d8-b0bc-66b8d9f81b88}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\OpenGL3\OpenGL3.vcxproj">
-      <Project>{72926232-e64b-485e-9b9d-84ba815d0324}</Project>
+    <ProjectReference Include="..\OpenGL4\OpenGL4.vcxproj">
+      <Project>{fa27ae75-39f2-40a7-aa60-1092b7e3297d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TuranAPI\TuranAPI.vcxproj">
       <Project>{914f0aa8-3d8f-44de-a2bf-a3a93b8a858e}</Project>

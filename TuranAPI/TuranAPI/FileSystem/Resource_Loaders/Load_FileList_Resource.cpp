@@ -32,8 +32,11 @@ void FileSystem::Load_Resources_fromFileList(FileList_Resource* FileList_Resourc
 	}
 	auto File_Vector = File_List->FILE_LIST();
 
-	//Load the scene last!
-	void* Scene_data = nullptr; unsigned int Scene_ID = 0; string Scene_PATH = "";
+	struct TemporarySceneLoadingStruct {
+		//Load the scene last!
+		void* Scene_data = nullptr; unsigned int Scene_ID = 0; string Scene_PATH = "";
+	};
+	vector<TemporarySceneLoadingStruct> All_Scenes;
 
 	//For each file that is in File_List.enginecont!
 	for (unsigned int i = 0; i < File_Vector->Length(); i++) {
@@ -56,11 +59,11 @@ void FileSystem::Load_Resources_fromFileList(FileList_Resource* FileList_Resourc
 			cout << "Resource isn't found in path: " << PATH << endl;
 			continue;
 		}
-		Resource_Type* loaded_resource;
+		Resource_Type* loaded_resource = nullptr;
 		cout << "Data size: " << data_size << endl;
 
 		
-
+		
 		//If the resource is valid!
 		switch (TYPE) {
 		case GameContent::File_Type_Static_Model:
@@ -76,23 +79,38 @@ void FileSystem::Load_Resources_fromFileList(FileList_Resource* FileList_Resourc
 			loaded_resource = FileSystem::Load_Material_Inst(data, ID, PATH);
 			break;
 		case GameContent::File_Type_Scene:
-			Scene_data = data; Scene_ID = ID; Scene_PATH = PATH;
+			All_Scenes.push_back(TemporarySceneLoadingStruct{data, ID, PATH});
 			break;
 		default:
 			cout << "Loaded file's type isn't supported, but this shouldn't have happened! Problem maybe the exporting progress!\n";
 			TuranAPI::Breakpoint();
 			return;
 		}
+		if (loaded_resource != nullptr) {
+			if (!loaded_resource->Verify_Resource_Data()) {
+				TuranAPI::Breakpoint("There is a resource isn't verified in FileList: " + FileList_Resource->NAME + "!");
+			}
+		}
+		else {
+			if (TYPE != GameContent::File_Type_Scene) {
+				TuranAPI::Breakpoint("There is a loaded resource that is nullptr in FileList: " + FileList_Resource->NAME + "! So it isn't added to loaded Content List vector.");
+				continue;
+			}
+			else {
+				//Resource Type is Scene, it is loaded later!
+				continue;
+			}
+		}
 		FileList_Resource->Get_ContentListVector()->push_back(loaded_resource);
 	}
 
-	if (Scene_data == nullptr) {
-		cout << "There is no scene data!\n";
-	}
-	else {
-		//Load the scene last!
-		Scene_Resource* SCENE = (Scene_Resource*)FileSystem::Load_Scene(Scene_data, Scene_ID, Scene_PATH);
-		FileList_Resource->Get_ContentListVector()->push_back(SCENE);
+	if (All_Scenes.size() > 0) {
+		for (unsigned int ALLSCENEs_INDEX = 0; ALLSCENEs_INDEX < All_Scenes.size(); ALLSCENEs_INDEX++) {
+			//Load the scene last!
+			Scene_Resource* SCENE = (Scene_Resource*)FileSystem::Load_Scene(
+				All_Scenes[ALLSCENEs_INDEX].Scene_data, All_Scenes[ALLSCENEs_INDEX].Scene_ID, All_Scenes[ALLSCENEs_INDEX].Scene_PATH);
+			FileList_Resource->Get_ContentListVector()->push_back(SCENE);
+		}
 	}
 }
 
@@ -107,7 +125,7 @@ void Save_a_FileList_toDisk(Resource_Type* FileList_Data) {
 	//Store each created File struct in a vector to set FileList's vector!
 	vector<flatbuffers::Offset<GameContent::File>> resources;
 	for (Resource_Type* RESOURCE : *FileList->Get_ContentListVector()) {
-		if (RESOURCE == nullptr || RESOURCE->PATH == "") {
+		if (RESOURCE == nullptr || !RESOURCE->Verify_Resource_Data()) {
 			continue;
 		}
 		cout << "Adding resource to GameContent List: " << RESOURCE->PATH << endl;
@@ -139,15 +157,15 @@ void Save_a_FileList_toDisk(Resource_Type* FileList_Data) {
 
 GameContent::File_Type Convert_to_GameCont_Type(TuranAPI::TuranAPI_ENUMs resource_type) {
 	switch (resource_type) {
-	case TuranAPI::STATIC_MODEL_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_RESOURCE:
 		return GameContent::File_Type_Static_Model;
-	case TuranAPI::MATERIAL_TYPE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::MATERIAL_TYPE_RESOURCE:
 		return GameContent::File_Type_Material_Type;
-	case TuranAPI::TEXTURE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::TEXTURE_RESOURCE:
 		return GameContent::File_Type_Texture;
-	case TuranAPI::MATERIAL_INSTANCE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::MATERIAL_INSTANCE_RESOURCE:
 		return GameContent::File_Type_Material_Instance;
-	case TuranAPI::SCENE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::SCENE_RESOURCE:
 		return GameContent::File_Type_Scene;
 	default:
 		cout << "Error: Intended resource type isn't found in FileList!\n";

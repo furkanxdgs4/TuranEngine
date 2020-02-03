@@ -1,17 +1,31 @@
 #include "GFX_RenderGraph.h"
 
+namespace GFX {
+	DrawPass::DrawPass() : FRAMEBUFFER() {}
 
-GFX_RenderGraph::GFX_RenderGraph() {
-	cout << "Render Graph object is created!\n";
-}
-
-GFX_Draw_Pass* GFX_RenderGraph::Get_DrawPass_byName(const string& NAME) {
-	for (GFX_Draw_Pass* Draw_Pass : DRAW_PASSes) {
-		if (Draw_Pass->Get_Name() == NAME) {
-			return Draw_Pass;
-		}
+	//Getter-Setters
+	Framebuffer* DrawPass::Get_Framebuffer() {
+		return FRAMEBUFFER;
 	}
-	cout << "Error: Intended Draw Pass isn't found!: " << NAME << endl;
-	TuranAPI::Breakpoint();
-	return nullptr;
+
+	string DrawPass::Get_Name() {
+		return NAME;
+	}
+
+
+	RenderGraph::RenderGraph() {
+		TuranAPI::LOG_STATUS("Render Graph object is created!");
+	}
+
+	void RenderGraph::Set_RenderGraphID(unsigned int ID) {
+		RenderGraph_ID = ID;
+		TuranAPI::LOG_STATUS("RenderGraph: " + NAME + "'s ID is set as " + to_string(ID));
+	}
+	unsigned int RenderGraph::Get_RenderGraph_ID() const {
+		return RenderGraph_ID;
+	}
+
+	const RenderTarget* RenderGraph::Get_FinalColor_Texture() const {
+		return FINAL_COLOR_TEXTURE;
+	}
 }

@@ -12,7 +12,7 @@
 using namespace TuranAPI::File_System;
 using namespace TuranAPI::IMGUI;
 
-Model_Import_Window::Model_Import_Window(TuranAPI::File_System::FileList_Resource* filelist) : IMGUI_WINDOW("Model Import"), FILELIST(filelist) {}
+Model_Import_Window::Model_Import_Window(TuranAPI::File_System::FileSystem* filesystem) : IMGUI_WINDOW("Model Import"), FILESYSTEM(filesystem) {}
 
 void Model_Import_Window::Run_Window() {
 	if (!Is_Window_Open) {
@@ -32,8 +32,8 @@ void Model_Import_Window::Run_Window() {
 		string status;
 
 		//Check if this resource is already loaded to Content_List!
-		for (Resource_Type* RESOURCE : *FILELIST->Get_ContentListVector()) {
-			if (MODEL_IMPORT_PATH == RESOURCE->PATH) {
+		for (Resource_Type* RESOURCE : *FILESYSTEM->Get_Const_FileListContentVector()) {
+			if (OUTPUT_NAME == RESOURCE->NAME) {
 				status = "Resource is already loaded and is in the Resource List!";
 				Status_Window* error_window = new Status_Window(status);
 				return;
@@ -44,8 +44,7 @@ void Model_Import_Window::Run_Window() {
 		Resource_Type* imported_resource = Model_Loader::Import_Model(MODEL_IMPORT_PATH, &PATH, &status);
 		Status_Window* error_window = new Status_Window(status);
 		if (imported_resource) {
-			FILELIST->Get_ContentListVector()->push_back(imported_resource);
-			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(FILELIST);
+			FILESYSTEM->Add_Content_toFileList(imported_resource);
 		}
 	}
 
@@ -325,7 +324,7 @@ Static_Model_Data* MergeMeshes_toModel(const aiScene* Scene, Static_Mesh_Data** 
 }
 
 
-
+//Loads a model from a understandable format (OBJ, FBX...) for Asset Importer and Verifies Data.
 TuranAPI::File_System::Resource_Type* Model_Loader::Import_Model(const string& path, const string* output_path, string* compilation_status) {
 	Assimp::Importer import;
 	const aiScene* Scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace
@@ -365,9 +364,16 @@ TuranAPI::File_System::Resource_Type* Model_Loader::Import_Model(const string& p
 	Loaded_Model->NAME = NAME;
 	Loaded_Model->PATH = PATH;
 
-	//ID generation is handled in
-	FileSystem::Write_a_Resource_toDisk(Loaded_Model);
-	
-	*compilation_status = "Successfully compiled and saved to disk!";;
-	return Loaded_Model;
+
+	if (Loaded_Model->Verify_Resource_Data()) {
+		//ID generation is handled while writing to a file!
+		FileSystem::Write_a_Resource_toDisk(Loaded_Model);
+
+		*compilation_status = "Successfully compiled and saved to disk!";
+		return Loaded_Model;
+	}
+	else {
+		*compilation_status = "Loaded model data isn't verified successfully!";
+		return nullptr;
+	}
 }

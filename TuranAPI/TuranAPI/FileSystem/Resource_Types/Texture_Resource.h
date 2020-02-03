@@ -5,9 +5,11 @@
 namespace TuranAPI {
 	namespace File_System {
 		struct TURANAPI Texture_Properties {
-			TuranAPI_ENUMs DIMENSION = API_TEXTURE_2D, MIPMAP_FILTERING = API_TEXTURE_LINEAR_FROM_1MIP, WRAPPING = API_TEXTURE_REPEAT, CHANNEL_TYPE = API_TEXTURE_RGB, VALUE_TYPE = VAR_UBYTE8;
+			TuranAPI_ENUMs DIMENSION = TuranAPI_ENUMs::API_TEXTURE_2D, MIPMAP_FILTERING = TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_1MIP, WRAPPING = TuranAPI_ENUMs::API_TEXTURE_REPEAT,
+				CHANNEL_TYPE = TuranAPI_ENUMs::API_TEXTURE_RGB, VALUE_TYPE = TuranAPI_ENUMs::VAR_UBYTE8;
 			Texture_Properties();
-			Texture_Properties(TuranAPI_ENUMs dimension, TuranAPI_ENUMs mipmap_filtering = API_TEXTURE_LINEAR_FROM_1MIP, TuranAPI_ENUMs wrapping = API_TEXTURE_REPEAT, TuranAPI_ENUMs channel_type = API_TEXTURE_RGB, TuranAPI_ENUMs value_type = VAR_UBYTE8);
+			Texture_Properties(TuranAPI_ENUMs dimension, TuranAPI_ENUMs mipmap_filtering = TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_1MIP
+				, TuranAPI_ENUMs wrapping = TuranAPI_ENUMs::API_TEXTURE_REPEAT, TuranAPI_ENUMs channel_type = TuranAPI_ENUMs::API_TEXTURE_RGB, TuranAPI_ENUMs value_type = TuranAPI_ENUMs::VAR_UBYTE8);
 		};
 
 		class TURANAPI Texture_Resource : public Resource_Type {
@@ -22,6 +24,7 @@ namespace TuranAPI {
 			unsigned int GL_ID = 0;
 
 			virtual TuranAPI::TuranAPI_ENUMs Get_Resource_Type();
+			virtual bool Verify_Resource_Data();
 			Texture_Resource();
 		};
 	}

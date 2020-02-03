@@ -30,27 +30,12 @@
     <ClInclude Include="EngineSource\ENGINE_ENUMs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineSource\Graphics\RenderContext\Game_RenderGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineSource\Graphics\RenderContext\Draw Passes\GBuffer_DrawPass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineSource\Graphics\RenderContext\Draw Passes\Draw_Passes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSource\Graphics\SYSTEM_INSPECTOR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EngineSource\TuranEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineSource\Graphics\RenderContext\Game_RenderGraph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineSource\Graphics\RenderContext\Draw Passes\GBuffer_DrawPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

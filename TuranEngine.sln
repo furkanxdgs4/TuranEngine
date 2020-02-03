@@ -9,11 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuranEditor", "TuranEditor\TuranEditor.vcxproj", "{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL3", "OpenGL3\OpenGL3.vcxproj", "{72926232-E64B-485E-9B9D-84BA815D0324}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GFX_API", "GFX_API\GFX_API.vcxproj", "{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuranAPI", "TuranAPI\TuranAPI.vcxproj", "{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL4", "OpenGL4\OpenGL4.vcxproj", "{FA27AE75-39F2-40A7-AA60-1092B7E3297D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,13 +44,6 @@ Global
 		{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}.Release|x64.ActiveCfg = Release|x64
 		{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}.Release|x64.Build.0 = Release|x64
 		{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}.Release|x86.ActiveCfg = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Debug|x64.ActiveCfg = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Debug|x64.Build.0 = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Debug|x86.ActiveCfg = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Debug|x86.Build.0 = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Release|x64.ActiveCfg = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Release|x64.Build.0 = Release|x64
-		{72926232-E64B-485E-9B9D-84BA815D0324}.Release|x86.ActiveCfg = Release|x64
 		{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}.Debug|x64.ActiveCfg = Release|x64
 		{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}.Debug|x64.Build.0 = Release|x64
 		{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}.Debug|x86.ActiveCfg = Release|x64
@@ -65,6 +58,13 @@ Global
 		{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}.Release|x64.ActiveCfg = Release|x64
 		{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}.Release|x64.Build.0 = Release|x64
 		{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}.Release|x86.ActiveCfg = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Debug|x64.ActiveCfg = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Debug|x64.Build.0 = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Debug|x86.ActiveCfg = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Debug|x86.Build.0 = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Release|x64.ActiveCfg = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Release|x64.Build.0 = Release|x64
+		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

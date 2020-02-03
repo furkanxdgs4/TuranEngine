@@ -11,6 +11,7 @@ namespace TuranAPI {
 			TuranAPI_ENUMs VARIABLE_TYPE;
 			void* DATA = nullptr;
 			Material_Uniform(string variable_name, TuranAPI_ENUMs variable_type);
+			bool Verify_UniformData();
 			Material_Uniform();
 		};
 
@@ -20,6 +21,7 @@ namespace TuranAPI {
 		public:
 			Material_Type_Resource();
 			virtual TuranAPI::TuranAPI_ENUMs Get_Resource_Type();
+			virtual bool Verify_Resource_Data();
 
 			static vector<Material_Type_Resource*> ALL_MATERIAL_TYPEs;
 
@@ -29,6 +31,10 @@ namespace TuranAPI {
 			string VERTEX_SOURCE, FRAGMENT_SOURCE;
 			vector<TuranAPI::File_System::Material_Uniform> UNIFORMs;
 		};
+
+
+
+
 
 		//Don't forget, data handling for each uniform type is the responsibility of the user!
 		class TURANAPI Material_Instance : public Resource_Type {
@@ -50,6 +56,7 @@ namespace TuranAPI {
 			
 
 			virtual TuranAPI_ENUMs Get_Resource_Type();
+			virtual bool Verify_Resource_Data();
 			unsigned int Find_Uniform_byName(string uniform_name);
 		public:
 			void Set_Uniform_Data(string uniform_name, void* pointer_to_data);

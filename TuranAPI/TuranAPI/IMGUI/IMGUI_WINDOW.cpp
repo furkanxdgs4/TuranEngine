@@ -5,6 +5,11 @@ using namespace TuranAPI::IMGUI;
 vector<IMGUI_WINDOW*> IMGUI_WINDOW::ALL_IMGUI_WINDOWs = vector<IMGUI_WINDOW*>{};
 
 IMGUI_WINDOW::IMGUI_WINDOW(string name) : Window_Name(name) {
+	for (IMGUI_WINDOW* WINDOW : ALL_IMGUI_WINDOWs) {
+		if (WINDOW->Window_Name == Window_Name) {
+			Window_Name = Window_Name + "  ";
+		}
+	}
 	ALL_IMGUI_WINDOWs.push_back(this);
 
 	cout << "Editor Window created: " << name << endl;

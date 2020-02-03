@@ -2,7 +2,8 @@
 #include "TuranAPI/API_FileSystem.h"
 #include "TuranAPI/API_IMGUI.h"
 #include "TuranAPI/FileSystem/Resource_Types/GameObjects/GameComponents/GameComponent.h"
-
+#include "GFXSource/GFX_Core.h"
+#include "EditorSource/RenderContext/Game_RenderGraph.h"
 
 #include "Status_Window.h"
 #include "Properties_Window.h"
@@ -42,55 +43,87 @@ Scene_Editor::Scene_Editor() : IMGUI_WINDOW("Scene Editor"){}
 
 void Scene_Editor::Run_Window() {
 	if (!Is_Window_Open) {
+		delete RenderGraph_forScene;
+		RenderGraph_forScene = nullptr;
 		delete this;
 		return;
 	}
-	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, true)) {
-		IMGUI::End_Window();
-		return;
-	}
-
-	//Even if there is a importing proccess, show the contents!
-	int selected_list_item_index = -1;
-	vector<string> component_names;
 
 
-	//Find every game component here and create component_names list to show!
-	Scene_Resource* SCENE = Scene_Resource::SCENE;
-	if (!SCENE) {
-		IMGUI::Text("There is no Scene, so nothing to show here!");
-		IMGUI::Text("Please create one in Content Browser!");
-		IMGUI::End_Window();
-
-		return;
-	}
-	//There is Scene here!
-
-	if (!IMGUI::Begin_Menubar()) {
-		IMGUI::End_Menubar();
-	}
-	if (IMGUI::Begin_Menu("Add")) {
+	//Search for a Scene content!
+	if (SCENE_to_EDIT == nullptr) {
+		//Create a window that doesn't have Menubar
+		if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
+			IMGUI::End_Window();
+			return;
+		}
 		
-		if (IMGUI::Menu_Item("Static Model Component")) { new Create_StaticModelComp(SCENE); }
-		if (IMGUI::Menu_Item("Camera Component")) { new Create_CameraComp(SCENE); }
+		//Even if there is a importing proccess, show the contents!
+		int selected_list_item_index = -1;
+		vector<string> item_names;
+		for (unsigned int Scene_Resource_Index = 0; Scene_Resource_Index < Scene_Resource::ALL_SCENEs.size(); Scene_Resource_Index++) {
+			item_names.push_back(Scene_Resource::ALL_SCENEs[Scene_Resource_Index]->NAME);
+		}
+		//Select a Scene resource to edit!
+		if (IMGUI::Selectable_ListBox("Scene Resources List", &selected_list_item_index, &item_names)) {
+			SCENE_to_EDIT = Scene_Resource::ALL_SCENEs[selected_list_item_index];
+		}
 
-		IMGUI::End_Menu();
+		IMGUI::End_Window();
+
+		return;
 	}
 
+	//There is scene!
+	else {
+		//Create a window that has Menubar
+		if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, true)) {
+			IMGUI::End_Window();
+			return;
+		}
+		//Even if there is a importing proccess, show the contents!
+		int selected_list_item_index = -1;
+		vector<string> component_names;
 
-	IMGUI::End_Menubar();
+		if (!IMGUI::Begin_Menubar()) {
+			IMGUI::End_Menubar();
+		}
+		if (IMGUI::Begin_Menu("Add")) {
 
-	for (GameComponent* Game_Component : SCENE->ADDED_COMPONENTs) {
-		component_names.push_back(Game_Component->NAME);
+			if (IMGUI::Menu_Item("Static Model Component")) { new Create_StaticModelComp(SCENE_to_EDIT); }
+			if (IMGUI::Menu_Item("Camera Component")) { new Create_CameraComp(SCENE_to_EDIT); }
+
+			IMGUI::End_Menu();
+		}
+		IMGUI::End_Menubar();
+
+		//Find every game component here and create component_names list to show!
+		for (GameComponent* Game_Component : SCENE_to_EDIT->ADDED_COMPONENTs) {
+			component_names.push_back(Game_Component->NAME);
+		}
+
+		//Show selected content's properties!
+		if (IMGUI::Selectable_ListBox("Game Component List", &selected_list_item_index, &component_names)) {
+			new GameComponentProperties_Window(SCENE_to_EDIT->ADDED_COMPONENTs[selected_list_item_index]);
+		}
+
+
+
+
+		if (RenderGraph_forScene == nullptr) {
+			RenderGraph_forScene = new Game_RenderGraph;
+			GFX::Renderer::Bind_RenderGraph(RenderGraph_forScene);
+		}
+		else {
+			GFX::Renderer::Run_RenderGraph_ThisFrame(RenderGraph_forScene->Get_RenderGraph_ID());
+			unsigned int RT_ID = RenderGraph_forScene->Get_FinalColor_Texture()->Get_ID();
+			IMGUI::Display_Texture(&RT_ID, 960, 540, true);
+		}
+
+
+
+		IMGUI::End_Window();
 	}
-
-
-	//Show selected content's properties!
-	if (IMGUI::Selectable_ListBox("Game Component List", &selected_list_item_index, &component_names)) {
-		new GameComponentProperties_Window(SCENE->ADDED_COMPONENTs[selected_list_item_index]);
-	}
-
-	IMGUI::End_Window();
 }
 
 
@@ -186,7 +219,7 @@ void Create_StaticModelComp::Run_Window() {
 
 
 
-Scene_Create_Window::Scene_Create_Window(TuranAPI::File_System::FileList_Resource* filelist) : IMGUI_WINDOW("Scene Create"), FILE_LIST(filelist){}
+Scene_Create_Window::Scene_Create_Window(TuranAPI::File_System::FileSystem* filesystem) : IMGUI_WINDOW("Scene Create"), FILESYSTEM(filesystem){}
 void Scene_Create_Window::Run_Window() {
 	if (!Is_Window_Open) {
 		delete this;
@@ -203,10 +236,7 @@ void Scene_Create_Window::Run_Window() {
 		Scene_Resource* SCENE = new Scene_Resource;
 		SCENE->PATH = Scene_Folder + Scene_NAME + ".scenecont";
 		SCENE->NAME = Scene_NAME;
-		SCENE->SCENE = SCENE;
-		FileSystem::Write_a_Resource_toDisk(SCENE);
-		FILE_LIST->Get_ContentListVector()->push_back(SCENE);
-		FileSystem::Write_a_Resource_toDisk(FILE_LIST);
+		FILESYSTEM->Add_Content_toFileList(SCENE);
 	}
 
 	IMGUI::End_Window();

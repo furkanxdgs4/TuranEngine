@@ -68,32 +68,25 @@ xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\T
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GFXSource\GFX_Core.h" />
+    <ClInclude Include="GFXSource\GFX_Display.h" />
     <ClInclude Include="GFXSource\GFX_ENUMs.h" />
     <ClInclude Include="GFXSource\GFX_FileSystem.h" />
     <ClInclude Include="GFXSource\GFX_Includes.h" />
-    <ClInclude Include="GFXSource\GFX_Monitor.h" />
-    <ClInclude Include="GFXSource\GFX_Window.h" />
-    <ClInclude Include="GFXSource\Renderer\GFXI_Draw_Resource.h" />
-    <ClInclude Include="GFXSource\Renderer\GFXI_MESH_REPRESENTATION.h" />
-    <ClInclude Include="GFXSource\Renderer\GFXI_Render_Node.h" />
-    <ClInclude Include="GFXSource\Renderer\GFX_Draw_Pass.h" />
-    <ClInclude Include="GFXSource\Renderer\GFX_Framebuffer.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_APICommands.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_RenderCommands.h" />
     <ClInclude Include="GFXSource\Renderer\GFX_Renderer.h" />
     <ClInclude Include="GFXSource\Renderer\GFX_RenderGraph.h" />
-    <ClInclude Include="GFXSource\Renderer\GFX_Render_Target.h" />
-    <ClInclude Include="GFXSource\Renderer\GFX_Shader_Resource.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GFXSource\GFX_Core.cpp" />
+    <ClCompile Include="GFXSource\GFX_Display.cpp" />
     <ClCompile Include="GFXSource\GFX_FileSystem.cpp" />
-    <ClCompile Include="GFXSource\GFX_Monitor.cpp" />
-    <ClCompile Include="GFXSource\GFX_Window.cpp" />
-    <ClCompile Include="GFXSource\Renderer\GFXI_MESH_REPRESENTATION.cpp" />
-    <ClCompile Include="GFXSource\Renderer\GFX_Draw_Pass.cpp" />
-    <ClCompile Include="GFXSource\Renderer\GFX_Framebuffer.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_APICommands.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_RenderCommands.cpp" />
     <ClCompile Include="GFXSource\Renderer\GFX_Renderer.cpp" />
     <ClCompile Include="GFXSource\Renderer\GFX_RenderGraph.cpp" />
-    <ClCompile Include="GFXSource\Renderer\GFX_Render_Target.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TuranAPI\TuranAPI.vcxproj">

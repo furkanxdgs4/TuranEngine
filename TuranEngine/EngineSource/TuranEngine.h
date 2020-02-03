@@ -18,7 +18,7 @@ class ENGINE TuranEngine {
 public:
 	//Access GFX from everywhere in an application that uses TuranEngine!
 	//But please, don't change or delete the pointer!
-	static GFX_API* GFX;
+	static GFX::GFX_Core* GFX;
 
 	static void Start_Engine();
 	static void Take_Inputs();

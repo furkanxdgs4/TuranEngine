@@ -87,6 +87,8 @@ Profiling_Session* TuranAPI::Profiler::Load_a_Profiling_Resource(const string& P
 		Current_ProfiledScope.NAME = Profiling_Resource->Profiled_Scopes()->Get(i)->NAME()->c_str();
 		Profiled_Scopes_Array.push_back(Current_ProfiledScope);
 	}
+	Profiled_Session->PROFILED_SCOPEs_ARRAY = Profiled_Scopes_Array;
+
 
 	return Profiled_Session;
 }
@@ -129,6 +131,12 @@ void TuranAPI::Profiler::Save_a_ProfilingResource_toDisk(const Profiling_Session
 
 void TuranAPI::Profiler::Save_a_ProfiledScope_toSession(const Profiled_Scope& PROFILED_SCOPE) {
 	Active_Profiling_Session::SELF->PROFILED_SCOPEs_ARRAY.push_back(PROFILED_SCOPE);
+	cout << "A Profiled scope is saved!" << endl;
+	cout << "Scope Name:" << PROFILED_SCOPE.NAME << endl;
+	cout << "Scope Start Point: " << PROFILED_SCOPE.START_POINT << endl;
+	cout << "Scope End Point: " << PROFILED_SCOPE.END_POINT << endl;
+	cout << "Scope Duration: " << PROFILED_SCOPE.DURATION << endl;
+	cout << "Scope Thread ID: " << PROFILED_SCOPE.THREAD_ID << endl;
 }
 
 

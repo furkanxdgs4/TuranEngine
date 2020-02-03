@@ -1,11 +1,366 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(437,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(438,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  GFX_Core.cpp
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Resource_Type.h(14,15): warning C4251: 'TuranAPI::File_System::Resource_Type::PATH': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Resource_Type'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Resource_Type.h(17,15): warning C4251: 'TuranAPI::File_System::Resource_Type::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Resource_Type'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251: 'TuranAPI::File_System::Static_Model_Data::ALL_MODEL_DATAs': class 'std::vector<TuranAPI::File_System::Static_Model_Data *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Static_Model_Data'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:             _Ty=TuranAPI::File_System::Static_Model_Data *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message : see declaration of 'std::vector<TuranAPI::File_System::Static_Model_Data *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :             _Ty=TuranAPI::File_System::Static_Model_Data *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(10,29): warning C4251: 'TuranAPI::File_System::Material_Uniform::VARIABLE_NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'TuranAPI::File_System::Material_Uniform'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::ALL_MATERIAL_TYPEs': class 'std::vector<TuranAPI::File_System::Material_Type_Resource *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:             _Ty=TuranAPI::File_System::Material_Type_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Type_Resource *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :             _Ty=TuranAPI::File_System::Material_Type_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(31,24): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::VERTEX_SOURCE': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(31,41): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::FRAGMENT_SOURCE': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::UNIFORMs': class 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251: 'TuranAPI::File_System::Material_Instance::ALL_Material_Instances': class 'std::vector<TuranAPI::File_System::Material_Instance *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Instance'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:             _Ty=TuranAPI::File_System::Material_Instance *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Instance *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :             _Ty=TuranAPI::File_System::Material_Instance *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251: 'TuranAPI::File_System::Material_Instance::UNIFORM_LIST': class 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Instance'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251: 'TuranAPI::File_System::FileList_Resource::All_Resources': class 'std::vector<TuranAPI::File_System::Resource_Type *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::FileList_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:             _Ty=TuranAPI::File_System::Resource_Type *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message : see declaration of 'std::vector<TuranAPI::File_System::Resource_Type *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :             _Ty=TuranAPI::File_System::Resource_Type *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(9,34): warning C4251: 'TuranAPI::Logging::Logger::MainLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(10,37): warning C4251: 'TuranAPI::Logging::Logger::WarningLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(11,35): warning C4251: 'TuranAPI::Logging::Logger::ErrorLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(12,38): warning C4251: 'TuranAPI::Logging::Logger::NotCodedLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251: 'TuranAPI::Logging::Logger::LOGs': class 'std::vector<void *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:             _Ty=void *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message : see declaration of 'std::vector<void *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :             _Ty=void *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(22,15): warning C4251: 'TuranAPI::Profiler::Profiled_Scope::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Profiler::Profiled_Scope'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(34,19): warning C4251: 'TuranAPI::Profiler::Profiling_Session::FILEPATH': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Profiler::Profiling_Session'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251: 'TuranAPI::Profiler::Profiling_Session::PROFILED_SCOPEs_ARRAY': class 'std::vector<TuranAPI::Profiler::Profiled_Scope,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Profiler::Profiling_Session'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:             _Ty=TuranAPI::Profiler::Profiled_Scope
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message : see declaration of 'std::vector<TuranAPI::Profiler::Profiled_Scope,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :             _Ty=TuranAPI::Profiler::Profiled_Scope
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Display.h(12,20): warning C4251: 'GFX::MONITOR::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'GFX::MONITOR'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Display.h(41,21): warning C4251: 'GFX::WINDOW::WINDOW_NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'GFX::WINDOW'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17,49): warning C4251: 'TuranAPI::File_System::Texture_Resource::ALL_TEXTUREs': class 'std::vector<TuranAPI::File_System::Texture_Resource *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Texture_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17,49): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17,49): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17,49): warning C4251:             _Ty=TuranAPI::File_System::Texture_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17,49): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17): message : see declaration of 'std::vector<TuranAPI::File_System::Texture_Resource *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17): message :             _Ty=TuranAPI::File_System::Texture_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Texture_Resource.h(17): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\GameComponent.h(13,17): warning C4251: 'TuranAPI::Game_Object::GameComponent::POSITION': struct 'glm::tvec3<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::GameComponent'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_vec.hpp(245): message : see declaration of 'glm::tvec3<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\GameComponent.h(13,27): warning C4251: 'TuranAPI::Game_Object::GameComponent::ROTATION': struct 'glm::tvec3<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::GameComponent'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_vec.hpp(245): message : see declaration of 'glm::tvec3<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\GameComponent.h(13,34): warning C4251: 'TuranAPI::Game_Object::GameComponent::SCALE': struct 'glm::tvec3<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::GameComponent'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_vec.hpp(245): message : see declaration of 'glm::tvec3<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\GameComponent.h(19,15): warning C4251: 'TuranAPI::Game_Object::GameComponent::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::GameComponent'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16,56): warning C4251: 'TuranAPI::File_System::Scene_Resource::ADDED_COMPONENTs': class 'std::vector<TuranAPI::Game_Object::GameComponent *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Scene_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16,56): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16,56): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16,56): warning C4251:             _Ty=TuranAPI::Game_Object::GameComponent *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16,56): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16): message : see declaration of 'std::vector<TuranAPI::Game_Object::GameComponent *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16): message :             _Ty=TuranAPI::Game_Object::GameComponent *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(16): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18,45): warning C4251: 'TuranAPI::File_System::Scene_Resource::ALL_SCENEs': class 'std::vector<TuranAPI::File_System::Scene_Resource *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Scene_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18,45): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18,45): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18,45): warning C4251:             _Ty=TuranAPI::File_System::Scene_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18,45): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18): message : see declaration of 'std::vector<TuranAPI::File_System::Scene_Resource *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18): message :             _Ty=TuranAPI::File_System::Scene_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Scene_Resource.h(18): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h(20,24): warning C4251: 'TuranAPI::Game_Object::StaticModel_Component::Model_Transform': struct 'glm::tmat4x4<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::StaticModel_Component'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_mat.hpp(304): message : see declaration of 'glm::tmat4x4<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h(22,63): warning C4251: 'TuranAPI::Game_Object::StaticModel_Component::MATERIALs': class 'std::vector<TuranAPI::File_System::Material_Instance *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::StaticModel_Component'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h(22,63): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h(22,63): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h(22,63): warning C4251:             _Ty=TuranAPI::File_System::Material_Instance *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h(22,63): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Instance *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :             _Ty=TuranAPI::File_System::Material_Instance *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.h(10,20): warning C4251: 'TuranAPI::Game_Object::Camera_Component::View_Matrix': struct 'glm::tmat4x4<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::Camera_Component'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_mat.hpp(304): message : see declaration of 'glm::tmat4x4<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.h(10,39): warning C4251: 'TuranAPI::Game_Object::Camera_Component::Projection_Matrix': struct 'glm::tmat4x4<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::Camera_Component'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_mat.hpp(304): message : see declaration of 'glm::tmat4x4<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.h(14,15): warning C4251: 'TuranAPI::Game_Object::Camera_Component::Target': struct 'glm::tvec3<float,0>' needs to have dll-interface to be used by clients of class 'TuranAPI::Game_Object::Camera_Component'
+C:\dev\TuranEngine\3rdPartyLibraries\Includes\glm\detail\type_vec.hpp(245): message : see declaration of 'glm::tvec3<float,0>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.h(11,53): warning C4244: 'initializing': conversion from 'float' to 'unsigned short', possible loss of data
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.h(11,78): warning C4244: 'initializing': conversion from 'float' to 'unsigned short', possible loss of data
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30,34): warning C4251: 'GFX::Framebuffer::BOUND_RTs': class 'std::vector<GFX::RenderTarget *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of struct 'GFX::Framebuffer'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30,34): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30,34): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30,34): warning C4251:             _Ty=GFX::RenderTarget *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30,34): warning C4251:         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30): message : see declaration of 'std::vector<GFX::RenderTarget *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30): message :             _Ty=GFX::RenderTarget *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(30): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41,42): warning C4251: 'GFX::GPU_MESH::ALL_GPU_MESHes': class 'std::vector<GFX::GPU_MESH *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of struct 'GFX::GPU_MESH'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41,42): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41,42): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41,42): warning C4251:             _Ty=GFX::GPU_MESH *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41,42): warning C4251:         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41): message : see declaration of 'std::vector<GFX::GPU_MESH *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41): message :             _Ty=GFX::GPU_MESH *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Resource.h(41): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(30,14): warning C4251: 'GFX::DrawPass::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GFX::DrawPass'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51,35): warning C4251: 'GFX::RenderGraph::RENDER_NODEs': class 'std::vector<GFX::RenderNode *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'GFX::RenderGraph'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51,35): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51,35): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51,35): warning C4251:             _Ty=GFX::RenderNode *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51,35): warning C4251:         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51): message : see declaration of 'std::vector<GFX::RenderNode *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51): message :             _Ty=GFX::RenderNode *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(51): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_RenderGraph.h(56,14): warning C4251: 'GFX::RenderGraph::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GFX::RenderGraph'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34,49): warning C4251: 'GFX::Renderer::Bound_RenderGraphs': class 'std::vector<GFX::RenderGraph *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'GFX::Renderer'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34,49): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34,49): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34,49): warning C4251:             _Ty=GFX::RenderGraph *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34,49): warning C4251:         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34): message : see declaration of 'std::vector<GFX::RenderGraph *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34): message :             _Ty=GFX::RenderGraph *
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(34): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35,60): warning C4251: 'GFX::Renderer::RenderGraphIDs_toRunThisFrame': class 'std::vector<unsigned int,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'GFX::Renderer'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35,60): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35,60): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35,60): warning C4251:             _Ty=unsigned int
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35,60): warning C4251:         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35): message : see declaration of 'std::vector<unsigned int,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35): message :             _Ty=unsigned int
+C:\dev\TuranEngine\GFX_API\GFXSource\Renderer\GFX_Renderer.h(35): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(12,27): warning C4251: 'GFX::GFX_Core::GPU_Vendor': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GFX::GFX_Core'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(12,52): warning C4251: 'GFX::GFX_Core::GPU_Model': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GFX::GFX_Core'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(12,78): warning C4251: 'GFX::GFX_Core::GL_Version': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GFX::GFX_Core'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27,42): warning C4251: 'GFX::GFX_Core::ONSCREEN_Windows': class 'std::vector<GFX::WINDOW *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'GFX::GFX_Core'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27,42): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27,42): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27,42): warning C4251:             _Ty=GFX::WINDOW *
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27,42): warning C4251:         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27): message : see declaration of 'std::vector<GFX::WINDOW *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27): message :             _Ty=GFX::WINDOW *
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(27): message :         ]
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28,45): warning C4251: 'GFX::GFX_Core::CONNECTED_Monitors': class 'std::vector<GFX::MONITOR *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'GFX::GFX_Core'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28,45): warning C4251:         with
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28,45): warning C4251:         [
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28,45): warning C4251:             _Ty=GFX::MONITOR *
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28,45): warning C4251:         ]
+  GFX_FileSystem.cpp
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28): message : see declaration of 'std::vector<GFX::MONITOR *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28): message :         with
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28): message :         [
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28): message :             _Ty=GFX::MONITOR *
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_Core.h(28): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Resource_Type.h(14,15): warning C4251: 'TuranAPI::File_System::Resource_Type::PATH': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Resource_Type'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Resource_Type.h(17,15): warning C4251: 'TuranAPI::File_System::Resource_Type::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Resource_Type'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251: 'TuranAPI::File_System::Static_Model_Data::ALL_MODEL_DATAs': class 'std::vector<TuranAPI::File_System::Static_Model_Data *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Static_Model_Data'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:             _Ty=TuranAPI::File_System::Static_Model_Data *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41,53): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message : see declaration of 'std::vector<TuranAPI::File_System::Static_Model_Data *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :             _Ty=TuranAPI::File_System::Static_Model_Data *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Model_Resource.h(41): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(10,29): warning C4251: 'TuranAPI::File_System::Material_Uniform::VARIABLE_NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'TuranAPI::File_System::Material_Uniform'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::ALL_MATERIAL_TYPEs': class 'std::vector<TuranAPI::File_System::Material_Type_Resource *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:             _Ty=TuranAPI::File_System::Material_Type_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26,61): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Type_Resource *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :             _Ty=TuranAPI::File_System::Material_Type_Resource *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(26): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(31,24): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::VERTEX_SOURCE': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(31,41): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::FRAGMENT_SOURCE': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251: 'TuranAPI::File_System::Material_Type_Resource::UNIFORMs': class 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Type_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32,60): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251: 'TuranAPI::File_System::Material_Instance::ALL_Material_Instances': class 'std::vector<TuranAPI::File_System::Material_Instance *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Instance'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:             _Ty=TuranAPI::File_System::Material_Instance *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45,60): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Instance *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :             _Ty=TuranAPI::File_System::Material_Instance *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(45): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251: 'TuranAPI::File_System::Material_Instance::UNIFORM_LIST': class 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::Material_Instance'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(55,41): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message : see declaration of 'std::vector<TuranAPI::File_System::Material_Uniform,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :             _Ty=TuranAPI::File_System::Material_Uniform
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h(32): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251: 'TuranAPI::File_System::FileList_Resource::All_Resources': class 'std::vector<TuranAPI::File_System::Resource_Type *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::File_System::FileList_Resource'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:             _Ty=TuranAPI::File_System::Resource_Type *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9,63): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message : see declaration of 'std::vector<TuranAPI::File_System::Resource_Type *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :             _Ty=TuranAPI::File_System::Resource_Type *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\FileSystem\Resource_Types\FileList_Resource.h(9): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(9,34): warning C4251: 'TuranAPI::Logging::Logger::MainLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(10,37): warning C4251: 'TuranAPI::Logging::Logger::WarningLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(11,35): warning C4251: 'TuranAPI::Logging::Logger::ErrorLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(12,38): warning C4251: 'TuranAPI::Logging::Logger::NotCodedLogFile_Path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251: 'TuranAPI::Logging::Logger::LOGs': class 'std::vector<void *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Logging::Logger'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:             _Ty=void *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13,29): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message : see declaration of 'std::vector<void *,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :             _Ty=void *
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Logger\Logger_Core.h(13): message :         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(22,15): warning C4251: 'TuranAPI::Profiler::Profiled_Scope::NAME': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Profiler::Profiled_Scope'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(34,19): warning C4251: 'TuranAPI::Profiler::Profiling_Session::FILEPATH': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Profiler::Profiling_Session'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xstring(4440): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251: 'TuranAPI::Profiler::Profiling_Session::PROFILED_SCOPEs_ARRAY': class 'std::vector<TuranAPI::Profiler::Profiled_Scope,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'TuranAPI::Profiler::Profiling_Session'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:             _Ty=TuranAPI::Profiler::Profiled_Scope
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35,48): warning C4251:         ]
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message : see declaration of 'std::vector<TuranAPI::Profiler::Profiled_Scope,std::allocator<_Ty>>'
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :         with
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :         [
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :             _Ty=TuranAPI::Profiler::Profiled_Scope
+C:\dev\TuranEngine\TuranAPI\TuranAPI\Profiler\Profiler_Core.h(35): message :         ]
+  Generating Code...
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_FileSystem.cpp(58,63): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_FileSystem.cpp(28): warning C4715: 'GFX::GFX_FileSystem::Get_GFXContent_byID': not all control paths return a value
+C:\dev\TuranEngine\GFX_API\GFXSource\GFX_FileSystem.cpp(20): warning C4715: 'GFX::GFX_FileSystem::Get_GFXContent_byName': not all control paths return a value
      Creating library C:\dev\TuranEngine\bin\GFX_API\GFX_API.lib and object C:\dev\TuranEngine\bin\GFX_API\GFX_API.exp
   LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
   GFX_API.vcxproj -> C:\dev\TuranEngine\bin\GFX_API\GFX_API.dll
-  C:\dev\TuranEngine\bin\GFX_API\GFX_API.dll
-  1 File(s) copied
-  C:\dev\TuranEngine\bin\GFX_API\GFX_API.dll
+  Does C:\dev\TuranEngine\bin\OpenGL3 specify a file name
+  or directory name on the target
+  (F = file, D = directory)? 
+  Does C:\dev\TuranEngine\bin\OpenGL3 specify a file name
+  or directory name on the target
+  (F = file, D = directory)? C:\dev\TuranEngine\bin\GFX_API\GFX_API.dll
   1 File(s) copied
   C:\dev\TuranEngine\bin\GFX_API\GFX_API.dll
   1 File(s) copied

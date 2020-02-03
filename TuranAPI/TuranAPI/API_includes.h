@@ -38,6 +38,8 @@ using namespace glm;
 
 //COMPILING PROCESS
 #ifdef WINDOWS10_FORENGINE
+//Not forget that "Start Without Debugging" uses this definition. So if you want to avoid all debugging code, remove this definition
+#define TURAN_DEBUGGING
 #ifdef TURANAPI_BUILD
 #define TURANAPI __declspec(dllexport) 
 #else
@@ -47,13 +49,19 @@ using namespace glm;
 #error "TuranEngine only supports Windows 10 for now!"
 #endif // _WINDOWS_
 
+
 namespace TuranAPI {
 	//Stop the application and ask the user to close or continue!
 	//I'm using this to remind myself there are problems while I'm working on another thing!
-	void TURANAPI Breakpoint();
+	void TURANAPI Breakpoint(string Breakpoint_Reason = "");
 
 	template<typename T>
 	unsigned int TURANAPI Delete_Items_from_Vector(vector<T>* Vector_to_EraseSomething, vector<bool>* ShouldErase_forEachIndex, unsigned int start_index);
+
+	//Enumeration Functions
+	//extern string* Find_TuranAPIEnumsName_byValue(unsigned short Enums_Value);
+	//extern TuranAPI_ENUMs Find_TuranAPIEnum_byName(const string& Enum_Name);
+	void TURANAPI Empty();
 }
 
 //Some basic functionality to do debugging!

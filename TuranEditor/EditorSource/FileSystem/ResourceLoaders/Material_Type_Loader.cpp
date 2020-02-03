@@ -11,8 +11,10 @@ using namespace TuranAPI::File_System;
 using namespace TuranAPI::IMGUI;
 
 
+const vector<string> Uniform_VarType_Names { "Unsigned Integer", "Signed Integer", "Float 4 Byte", "Vector 2D", "Vector 3D", "Vector 4D", "Matrix 4x4", "Texture 2D"};
 
-Material_Import_Window::Material_Import_Window(TuranAPI::File_System::FileList_Resource* filelist) : IMGUI_WINDOW("Material Type Import"), FILELIST(filelist) {}
+
+Material_Import_Window::Material_Import_Window(TuranAPI::File_System::FileSystem* filesystem) : IMGUI_WINDOW("Material Type Import"), FILESYSTEM(filesystem) {}
 
 TuranAPI::TuranAPI_ENUMs Find_in_Uniform_VarTypes(const int& var_type);
 
@@ -37,7 +39,7 @@ void Material_Import_Window::Run_Window() {
 		string PATH = OUTPUT_FOLDER + OUTPUT_NAME;
 
 		//Check if this resource is already loaded to Content_List!
-		for (Resource_Type* RESOURCE : *FILELIST->Get_ContentListVector()) {
+		for (Resource_Type* RESOURCE : *FILESYSTEM->Get_Const_FileListContentVector()) {
 			if (PATH == RESOURCE->PATH) {
 				status = "Resource is already loaded and is in the Resource List!";
 				Status_Window* error_window = new Status_Window(status);
@@ -58,8 +60,7 @@ void Material_Import_Window::Run_Window() {
 		Resource_Type* imported_resource = Material_Type_Loader::Load_MaterialType(&MATERIALTYPE_VERTEX_PATH, &MATERIALTYPE_FRAGMENT_PATH, &PATH, &Material_Uniforms, &status);
 		Status_Window* error_window = new Status_Window(status);
 		if (imported_resource) {
-			FILELIST->Get_ContentListVector()->push_back(imported_resource);
-			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(FILELIST);
+			FILESYSTEM->Add_Content_toFileList(imported_resource);
 		}
 
 		Material_Uniforms.clear();
@@ -89,9 +90,9 @@ void Material_Import_Window::Run_Window() {
 
 			if (IMGUI::Begin_Tree(to_string(i))) {
 				IMGUI::Input_Text("Uniform Name", &UNIFORM->VARIABLE_NAME);
-				if (IMGUI::SelectList_OneLine("Uniform Variable Type", &selectlist_vector[i], &UNIFORM_VAR_TYPE_NAMEs)) {
+				if (IMGUI::SelectList_OneLine("Uniform Variable Type", &selectlist_vector[i], &Uniform_VarType_Names)) {
 					UNIFORM->VARIABLE_TYPE = Find_in_Uniform_VarTypes(selectlist_vector[i]);
-					if (UNIFORM->VARIABLE_TYPE == TuranAPI::TURAN_NULL)
+					if (UNIFORM->VARIABLE_TYPE == TuranAPI::TuranAPI_ENUMs::TURAN_NULL)
 						Status_Window* error_window = new Status_Window("Error: Intended var_type index isn't supported for now in Find_in_Uniform_VarTypes! This means, UNIFORM_VARTYPEs string vector doesn't match with this function!");
 				}
 				IMGUI::End_Tree();
@@ -120,7 +121,7 @@ TuranAPI::File_System::Resource_Type* Material_Type_Loader::Load_MaterialType(co
 	string PATH = *output_path + ".mattypecont";
 
 	//Check if this resource is already compiled and saved!
-	for (Resource_Type* RESOURCE : *Editor::File_System::Editor_FileSystem::Get_GameContentList()->Get_ContentListVector()) {
+	for (Resource_Type* RESOURCE : *EDITOR_FILESYSTEM->Get_Const_FileListContentVector()) {
 		if (PATH == RESOURCE->PATH) {
 			*compilation_status = "Resource is already loaded before and is in the Resource List!";;
 			return nullptr;
@@ -132,7 +133,7 @@ TuranAPI::File_System::Resource_Type* Material_Type_Loader::Load_MaterialType(co
 	string fragment_source = FileSystem::Read_TextFile(*fragment_path);
 
 	string gfx_compile_status = "";
-	GFX_API::RENDERER->Compile_MaterialType(&gfx_compile_status, &vertex_source, &fragment_source);
+	TuranAPI::LOG_NOTCODED("In Material_Type_Loader, Compile_MaterialType(&gfx_compile_status, &vertex_source, &fragment_source); should be coded in NOT_CODED's line!", true);
 
 	if (gfx_compile_status != "") {
 		*compilation_status = gfx_compile_status;
@@ -143,7 +144,7 @@ TuranAPI::File_System::Resource_Type* Material_Type_Loader::Load_MaterialType(co
 	TuranAPI::File_System::Material_Type_Resource* MATERIAL = new TuranAPI::File_System::Material_Type_Resource();
 	MATERIAL->VERTEX_SOURCE = vertex_source;
 	MATERIAL->FRAGMENT_SOURCE = fragment_source;
-	MATERIAL->GFX_API = TuranAPI::OPENGL3;
+	MATERIAL->GFX_API = TuranAPI::TuranAPI_ENUMs::OPENGL4;
 
 	//Add Material Uniforms to compiled resource!
 	for (Material_Uniform material_uniform : *material_inputs) {
@@ -167,22 +168,22 @@ TuranAPI::File_System::Resource_Type* Material_Type_Loader::Load_MaterialType(co
 TuranAPI::TuranAPI_ENUMs Find_in_Uniform_VarTypes(const int& var_type) {
 	switch (var_type) {
 	case 0:
-		return TuranAPI::VAR_UINT32;
+		return TuranAPI::TuranAPI_ENUMs::VAR_UINT32;
 	case 1:
-		return TuranAPI::VAR_INT32;
+		return TuranAPI::TuranAPI_ENUMs::VAR_INT32;
 	case 2:
-		return TuranAPI::VAR_FLOAT32;
+		return TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32;
 	case 3:
-		return TuranAPI::VAR_VEC2;
+		return TuranAPI::TuranAPI_ENUMs::VAR_VEC2;
 	case 4:
-		return TuranAPI::VAR_VEC3;
+		return TuranAPI::TuranAPI_ENUMs::VAR_VEC3;
 	case 5:
-		return TuranAPI::VAR_VEC4;
+		return TuranAPI::TuranAPI_ENUMs::VAR_VEC4;
 	case 6:
-		return TuranAPI::VAR_MAT4x4;
+		return TuranAPI::TuranAPI_ENUMs::VAR_MAT4x4;
 	case 7:
-		return TuranAPI::API_TEXTURE_2D;
+		return TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D;
 	default:
-		return TuranAPI::TURAN_NULL;
+		return TuranAPI::TuranAPI_ENUMs::TURAN_NULL;
 	}
 }

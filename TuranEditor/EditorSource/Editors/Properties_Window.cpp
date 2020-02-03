@@ -6,7 +6,7 @@ using namespace TuranAPI::Game_Object;
 using namespace TuranAPI::IMGUI;
 using namespace TuranAPI::File_System;
 
-ResourceProperties_Window::ResourceProperties_Window(TuranAPI::File_System::Resource_Type* resource) : IMGUI_WINDOW("Properties") {
+ResourceProperties_Window::ResourceProperties_Window(TuranAPI::File_System::Resource_Type* resource) : IMGUI_WINDOW(resource->NAME) {
 	RESOURCE = resource;
 }
 
@@ -22,28 +22,27 @@ void ResourceProperties_Window::Run_Window() {
 		delete this;
 		return;
 	}
-	if (!IMGUI::Create_Window("Properties", Is_Window_Open, false)) {
+	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
 		IMGUI::End_Window();
 		return;
 	}
 	switch (RESOURCE->Get_Resource_Type()) {
-	case TuranAPI::MATERIAL_TYPE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::MATERIAL_TYPE_RESOURCE:
 		Show_MaterialType_Properties(RESOURCE);
 		break;
-	case TuranAPI::TEXTURE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::TEXTURE_RESOURCE:
 		Show_Texture_Properties(RESOURCE);
 		break;
-	case TuranAPI::MATERIAL_INSTANCE_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::MATERIAL_INSTANCE_RESOURCE:
 		Show_MaterialInstance_Properties(RESOURCE);
 		break;
-	case TuranAPI::STATIC_MODEL_RESOURCE:
+	case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_RESOURCE:
 		Show_Model_Properties(RESOURCE);
 		break;
 	default:
 		cout << "This type's properties can't be shown by Properties Window!\n";
 		this_thread::sleep_for(chrono::seconds(10));
 	}
-
 	IMGUI::End_Window();
 }
 
@@ -89,6 +88,10 @@ void Show_MaterialInstance_Properties(TuranAPI::File_System::Resource_Type* reso
 			if (IMGUI::IMGUI::Begin_Tree(to_string(i))) {
 				IMGUI::IMGUI::Text("Uniform Name: " + UNIFORM->VARIABLE_NAME);
 				IMGUI::IMGUI::Text("Uniform Variable Type: " + Find_UNIFORM_VARTYPE_Name(UNIFORM->VARIABLE_TYPE));
+				if (UNIFORM->VARIABLE_TYPE == TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D
+					&& UNIFORM->DATA) {
+						IMGUI::IMGUI::Text("Texture ID: " + *(unsigned int*)UNIFORM->DATA);
+				}
 				IMGUI::IMGUI::End_Tree();
 			}
 		}
@@ -111,21 +114,21 @@ void Show_Model_Properties(TuranAPI::File_System::Resource_Type* resource) {
 
 string Find_UNIFORM_VARTYPE_Name(TuranAPI::TuranAPI_ENUMs uniform_var_type) {
 	switch (uniform_var_type) {
-	case TuranAPI::VAR_UINT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_UINT32:
 		return UNIFORM_VAR_TYPE_NAMEs[0];
-	case TuranAPI::VAR_INT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_INT32:
 		return UNIFORM_VAR_TYPE_NAMEs[1];
-	case TuranAPI::VAR_FLOAT32:
+	case TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32:
 		return UNIFORM_VAR_TYPE_NAMEs[2];
-	case TuranAPI::VAR_VEC2:
+	case TuranAPI::TuranAPI_ENUMs::VAR_VEC2:
 		return UNIFORM_VAR_TYPE_NAMEs[3];
-	case TuranAPI::VAR_VEC3:
+	case TuranAPI::TuranAPI_ENUMs::VAR_VEC3:
 		return UNIFORM_VAR_TYPE_NAMEs[4];
-	case TuranAPI::VAR_VEC4:
+	case TuranAPI::TuranAPI_ENUMs::VAR_VEC4:
 		return UNIFORM_VAR_TYPE_NAMEs[5];
-	case TuranAPI::VAR_MAT4x4:
+	case TuranAPI::TuranAPI_ENUMs::VAR_MAT4x4:
 		return UNIFORM_VAR_TYPE_NAMEs[6];
-	case TuranAPI::API_TEXTURE_2D:
+	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D:
 		return UNIFORM_VAR_TYPE_NAMEs[7];
 	default:
 		return "Error, Uniform_Var_Type isn't supported by Find_UNIFORM_VARTYPE_Name!\n";
@@ -141,20 +144,19 @@ void Show_CameraComp_Properties(TuranAPI::Game_Object::GameComponent* Component)
 
 GameComponentProperties_Window::GameComponentProperties_Window(TuranAPI::Game_Object::GameComponent* gamecomponent) : IMGUI_WINDOW("Game Component Properties"), GAMECOMPONENT(gamecomponent) {}
 void GameComponentProperties_Window::Run_Window() {
-	
 	if (!Is_Window_Open) {
 		delete this;
 		return;
 	}
-	if (!IMGUI::Create_Window("Properties", Is_Window_Open, false)) {
+	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
 		IMGUI::End_Window();
 		return;
 	}
 	switch (GAMECOMPONENT->Get_Component_Type()) {
-	case TuranAPI::STATIC_MODEL_COMP:
+	case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_COMP:
 		Show_StaticModelComp_Properties(GAMECOMPONENT);
 		break;
-	case TuranAPI::CAMERA_COMP:
+	case TuranAPI::TuranAPI_ENUMs::CAMERA_COMP:
 		Show_CameraComp_Properties(GAMECOMPONENT);
 		break;
 	default:

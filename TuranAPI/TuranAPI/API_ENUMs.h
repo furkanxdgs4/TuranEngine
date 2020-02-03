@@ -1,11 +1,12 @@
 #pragma once
 
 namespace TuranAPI {
-	enum TuranAPI_ENUMs : unsigned short {
+	//Please don't forget to add a name for each enum you add!
+	enum struct TuranAPI_ENUMs : unsigned short {
 		TURAN_NULL = 0,
 
 		//GFX_APIs
-		OPENGL3,
+		OPENGL4,
 
 		//Resource Creation Purposes
 		CREATED_FOR_GFX,
@@ -27,31 +28,27 @@ namespace TuranAPI {
 		MATERIAL_INSTANCE_COMP,
 		CAMERA_COMP,
 
-
 		//Variable Types!
 		VAR_UBYTE8, VAR_BYTE8, VAR_UINT32, VAR_INT32, VAR_FLOAT32,
 		VAR_VEC2, VAR_VEC3, VAR_VEC4, VAR_MAT4x4,
-
 
 		//Texture Dimensions
 		API_TEXTURE_2D,
 
 		//Texture Wrapping
-
 		API_TEXTURE_REPEAT,
 		API_TEXTURE_MIRRORED_REPEAT,
 		API_TEXTURE_CLAMP_TO_EDGE,
 
 		//Texture Filtering
-
 		API_TEXTURE_NEAREST_FROM_1MIP,
 		API_TEXTURE_LINEAR_FROM_1MIP,
 		API_TEXTURE_NEAREST_FROM_2MIP,
 		API_TEXTURE_LINEAR_FROM_2MIP,
 
 		//Texture Channels
-
 		API_TEXTURE_RGB,
 		API_TEXTURE_RGBA
 	};
+
 }

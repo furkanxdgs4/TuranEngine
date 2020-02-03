@@ -26,6 +26,7 @@ namespace TuranAPI {
 			int Get_Vertex_Number() const;
 			int Get_Indice_Number() const;
 			void Set_GFXI_Mesh(void* gpu_mesh);
+			bool Verify_Mesh_Data();
 		};
 
 
@@ -43,7 +44,8 @@ namespace TuranAPI {
 			unsigned int Get_Mesh_Number();
 			Static_Mesh_Data* Get_Mesh_byIndex(unsigned int index);
 
-			virtual TuranAPI::TuranAPI_ENUMs Get_Resource_Type();
+			virtual TuranAPI::TuranAPI_ENUMs Get_Resource_Type() override;
+			virtual bool Verify_Resource_Data() override;
 			Static_Model_Data(Static_Mesh_Data** mesh_array, unsigned int mesh_number, unsigned int id, string name);
 			void Set_ID_and_NAME(unsigned int id, string name);
 			Static_Model_Data();

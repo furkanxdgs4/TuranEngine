@@ -18,6 +18,7 @@ namespace TuranAPI {
 
 			unsigned int Get_ID();
 			virtual TuranAPI_ENUMs Get_Resource_Type() = 0;
+			virtual bool Verify_Resource_Data() = 0;
 		};
 	}
 }

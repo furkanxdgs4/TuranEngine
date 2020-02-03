@@ -11,6 +11,32 @@ Static_Mesh_Data::~Static_Mesh_Data() {
 	delete[] BITANGENTs;
 }
 
+bool Static_Mesh_Data::Verify_Mesh_Data() {
+	if (VERTEX_NUMBER <= 0 || POSITIONs == nullptr || NORMALs == nullptr || TANGENTs == nullptr || BITANGENTs == nullptr || TEXTCOORDs == nullptr) {
+		return false;
+	}
+	else {
+		for (unsigned int vertex_index = 0; vertex_index < VERTEX_NUMBER; vertex_index++) {
+			if (!
+				(POSITIONs[vertex_index].length() > 0.0f && NORMALs[vertex_index].length() > 0.0f && TANGENTs[vertex_index].length() > 0.0f && BITANGENTs[vertex_index].length() > 0.0f && TEXTCOORDs[vertex_index].length() > 0.0f)
+				) {
+				//There is no initialized vertex attribute for this vertex, at least vertex normals should point somewhere!
+				return false;
+			}
+		}
+	}
+	if (INDICEs_LENGTH <= 0 || INDICEs == nullptr) {
+		return false;
+	}
+	else {
+		for (unsigned int indice_index = 0; indice_index < INDICEs_LENGTH; indice_index++) {
+			if (INDICEs[indice_index] < 0) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 
 //Static Model Data class function definitions
@@ -29,6 +55,32 @@ Static_Model_Data::Static_Model_Data() : Resource_Type() {
 	//First, store the model's pointer!
 	ALL_MODEL_DATAs.push_back(this);
 }
+
+//Returns true if verified successfully
+//Checks mesh number correctness; model name's, path's, mesh array pointer's, each mesh in the array's, each vertex attribute of each mesh's existence (Is it null or wrong vs some possible value?)
+bool Static_Model_Data::Verify_Resource_Data() {
+	if (MESH_NUMBER > 0) {
+		if (MESH_ARRAY_PTR != nullptr && NAME != "" && PATH != "") {
+			for (unsigned int mesh_index = 0; mesh_index < MESH_NUMBER; mesh_index++) {
+				Static_Mesh_Data* MESH = MESH_ARRAY_PTR[mesh_index];
+				if (MESH != nullptr) {
+					if (!MESH->Verify_Mesh_Data()) {
+						//There should be log!
+						return false;
+					}
+				}
+			}
+
+			//Here, all of the meshes are verified so we should return true!
+			return true;
+		}
+	}
+
+	//Model isn't verified, any of the Meshes are verified.
+	//There should be log!
+	return false;
+}
+
 
 		//GETTER-SETTERs
 
@@ -54,7 +106,7 @@ Static_Model_Data* Static_Model_Data::Find_Model_byID(unsigned int ID) {
 }
 
 TuranAPI::TuranAPI_ENUMs Static_Model_Data::Get_Resource_Type() {
-	return STATIC_MODEL_RESOURCE;
+	return TuranAPI_ENUMs::STATIC_MODEL_RESOURCE;
 }
 
 

@@ -48,7 +48,7 @@ namespace TuranAPI {
 			static void End_Tree();
 			//Create a select list that extends when clicked and get the selected_index in one-line of code!
 			//Returns if any item is selected in the list! Selected item's index is the selected_index's pointer's value!
-			static bool SelectList_OneLine(const string& name, int* selected_index, vector<string>* item_names);
+			static bool SelectList_OneLine(const string& name, int* selected_index, const vector<string>* item_names);
 			static void Selectable(const string& name, bool* is_selected);
 			//Create a box of selectable items in one-line of code!
 			//Returns if any item is selected in the list! Selected item's index is the selected_index's pointer's value!

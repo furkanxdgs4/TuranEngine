@@ -10,9 +10,9 @@ class Material_Import_Window : public TuranAPI::IMGUI::IMGUI_WINDOW {
 	vector<int> selectlist_vector;
 
 	//This is used to find which Content List we are importing the texture to! For example GFX_Contents, Engine_Contents, GameContents... 
-	TuranAPI::File_System::FileList_Resource* FILELIST;
+	TuranAPI::File_System::FileSystem* FILESYSTEM;
 public:
-	Material_Import_Window(TuranAPI::File_System::FileList_Resource* filelist);
+	Material_Import_Window(TuranAPI::File_System::FileSystem* filesystem);
 	virtual void Run_Window();
 };
 

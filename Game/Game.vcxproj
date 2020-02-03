@@ -54,8 +54,8 @@
     <ProjectReference Include="..\GFX_API\GFX_API.vcxproj">
       <Project>{3859b6ef-aec4-48d8-b0bc-66b8d9f81b88}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\OpenGL3\OpenGL3.vcxproj">
-      <Project>{72926232-e64b-485e-9b9d-84ba815d0324}</Project>
+    <ProjectReference Include="..\OpenGL4\OpenGL4.vcxproj">
+      <Project>{fa27ae75-39f2-40a7-aa60-1092b7e3297d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TuranAPI\TuranAPI.vcxproj">
       <Project>{914f0aa8-3d8f-44de-a2bf-a3a93b8a858e}</Project>

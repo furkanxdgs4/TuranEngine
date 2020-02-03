@@ -12,5 +12,5 @@ StaticModel_Component::StaticModel_Component(TuranAPI::File_System::Static_Model
 }
 
 TuranAPI::TuranAPI_ENUMs StaticModel_Component::Get_Component_Type() {
-	return TuranAPI::STATIC_MODEL_COMP;
+	return TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_COMP;
 }

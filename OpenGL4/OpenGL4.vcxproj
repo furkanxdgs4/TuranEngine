@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{FA27AE75-39F2-40A7-AA60-1092B7E3297D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>OpenGL4</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>OpenGL4</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>$(ProjectName)</TargetName>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)3rdPartyLibraries\Includes;$(IncludePath)$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)3rdPartyLibraries\Libs;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWS10_FORENGINE;OPENGL4_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)TuranAPI;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL4</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEngine" /Y
+xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEditor" /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GFX_API\GFX_API.vcxproj">
+      <Project>{3859b6ef-aec4-48d8-b0bc-66b8d9f81b88}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TuranAPI\TuranAPI.vcxproj">
+      <Project>{914f0aa8-3d8f-44de-a2bf-a3a93b8a858e}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GFX_ContentsList.gfxcont" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="OpenGL4Source\glad.c" />
+    <ClCompile Include="OpenGL4Source\IMGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="OpenGL4Source\IMGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="OpenGL4Source\IMGUI\IMGUI_OGL4.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_ENUMs.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_FileSystem.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_APICommands.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_Renderer_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_RenderGraph.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OpenGL4Source\IMGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="OpenGL4Source\IMGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="OpenGL4Source\IMGUI\IMGUI_OGL4.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_Core.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_ENUMs.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_FileSystem.h" />
+    <ClInclude Include="OpenGL4Source\OpenGL4_Includes.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_APICommands.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_Renderer_Core.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_RenderGraph.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

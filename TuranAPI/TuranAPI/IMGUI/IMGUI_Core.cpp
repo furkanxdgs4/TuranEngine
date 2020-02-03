@@ -154,7 +154,7 @@ void IMGUI::End_Tree() {
 	ImGui::TreePop();
 }
 
-bool IMGUI::SelectList_OneLine(const string& name, int* selected_index, vector<string>* item_names) {
+bool IMGUI::SelectList_OneLine(const string& name, int* selected_index, const vector<string>* item_names) {
 	bool is_new_item_selected = false;
 	if (
 		ImGui::BeginCombo(name.c_str(), (*item_names)[*selected_index].c_str())	// The second parameter is the index of the label previewed before opening the combo.

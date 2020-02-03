@@ -51,6 +51,15 @@
     <ClCompile Include="EditorSource\Editors\Properties_Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditorSource\Editors\Profiling_Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSource\RenderContext\Game_RenderGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorSource\Editors\Content_Browser.h">
@@ -93,6 +102,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorSource\Editors\Scene_Editor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\Editors\Profiling_Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\RenderContext\Draw Passes\Draw_Passes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\RenderContext\Game_RenderGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

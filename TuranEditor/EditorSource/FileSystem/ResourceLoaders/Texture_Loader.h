@@ -7,9 +7,9 @@
 class Texture_Import_Window : public TuranAPI::IMGUI::IMGUI_WINDOW {
 	string TEXTURE_PATH = "", OUTPUT_FOLDER = "", OUTPUT_NAME = "";
 	//This is used to find which Content List we are importing the texture to! For example GFX_Contents, Engine_Contents, GameContents... 
-	TuranAPI::File_System::FileList_Resource* FILELIST;
+	TuranAPI::File_System::FileSystem* FILESYSTEM;
 public:
-	Texture_Import_Window(TuranAPI::File_System::FileList_Resource* filelist);
+	Texture_Import_Window(TuranAPI::File_System::FileSystem* filesystem);
 	virtual void Run_Window();
 };
 

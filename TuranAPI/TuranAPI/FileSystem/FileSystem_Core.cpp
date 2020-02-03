@@ -37,6 +37,21 @@ string FileSystem::Read_TextFile(string path) {
 	}
 }
 
+void FileSystem::Write_TextFile(string text, string path, bool write_to_end) {
+	if (write_to_end) {
+		std::ofstream Output_File;
+		Output_File.open(path, ios::out | ios::app);
+		Output_File << text << endl;
+		Output_File.close();
+	}
+	else {
+		std::ofstream Output_File;
+		Output_File.open(path, ios::out | ios::trunc);
+		Output_File << text << endl;
+		Output_File.close();
+	}
+}
+
 //If read fails, data_ptr is set to nullptr!
 void* FileSystem::Read_BinaryFile(string path, unsigned int& size) {
 	std::ifstream Binary_File;
@@ -69,7 +84,7 @@ void FileSystem::Write_BinaryFile(string path, void* data, unsigned int size) {
 	//Try to create to a file (Check if the operation fails)
 	std::ofstream Output_File(path, ios::binary | ios::out);
 	if (!Output_File.is_open()) {
-		cout << "Error: " << path << " couldn't be outputted!\n";
+		TuranAPI::Breakpoint("Error: " + path + " couldn't be outputted!\n");
 		return;
 	}
 
@@ -115,32 +130,39 @@ unsigned int FileSystem::Create_Resource_ID() {
 }
 
 
-void FileSystem::Write_a_Resource_toDisk(Resource_Type* resource_data) {
+void FileSystem::Write_a_Resource_toDisk(Resource_Type* resource_data, bool Verify_ResourceData) {
 	resource_data->ID = Create_Resource_ID();
+	if (Verify_ResourceData) {
+		if (!resource_data->Verify_Resource_Data()) {
+			//There should be log!
+			TuranAPI::Breakpoint("While writing a resource to disk, the resource data isn't verified!\n");
+			return;
+		}
+	}
 
 	//Model Proccess
 	switch (resource_data->Get_Resource_Type()) {
-	case STATIC_MODEL_RESOURCE:
+	case TuranAPI_ENUMs::STATIC_MODEL_RESOURCE:
 		cout << "Compiles a Static_Model Flatbuffer data!\n";
 		Save_a_StaticModel_toDisk(resource_data);
 		break;
-	case MATERIAL_TYPE_RESOURCE:
+	case TuranAPI_ENUMs::MATERIAL_TYPE_RESOURCE:
 		cout << "Compiles a Material_Type Flatbuffer data!\n";
 		Save_a_MaterialType_toDisk(resource_data);
 		break;
-	case MATERIAL_INSTANCE_RESOURCE:
+	case TuranAPI_ENUMs::MATERIAL_INSTANCE_RESOURCE:
 		cout << "Compiles a Material_Instance Flatbuffer data!\n";
 		Save_a_MaterialInst_toDisk(resource_data);
 		break;
-	case TEXTURE_RESOURCE:
+	case TuranAPI_ENUMs::TEXTURE_RESOURCE:
 		cout << "Compiles a Texture Flatbuffer data!\n";
 		Save_a_Texture_toDisk(resource_data);
 		break;
-	case FILE_LIST_RESOURCE:
+	case TuranAPI_ENUMs::FILE_LIST_RESOURCE:
 		cout << "Compiles a FileList Flatbuffer data!\n";
 		Save_a_FileList_toDisk(resource_data);
 		break;
-	case SCENE_RESOURCE:
+	case TuranAPI_ENUMs::SCENE_RESOURCE:
 		cout << "Compiles a Scene Flatbuffer data!\n";
 		Save_a_Scene_toDisk(resource_data);
 		break;

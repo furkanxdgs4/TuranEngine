@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\dev\TuranEngine\TuranAPI\TuranAPI\IMGUI\Includes\</FILEPATH>
+      <FILENAME>imgui.h</FILENAME>
+      <LINE>1743</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'ImGuiStorage::ImGuiStoragePair::&lt;unnamed-tag&gt;::val_p' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>ImGuiStorage::ImGuiStoragePair::{ctor}</FUNCTION>
+    <DECORATED>??0ImGuiStoragePair@ImGuiStorage@@QEAA@IH@Z</DECORATED>
+    <FUNCLINE>1743</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>ImGuiStorage::ImGuiStoragePair::&lt;unnamed-tag&gt;::val_p</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\dev\TuranEngine\TuranAPI\TuranAPI\IMGUI\Includes\</FILEPATH>
+      <FILENAME>imgui.h</FILENAME>
+      <LINE>1744</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'ImGuiStorage::ImGuiStoragePair::&lt;unnamed-tag&gt;::val_p' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>ImGuiStorage::ImGuiStoragePair::{ctor}</FUNCTION>
+    <DECORATED>??0ImGuiStoragePair@ImGuiStorage@@QEAA@IM@Z</DECORATED>
+    <FUNCLINE>1744</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>ImGuiStorage::ImGuiStoragePair::&lt;unnamed-tag&gt;::val_p</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

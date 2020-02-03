@@ -1,9 +1,9 @@
 #include "TuranEngine.h"
 #include "TuranAPI/API_FileSystem.h"
 #include "TuranAPI/API_IMGUI.h"
+#include "TuranAPI/API_Logger.h"
 
 #include "GFXSource/GFX_Core.h"
-#include "Graphics/RenderContext/Game_RenderGraph.h"
 
 /*
 		Turan Engine Running Process:
@@ -18,10 +18,10 @@
 
 bool TuranEngine::ShouldApplicationClose = false;
 string TuranEngine::ApplicationClose_Reason = "";
-GFX_API* TuranEngine::GFX = nullptr;
+GFX::GFX_Core* TuranEngine::GFX = nullptr;
 
 TuranEngine::TuranEngine() {
-	cout << "Turan Engine doesn't work as object, please don't instantinate! Nothing happened!\n";
+	TuranAPI::LOG_CRASHING("Turan Engine doesn't work as object, please don't instantinate! Nothing happened!");
 }
 
 /*Progress:
@@ -31,12 +31,11 @@ TuranEngine::TuranEngine() {
 Note: Load resources later by another function!
 */
 void TuranEngine::Start_Engine() {
-	cout << "Engine is starting!\n";
+	TuranAPI::LOG_STATUS("Engine is starting!");
 	SYSTEM_INSPECTOR::Detect_Computer_Specs();
 	Start_GFX();
-	cout << endl;
-
-	GFX->Bind_RenderGraph(new Game_RenderGraph);
+	TuranAPI::Logging::Logger::Start_LoggingSystem();
+	TuranAPI::LOG_STATUS("Started the engine!");
 }
 
 void TuranEngine::Start_GFX() {

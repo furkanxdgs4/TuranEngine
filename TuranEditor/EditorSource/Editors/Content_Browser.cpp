@@ -32,31 +32,27 @@ void GameContent_Browser::Run_Window() {
 	}
 	if (GameContent_EditMode) {
 		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *Editor_FileSystem::Get_GameContentList()->Get_ContentListVector()) {
+		for (Resource_Type* RESOURCE : *EDITOR_FILESYSTEM->Get_Const_FileListContentVector()) {
 			item_names.push_back(RESOURCE->NAME);
 		}
 		GameContentList_CheckList.resize(item_names.size(), false);
 
 		if (IMGUI::Button("Delete All")) {
-			Editor_FileSystem::Clear_GlobalGameContentList();
+			EDITOR_FILESYSTEM->Clear_FileListContents();
 			GameContentList_CheckList.clear();
 			GameContent_EditMode = false;
 		}
 		IMGUI::Same_Line();
 		if (IMGUI::Button("Delete")) {
-			vector<Resource_Type*>* Vector_to_Erase = Editor_FileSystem::Get_GameContentList()->Get_ContentListVector();
-			if (Vector_to_Erase->size() != GameContentList_CheckList.size()) {
+			if (EDITOR_FILESYSTEM->Get_LengthOf_FileListContentVector() != GameContentList_CheckList.size()) {
 				cout << "Error: in Delete Items from Vector(), 2 vectors should have same size!\n";
 				TuranAPI::Breakpoint();
 			}
-			for (unsigned int i = 0; i < Vector_to_Erase->size(); i++) {
+			for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_LengthOf_FileListContentVector(); i++) {
 				bool should_erase = GameContentList_CheckList[i];
 				if (should_erase) {
-					Resource_Type* resource_to_delete = (*Vector_to_Erase)[i];
-					FileSystem::Delete_File(resource_to_delete->PATH);
-					delete resource_to_delete;
-					resource_to_delete = nullptr;
-					Vector_to_Erase->erase(Vector_to_Erase->begin() + i);
+					Resource_Type* resource_to_delete = (*EDITOR_FILESYSTEM->Get_Const_FileListContentVector())[i];
+					EDITOR_FILESYSTEM->Remove_Content_fromFileList(i);
 					GameContentList_CheckList.erase(GameContentList_CheckList.begin() + i);
 					i -= 1;
 					cout << "Deleted an item!\n";
@@ -64,7 +60,6 @@ void GameContent_Browser::Run_Window() {
 			}
 			GameContentList_CheckList.clear();
 			GameContent_EditMode = false;
-			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(Editor_FileSystem::Get_GameContentList());
 		}
 		IMGUI::Same_Line();
 		if (IMGUI::Button("Cancel")) {
@@ -85,27 +80,27 @@ void GameContent_Browser::Run_Window() {
 		IMGUI::Same_Line();
 		//Import Buttons
 		{
-			if (IMGUI::Button("Import Model")) {new Model_Import_Window(Editor::File_System::Editor_FileSystem::Get_GameContentList()); }
+			if (IMGUI::Button("Import Model")) {new Model_Import_Window((FileSystem*)&EDITOR_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Material Type")) {new Material_Import_Window(Editor::File_System::Editor_FileSystem::Get_GameContentList()); }
+			if (IMGUI::Button("Import Material Type")) {new Material_Import_Window((FileSystem*)&EDITOR_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Texture")) {new Texture_Import_Window(Editor::File_System::Editor_FileSystem::Get_GameContentList()); }
+			if (IMGUI::Button("Import Texture")) {new Texture_Import_Window((FileSystem*)&EDITOR_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Create Material Instance")) {new MaterialInstance_ImportWindow(Editor::File_System::Editor_FileSystem::Get_GameContentList()); }
+			if (IMGUI::Button("Create Material Instance")) {new MaterialInstance_CreationWindow((FileSystem*)&EDITOR_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Create Scene")) { new Scene_Create_Window(Editor::File_System::Editor_FileSystem::Get_GameContentList()); }
+			if (IMGUI::Button("Create Scene")) { new Scene_Create_Window((FileSystem*)&EDITOR_FILESYSTEM); }
 		}
 
 		//Even if there is a importing proccess, show the contents!
 		int selected_list_item_index = -1;
 		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *Editor::File_System::Editor_FileSystem::Get_GameContentList()->Get_ContentListVector()) {
+		for (Resource_Type* RESOURCE : *EDITOR_FILESYSTEM->Get_Const_FileListContentVector()) {
 			item_names.push_back(RESOURCE->NAME);
 		}
 		//Show selected content's properties!
 		if (IMGUI::Selectable_ListBox("Game Content List", &selected_list_item_index, &item_names)) {
 			ResourceProperties_Window* properties = new ResourceProperties_Window(
-				(*Editor::File_System::Editor_FileSystem::Get_GameContentList()->Get_ContentListVector())[selected_list_item_index]
+				(*EDITOR_FILESYSTEM->Get_Const_FileListContentVector())[selected_list_item_index]
 			);
 		}
 
@@ -128,19 +123,19 @@ void GFX_Content_Browser::Run_Window() {
 	}
 	if (GFXContent_EditMode) {
 		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *GFX_FileSystem::Get_GFXContentList()->Get_ContentListVector()) {
+		for (Resource_Type* RESOURCE : *GFX::GFX_FILESYSTEM->Get_GFXContentList()->Get_ContentListVector()) {
 			item_names.push_back(RESOURCE->NAME);
 		}
 		GFXContentList_CheckList.resize(item_names.size(), false);
 
 		if (IMGUI::Button("Delete All")) {
-			GFX_API::FileSystem->Clear_All_GFXContents();
+			GFX::GFX_FILESYSTEM->Clear_FileListContents();
 			GFXContentList_CheckList.clear();
 			GFXContent_EditMode = false;
 		}
 		IMGUI::Same_Line();
 		if (IMGUI::Button("Delete")) {
-			vector<Resource_Type*>* Vector_to_Erase = GFX_FileSystem::Get_GFXContentList()->Get_ContentListVector();
+			vector<Resource_Type*>* Vector_to_Erase = GFX::GFX_FILESYSTEM->Get_GFXContentList()->Get_ContentListVector();
 			if (Vector_to_Erase->size() != GFXContentList_CheckList.size()) {
 				cout << "Error: Vector to Erase and Erase list doesn't match in Content Browser.cpp!\n";
 				TuranAPI::Breakpoint();
@@ -156,7 +151,7 @@ void GFX_Content_Browser::Run_Window() {
 			}
 			GFXContentList_CheckList.clear();
 			GFXContent_EditMode = false;
-			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(GFX_FileSystem::Get_GFXContentList());
+			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(GFX::GFX_FILESYSTEM->Get_GFXContentList());
 		}
 		IMGUI::Same_Line();
 		if (IMGUI::Button("Cancel")) {
@@ -177,25 +172,25 @@ void GFX_Content_Browser::Run_Window() {
 		IMGUI::Same_Line();
 		//Import Buttons
 		{
-			if (IMGUI::Button("Import Model")) { Model_Import_Window* import_window = new Model_Import_Window(GFX_FileSystem::Get_GFXContentList()); }
+			if (IMGUI::Button("Import Model")) { Model_Import_Window* import_window = new Model_Import_Window((FileSystem*)GFX::GFX_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Material Type")) { Material_Import_Window* import_window = new Material_Import_Window(GFX_FileSystem::Get_GFXContentList()); }
+			if (IMGUI::Button("Import Material Type")) { Material_Import_Window* import_window = new Material_Import_Window((FileSystem*)GFX::GFX_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Texture")) { Texture_Import_Window* import_window = new Texture_Import_Window(GFX_FileSystem::Get_GFXContentList()); }
+			if (IMGUI::Button("Import Texture")) { Texture_Import_Window* import_window = new Texture_Import_Window((FileSystem*)GFX::GFX_FILESYSTEM); }
 			IMGUI::Same_Line();
-			if (IMGUI::Button("Create Material Instance")) { MaterialInstance_ImportWindow* import_window = new MaterialInstance_ImportWindow(GFX_FileSystem::Get_GFXContentList()); }
+			if (IMGUI::Button("Create Material Instance")) { MaterialInstance_CreationWindow* import_window = new MaterialInstance_CreationWindow((FileSystem*)GFX::GFX_FILESYSTEM); }
 		}
 
 		//Even if there is a importing proccess, show the contents!
 		int selected_list_item_index = -1;
 		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *GFX_FileSystem::Get_GFXContentList()->Get_ContentListVector()) {
+		for (Resource_Type* RESOURCE : *GFX::GFX_FILESYSTEM->Get_GFXContentList()->Get_ContentListVector()) {
 			item_names.push_back(RESOURCE->NAME);
 		}
 		//Show selected content's properties!
 		if (IMGUI::Selectable_ListBox("GFX Content List", &selected_list_item_index, &item_names)) {
 			ResourceProperties_Window* properties = new ResourceProperties_Window(
-				(*GFX_API::FileSystem->Get_GFXContentList()->Get_ContentListVector())[selected_list_item_index]
+				(*GFX::GFX_FILESYSTEM->Get_Const_FileListContentVector())[selected_list_item_index]
 			);
 		}
 

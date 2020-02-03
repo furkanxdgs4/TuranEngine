@@ -1,0 +1,692 @@
+TuranAPI: Logging Started!
+Editor is running!
+Engine is starting!
+GFX Core systems are starting!
+GFX Core systems are started!
+OpenGL 4 systems are starting!
+Monitor's Video Mode is set!
+GPU Name: NVIDIA Corporation GeForce GTX 750 Ti/PCIe/SSE2
+OpenGL Version: 4.6.0 NVIDIA 441.66
+Window: Turan Engine's GPU Context is set!
+Quad Mesh VAO: 1
+IMGUI's GFX part is initialized successfully!
+OpenGL 4 systems are started!
+Started the engine!
+Starting the Editor FileSystem!
+Started to load Game Contents!
+Finished loading Game Contents!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+New Loop!
+Renderer prepares for this frame!
+GFX_API::Render() isn't coded!
+Window: Turan Engine's back-front buffers is swapped!
+GFX_Renderer Destruction isn't coded!
+Application exited from the frame loop, because: IMGUI main window is closed!
+
