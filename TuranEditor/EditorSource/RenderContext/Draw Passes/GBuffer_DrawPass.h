@@ -4,8 +4,13 @@
 #include "GFXSource/Renderer/GFX_RenderGraph.h"
 
 
-class GFXAPI G_BUFFER_DrawPass : public GFX::DrawPass {
-	virtual void Creation() override;
-	virtual void Update_Resources() override;
-	virtual void Render_Loop() override;
+class Main_DrawPass : public GFX_API::DrawPass {
+public:
+	Main_DrawPass(const Vector<GFX_API::DrawCall>& RG_DrawCalls, const Vector<GFX_API::RenderingComponent>& RG_RenderComponents, Vector<GFX_API::Framebuffer::RT_SLOT>& Needed_RTSlots);
+
+	static unsigned int Get_BitMaskFlag();
+
+	virtual void RenderGraph_SetupPhase(Vector<GFX_API::Framebuffer::RT_SLOT>& RTs) override;
+	virtual void ResourceUpdatePhase() override;
+	virtual void Execute() override;
 };

@@ -1,132 +1,125 @@
 #include "Logger_Core.h"
-#include "TuranAPI/API_Profiler.h"
-
-enum class LOG_TYPE : char{
-	CRASHING_ERROR = 0, ERROR = 1, WARNING = 2, STATUS = 3, NOT_CODEDPATH = 4
-};
-
-class LOG {
-public:
-	LOG_TYPE TYPE;
-	string LOG;
-};
-
+#include <string>
 //Please don't move the above classes anywhere! I just want to use them here, so don't need to worry about wrong usage
 
 
-using namespace TuranAPI::File_System;
 using namespace TuranAPI::Logging;
 
-string Logger::MainLogFile_Path = "C:/dev/TuranEngine/logs.txt";
-string Logger::WarningLogFile_Path = "C:/dev/TuranEngine/warnings.txt";
-string Logger::ErrorLogFile_Path = "C:/dev/TuranEngine/errors.txt";
-string Logger::NotCodedLogFile_Path = "C:/dev/TuranEngine/notcodedpaths.txt";
-vector<void*> Logger::LOGs = vector<void*>{};
-
-void Logger::Start_LoggingSystem() {
-	TuranAPI::File_System::FileSystem::Write_TextFile("TuranAPI: Logging Started!", MainLogFile_Path, false);
-	TuranAPI::File_System::FileSystem::Write_TextFile("TuranAPI: Logging Started!", WarningLogFile_Path, false);
-	TuranAPI::File_System::FileSystem::Write_TextFile("TuranAPI: Logging Started!", ErrorLogFile_Path, false);
-	TuranAPI::File_System::FileSystem::Write_TextFile("TuranAPI: Logging Started!", NotCodedLogFile_Path, false);
+Logger* Logger::SELF = nullptr;
+Logger::Logger(): MainLogFile_Path("C:/dev/TuranEngine/logs.txt", LASTUSEDALLOCATOR), WarningLogFile_Path("C:/dev/TuranEngine/warnings.txt", LASTUSEDALLOCATOR),
+ErrorLogFile_Path("C:/dev/TuranEngine/errors.txt", LASTUSEDALLOCATOR), NotCodedLogFile_Path("C:/dev/TuranEngine/notcodedpaths.txt"), LOGs(LASTUSEDALLOCATOR, 100, 10000)
+{
+	std::cout << "Logger constructor started!\n";
+	SELF = this;
+	TuranAPI::FileSystem::Write_TextFile("TuranAPI: Logging Started!", MainLogFile_Path, false);
+	TuranAPI::FileSystem::Write_TextFile("TuranAPI: Logging Started!", WarningLogFile_Path, false);
+	TuranAPI::FileSystem::Write_TextFile("TuranAPI: Logging Started!", ErrorLogFile_Path, false);
+	TuranAPI::FileSystem::Write_TextFile("TuranAPI: Logging Started!", NotCodedLogFile_Path, false);
+	std::cout << "Logger constructor finished!\n";
+}
+Logger::~Logger() {
+	std::cout << "Logger destructor has started!\n";
+	delete SELF;
+	std::cout << "Logger destructor has finished!\n";
 }
 
+
 void Logger::Write_LOGs_toTextFiles() {
-	string MainLogFile_Text, ErrorLogFile_Text, WarningLogFile_Text, NotCodedLogFile_Text;
-
-	for (void* log_dataptr : LOGs) {
-		LOG* log_data = (LOG*)log_dataptr;
-		
-		if (log_data->TYPE == LOG_TYPE::CRASHING_ERROR || log_data->TYPE == LOG_TYPE::ERROR) {
-			MainLogFile_Text += log_data->LOG;
-			ErrorLogFile_Text += log_data->LOG;
-		}
-		else if (log_data->TYPE == LOG_TYPE::WARNING) {
-			MainLogFile_Text += log_data->LOG;
-			WarningLogFile_Text += log_data->LOG;
-		}
-		else if (log_data->TYPE == LOG_TYPE::STATUS) {
-			MainLogFile_Text += log_data->LOG;
-		}
-		else if (log_data->TYPE == LOG_TYPE::NOT_CODEDPATH) {
-			MainLogFile_Text += log_data->LOG;
-			ErrorLogFile_Text += log_data->LOG;
-			NotCodedLogFile_Text += log_data->LOG;
-		}
-
-		delete (LOG*)log_dataptr;
-		log_dataptr = nullptr;
+	if (LOGs.size() == 0) {
+		std::cout << "There is no log to write!\n";
+		return;
 	}
+	String MainLogFile_Text, ErrorLogFile_Text, WarningLogFile_Text, NotCodedLogFile_Text;
 
-	
-	TuranAPI::File_System::FileSystem::Write_TextFile(MainLogFile_Text, MainLogFile_Path, true);
-	TuranAPI::File_System::FileSystem::Write_TextFile(ErrorLogFile_Text, ErrorLogFile_Path, true);
-	TuranAPI::File_System::FileSystem::Write_TextFile(WarningLogFile_Text, WarningLogFile_Path, true);
-	TuranAPI::File_System::FileSystem::Write_TextFile(NotCodedLogFile_Text, NotCodedLogFile_Path, true);
+	for (unsigned int i = 0; i < LOGs.size(); i++) {
+		LOG& log_data = LOGs[i];
+		switch (log_data.TYPE)
+		{
+		case LOG_TYPE::CRASHING_ERROR:
+		case LOG_TYPE::ERROR:
+			MainLogFile_Text.append(log_data.TEXT);
+			MainLogFile_Text.append("\n");
+			ErrorLogFile_Text.append(log_data.TEXT);
+			ErrorLogFile_Text.append("\n");
+			break;
+		case LOG_TYPE::WARNING:
+			MainLogFile_Text.append(log_data.TEXT);
+			MainLogFile_Text.append("\n");
+			WarningLogFile_Text.append(log_data.TEXT);
+			WarningLogFile_Text.append("\n");
+			break;
+		case LOG_TYPE::NOT_CODEDPATH:
+			MainLogFile_Text.append(log_data.TEXT);
+			MainLogFile_Text.append("\n");
+			ErrorLogFile_Text.append(log_data.TEXT);
+			ErrorLogFile_Text.append("\n");
+			NotCodedLogFile_Text.append(log_data.TEXT);
+			NotCodedLogFile_Text.append("\n");
+			break;
+		case LOG_TYPE::STATUS:
+			MainLogFile_Text.append(log_data.TEXT);
+			MainLogFile_Text.append("\n");
+			break;
+		default:
+			break;
+		}
+	}
+	TuranAPI::FileSystem::Write_TextFile(&MainLogFile_Text, SELF->MainLogFile_Path, true);
+	TuranAPI::FileSystem::Write_TextFile(&ErrorLogFile_Text, SELF->ErrorLogFile_Path, true);
+	TuranAPI::FileSystem::Write_TextFile(&WarningLogFile_Text, SELF->WarningLogFile_Path, true);
+	TuranAPI::FileSystem::Write_TextFile(&NotCodedLogFile_Text, SELF->NotCodedLogFile_Path, true);
 
 	LOGs.clear();
 }
 
-void Logger::Log_CrashingError(string log) {
-	time_t current_time = time(NULL);
-	string time_string = ctime(&current_time);
+void Logger::Log_CrashingError(const char* log) {
+	LOGs.push_back(LOG());
+	LOG* log_data = &LOGs[LOGs.size() - 1];
 
-	LOG* log_data = new LOG;
-	log_data->LOG = "\n\n" + time_string + " CRASHING ERROR:\n" + log + "\n";
+
+	log_data->TEXT = log;
 	log_data->TYPE = LOG_TYPE::CRASHING_ERROR;
-	LOGs.push_back(log_data);
-
-	cout << log_data->LOG ;
-
 	Write_LOGs_toTextFiles();
-
-	TuranAPI::Breakpoint();
+	TuranAPI::Breakpoint(log);
 }
 
-void Logger::Log_HandledError(string log) {
-	time_t current_time = time(NULL);
-	string time_string = ctime(&current_time);
-
-	LOG* log_data = new LOG;
-	log_data->LOG = "\n\n" + time_string + " ERROR:\n" + log + "\n";
+void Logger::Log_HandledError(const char* log) {
+	LOGs.push_back(LOG());
+	LOG* log_data = &LOGs[LOGs.size() - 1];
+	log_data->TEXT = log;
 	log_data->TYPE = LOG_TYPE::ERROR;
-	LOGs.push_back(log_data);
 
-	cout << log_data->LOG;
+
+	std::cout << "Error: " << log_data->TEXT << std::endl;
 }
 
-void Logger::Log_Warning(string log) {
-	time_t current_time = time(NULL);
-	string time_string = ctime(&current_time);
-
-	LOG* log_data = new LOG;
-	log_data->LOG = "\n\n" + time_string + " WARNING:\n" + log + "\n";
+void Logger::Log_Warning(const char* log) {
+	LOGs.push_back(LOG());
+	LOG* log_data = &LOGs[LOGs.size() - 1];
+	log_data->TEXT = log;
 	log_data->TYPE = LOG_TYPE::WARNING;
-	LOGs.push_back(log_data);
 	 
-	cout << log_data->LOG;
+	std::cout << "Warning: " << log_data->TEXT << std::endl;
 }
 
-void Logger::Log_Status(string log) {
-	LOG* log_data = new LOG;
-	log_data->LOG = log + "\n";
-	log_data->TYPE = LOG_TYPE::STATUS;
-	LOGs.push_back(log_data);
-
-	cout << log_data->LOG;
+void Logger::Log_Status(const char* log) {
+	LOGs.push_back(LOG());
+	LOG& log_data = LOGs[LOGs.size() - 1];
+	log_data.TEXT = log;
+	log_data.TYPE = LOG_TYPE::STATUS;
+	std::cout << "Status: " << log_data.TEXT << std::endl;
 }
 
-void Logger::Log_NotCodedPath(string log, bool stop_running) {
-	if (stop_running) {
-		Write_LOGs_toTextFiles();
-	}
-
-	LOG* log_data = new LOG;
-	log_data->LOG = log + "\n";
+void Logger::Log_NotCodedPath(const char* log, bool stop_running) {
+	LOGs.push_back(LOG());
+	LOG* log_data = &LOGs[LOGs.size() - 1];
+	log_data->TEXT = log;
 	log_data->TYPE = LOG_TYPE::NOT_CODEDPATH;
-	LOGs.push_back(log_data);
+
+	std::cout << "Not Coded Path: " << log_data->TEXT << std::endl;
 
 	if (stop_running) {
 		Write_LOGs_toTextFiles();
-		TuranAPI::Breakpoint(log_data->LOG);
+		TuranAPI::Breakpoint();
 	}
 }

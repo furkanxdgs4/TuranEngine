@@ -1,7 +1,10 @@
 #include "Resource_Type.h"
-using namespace TuranAPI::File_System;
 
+namespace TuranAPI {
+	Resource_Type::Resource_Type(enum class RESOURCETYPEs type) : TYPE(type) {
 
-unsigned int Resource_Type::Get_ID() {
-	return ID;
+	}
+	enum class RESOURCETYPEs Resource_Type::Get_Type() {
+		return TYPE;
+	}
 }

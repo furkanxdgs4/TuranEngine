@@ -4,39 +4,49 @@
 
 namespace TuranAPI {
 	namespace Logging {
+		enum class LOG_TYPE : char {
+			CRASHING_ERROR = 0, ERROR = 1, WARNING = 2, STATUS = 3, NOT_CODEDPATH = 4
+		};
+
+		struct LOG {
+		public:
+			LOG_TYPE TYPE;
+			String TEXT;
+		};
 
 		class TURANAPI Logger {
-			static string MainLogFile_Path;
-			static string WarningLogFile_Path;
-			static string ErrorLogFile_Path;
-			static string NotCodedLogFile_Path;
-			static vector<void*> LOGs;
+			String MainLogFile_Path;
+			String WarningLogFile_Path;
+			String ErrorLogFile_Path;
+			String NotCodedLogFile_Path;
+			Vector<LOG> LOGs;
 		public:
-			static void Start_LoggingSystem();
-			static void Write_LOGs_toTextFiles();
-			static void Log_CrashingError(string log);
-			static void Log_HandledError(string log);
-			static void Log_Warning(string log);
-			static void Log_Status(string log);
-			static void Log_NotCodedPath(string log, bool stop_running);
+			static Logger* SELF;
+			Logger();
+			~Logger();
+			void Write_LOGs_toTextFiles();
+			void Log_CrashingError(const char* log);
+			void Log_HandledError(const char* log);
+			void Log_Warning(const char* log);
+			void Log_Status(const char* log);
+			void Log_NotCodedPath(const char* log, bool stop_running);
 		};
 
 	}
+#define TURAN_DEBUGGING
 #ifdef TURAN_DEBUGGING
-#define LOG_CRASHING(LOG_STRING)							Logging::Logger::Log_CrashingError(LOG_STRING)
-#define LOG_ERROR(LOG_STRING)								Logging::Logger::Log_HandledError(LOG_STRING)
-#define LOG_WARNING(LOG_STRING)								Logging::Logger::Log_Warning(LOG_STRING)
-#define LOG_STATUS(LOG_STRING)								Logging::Logger::Log_Status(LOG_STRING)
-#define LOG_NOTCODED(LOG_STRING, Stop_Application_BOOL)		Logging::Logger::Log_NotCodedPath(LOG_STRING, Stop_Application_BOOL)
-#define WRITE_LOGs_toFILEs()								Logging::Logger::Write_LOGs_toTextFiles()
+#define LOG_CRASHING(LOG_STRING)							Logging::Logger::SELF->Log_CrashingError(LOG_STRING)
+#define LOG_ERROR(LOG_STRING)								Logging::Logger::SELF->Log_HandledError(LOG_STRING)
+#define LOG_WARNING(LOG_STRING)								Logging::Logger::SELF->Log_Warning(LOG_STRING)
+#define LOG_STATUS(LOG_STRING)								Logging::Logger::SELF->Log_Status(LOG_STRING)
+#define LOG_NOTCODED(LOG_STRING, Stop_Application_BOOL)		Logging::Logger::SELF->Log_NotCodedPath(LOG_STRING, Stop_Application_BOOL)
+#define WRITE_LOGs_toFILEs()								Logging::Logger::SELF->Write_LOGs_toTextFiles()
 #else
 #define LOG_CRASHING(LOG_STRING) Empty()
 #define LOG_ERROR(LOG_STRING) Empty()
 #define LOG_WARNING(LOG_STRING) Empty()
 #define LOG_STATUS(LOG_STRING) Empty()
 #define LOG_NOTCODED(LOG_STRING, Stop_Application_BOOL) Empty()
+#define WRITE_LOGs_toFILEs() Empty()
 #endif
 }
-
-
-

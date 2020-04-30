@@ -1,15 +1,12 @@
 #pragma once
 #include "GFXSource/GFX_Includes.h"
-#include "TuranAPI/FileSystem/Resource_Types/Scene_Resource.h"
-
-//Mesh Library
-//#include "Graphics/Meshes/Mesh_HEADER.h"
-
+#include "GFX_APICommands.h"
+#include "GFX_RenderCommands.h"
 #include "GFX_Resource.h"
 
-namespace GFX {
+namespace GFX_API {
 	class GFXAPI RenderNode {
-		GFX_ENUM RenderNode_Type;
+		RENDERNODE_TYPEs RenderNode_Type;
 	};
 
 
@@ -19,50 +16,51 @@ namespace GFX {
 	//3) Create an object as "new" in GFX API specfic class's Start_Creation()
 	//4) Don't forget to give a name to the draw pass! It will show up in Framegraph, Debugging and Profiling!
 	class GFXAPI DrawPass : public RenderNode {
-		friend class Renderer;
-		friend class OGL3_Renderer;
-
 	protected:
-		DrawPass();
+		friend class Renderer;
+		friend class OGL4_Renderer;
 
-		//Framebuffer stores render targets too, see the code
-		Framebuffer* FRAMEBUFFER;
-		string NAME;
-		GFX_ENUM DEPTHTEST_MODE;
-		GFX_ENUM DEPTHBUFFER_MODE;
+		//These Vectors store indexes to the RenderGraph's Vectors!
+		Vector<unsigned int> DrawCallBuffer;
+		Vector<unsigned int> RenderComponents;
+		const Vector<DrawCall>& RG_DrawCallBuffer;
+		const Vector<RenderingComponent>& RG_RenderComponentBuffer;
+
+		unsigned int FRAMEBUFFER;
+		bool Is_SetupPhase_Called;
+		String NAME;
 	public:
-		//FUNCTIONALITIES FOR EACH DRAW PASS!
+		DrawPass(const Vector<DrawCall>& RG_DrawCallBuffer, const Vector<GFX_API::RenderingComponent>& RG_RenderComponents, const char* NAME);
 
-		virtual void Creation() = 0;
-		virtual void Update_Resources() = 0;
-		virtual void Render_Loop() = 0;
+		//While constructing a RenderGraph, call this to couple DrawPass and RenderGraph
+		//So, DrawCallBuffer should point RenderGraph's DrawCalls Vector!
+		virtual void RenderGraph_SetupPhase(Vector<GFX_API::Framebuffer::RT_SLOT>& RTs) = 0;
+		//Update DrawCallBuffer!
+		virtual void ResourceUpdatePhase() = 0;
+		virtual void Execute() = 0;
 
 		//GETTER-SETTERs
 
-		Framebuffer* Get_Framebuffer();
-		string Get_Name();
+		const char* Get_Name();
 	};
-
 
 
 	class GFXAPI RenderGraph {
 	protected:
-		bool Is_Resources_Setup = false, Is_RenderNodes_Managed = false;
-		vector<RenderNode*> RENDER_NODEs;
-		RenderTarget* FINAL_COLOR_TEXTURE;
+		Vector<RenderNode*> RENDER_NODEs;
+		Vector<DrawCall> DrawCalls;
+		Vector<RenderingComponent> RenderComponents;
 		unsigned int RenderGraph_ID;
 	public:
-		static TuranAPI::File_System::Scene_Resource* Scene;
-		string NAME;
+		String NAME;
+		RenderGraph(const char* name);
 
 		virtual void Run_RenderGraph() = 0;
+		void Register_DrawCall(DrawCall drawcall);
 
 		//GETTER-SETTERs
 
 		void Set_RenderGraphID(unsigned int ID);
 		unsigned int Get_RenderGraph_ID() const;
-		const RenderTarget* Get_FinalColor_Texture() const;
-
-		RenderGraph();
 	};
 }

@@ -1,20 +1,23 @@
 #pragma once
 #include "EditorSource/Editor_Includes.h"
-#include "TuranAPI/IMGUI/IMGUI_WINDOW.h"
+#include "GFXSource/IMGUI/IMGUI_WINDOW.h"
 #include "TuranAPI/FileSystem/Resource_Types/Resource_Type.h"
-#include "TuranAPI/FileSystem/Resource_Types/GameObjects/GameComponents/GameComponent.h"
+#include "TuranAPI/FileSystem/GameObjects/GameComponents/GameComponent.h"
 
-class ResourceProperties_Window : public TuranAPI::IMGUI::IMGUI_WINDOW {
-public:
-	TuranAPI::File_System::Resource_Type* RESOURCE = nullptr;
+namespace TuranEditor {
+	class ResourceProperties_Window : public GFX_API::IMGUI_WINDOW {
+	public:
+		TuranAPI::Resource_Type* RESOURCE = nullptr;
+		GFX_API::RenderGraph* RenderGraph = nullptr;
 
-	ResourceProperties_Window(TuranAPI::File_System::Resource_Type* resource);
-	virtual void Run_Window();
-};
+		ResourceProperties_Window(TuranAPI::Resource_Type* resource);
+		virtual void Run_Window();
+	};
 
-class GameComponentProperties_Window : public TuranAPI::IMGUI::IMGUI_WINDOW {
-	TuranAPI::Game_Object::GameComponent* GAMECOMPONENT;
-public:
-	GameComponentProperties_Window(TuranAPI::Game_Object::GameComponent* gamecomponent);
-	virtual void Run_Window() override;
-};
+	class GameComponentProperties_Window : public GFX_API::IMGUI_WINDOW {
+		TuranAPI::GameComponent* GAMECOMPONENT;
+	public:
+		GameComponentProperties_Window(TuranAPI::GameComponent* gamecomponent);
+		virtual void Run_Window() override;
+	};
+}

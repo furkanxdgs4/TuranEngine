@@ -1,73 +1,78 @@
 #include "GBuffer_DrawPass.h"
 #include "GFXSource/GFX_Core.h"
 
-using namespace GFX;
-void G_BUFFER_DrawPass::Creation() {
-	GFX_Core::SELF->Check_GL_Errors("Before G-Buffer Creation!");
-	NAME = "G-Buffer";
+#include <string>
 
-	//Set depth modes!
-	DEPTHBUFFER_MODE = GFX_ENUM::DEPTH_READ_WRITE;
-	DEPTHTEST_MODE = GFX_ENUM::DEPTH_TEST_LESS;		 //Reversed depth!
-	/*
-	FRAMEBUFFER = GFX_API::RENDERER->Create_Framebuffer(1920, 1080);
-
-	
-	GFX_API::RENDERER->Bind_Framebuffer(FRAMEBUFFER);
-	//First Render Texture is Color
-	GFX_API::RENDERER->Create_RenderTarget(FRAMEBUFFER, FRAMEBUFFER->WIDTH, FRAMEBUFFER->HEIGHT, TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D, GFX_ENUM::GFX_COLORTEXTURE_FORMAT,
-		GFX_ENUM::GFX_TEXTURE_COLOR0_ATTACHMENT, TuranAPI::TuranAPI_ENUMs::VAR_UBYTE8);
-	//Second Render Texture is Depth
-	GFX_API::RENDERER->Create_RenderTarget(FRAMEBUFFER, FRAMEBUFFER->WIDTH, FRAMEBUFFER->HEIGHT, TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D, GFX_ENUM::GFX_DEPTHTEXTURE_FORMAT,
-		GFX_ENUM::GFX_TEXTURE_DEPTH_ATTACHMENT, TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32);
-	GFX_API::RENDERER->Attach_RenderTargets_to_Framebuffer(FRAMEBUFFER);
-	GFX_API::RENDERER->Check_ActiveFramebuffer_Status("G-Buffer");
-
-	DRAW_RESOURCE = new G_BUFFER_DrawResource(model_meshes);
-	cout << NAME << " Draw Pass Creation is done!\n";
-	*/
+unsigned int Main_DrawPass::Get_BitMaskFlag() {
+	return 1;
 }
 
-void G_BUFFER_DrawPass::Update_Resources() {
-	cout << "You forgot to code Update_Resources() of G_BUFFER_DrawPass!\n";
-	TuranAPI::Breakpoint();
+Main_DrawPass::Main_DrawPass(const Vector<GFX_API::DrawCall>& RG_DrawCallBuffer_, const Vector<GFX_API::RenderingComponent>& RG_RenderComponentBuffer_, Vector<GFX_API::Framebuffer::RT_SLOT>& Needed_RTSlots)
+	: DrawPass(RG_DrawCallBuffer_, RG_RenderComponentBuffer_, "Main Pass") {
+	GFX_API::Framebuffer::RT_SLOT Color0_SLOT;
+	Color0_SLOT.ATTACHMENT_TYPE = GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_COLOR0;
+	Color0_SLOT.RT_OPERATIONTYPE = GFX_API::OPERATION_TYPE::WRITE_ONLY;
+	Color0_SLOT.RT_READTYPE = GFX_API::RT_READSTATE::CLEAR;
+	Color0_SLOT.CLEAR_COLOR = vec3(0.2f, 0.3f, 0.3f);
+	//These should be set by RenderGraph!
+	Color0_SLOT.HEIGTH = 0; Color0_SLOT.WIDTH = 0; Color0_SLOT.RT_ID = 0;
+	Needed_RTSlots.push_back(Color0_SLOT);
+
+
+	GFX_API::Framebuffer::RT_SLOT Depth_SLOT;
+	Depth_SLOT.ATTACHMENT_TYPE = GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_DEPTH;
+	Depth_SLOT.RT_OPERATIONTYPE = GFX_API::OPERATION_TYPE::WRITE_ONLY;
+	Depth_SLOT.RT_READTYPE = GFX_API::RT_READSTATE::CLEAR;
+	Depth_SLOT.CLEAR_COLOR = vec3(1);						//Reversed Depth
+	//These should be set by RenderGraph!
+	Depth_SLOT.HEIGTH = 0; Depth_SLOT.WIDTH = 0; Depth_SLOT.RT_ID = 0;
+	Needed_RTSlots.push_back(Depth_SLOT);
 }
 
-void G_BUFFER_DrawPass::Render_Loop() {
-	/*
-	cout << "G-Buffer Render Loop is started to run!\n";
-	GFX_API::GFX_API_OBJ->Check_GL_Errors("Before Render Loop!");
+void Main_DrawPass::RenderGraph_SetupPhase(Vector<GFX_API::Framebuffer::RT_SLOT>& RTs) {
+	Is_SetupPhase_Called = true;
 
-	GFX_API::RENDERER->Set_Depth_Test(DEPTHTEST_MODE, DEPTHBUFFER_MODE);
+	FRAMEBUFFER = GFXContentManager->Create_Framebuffer();
 
-	GFX_API::GFX_API_OBJ->Check_GL_Errors("Before Binding Framebuffer!");
-	GFX_API::RENDERER->Bind_Framebuffer(FRAMEBUFFER);
-	GFX_API::RENDERER->Clear_RenderTarget(FRAMEBUFFER, GFX_ENUM::GFX_TEXTURE_COLOR0_ATTACHMENT, vec3(0.2f, 0.3f, 0.3f));
-	GFX_API::RENDERER->Clear_RenderTarget(FRAMEBUFFER, GFX_ENUM::GFX_TEXTURE_DEPTH_ATTACHMENT, vec3(1));		//Reversed Depth!
-	
-	
+	GFXContentManager->Attach_RenderTarget_toFramebuffer(RTs[0].RT_ID, GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_COLOR0, FRAMEBUFFER);
+	GFXContentManager->Attach_RenderTarget_toFramebuffer(RTs[1].RT_ID, GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_DEPTH, FRAMEBUFFER);
+
+	//You don't need to check if attachments are succesful, if they fail then application's not gonna reach here!
+	TuranAPI::LOG_STATUS("G-Buffer Draw Pass Creation is done!");
+}
+void Main_DrawPass::ResourceUpdatePhase() {
+	if (!Is_SetupPhase_Called) {
+		TuranAPI::LOG_CRASHING("You should call RenderGraph_SetupPhase first!");
+	}
+	TuranAPI::LOG_NOTCODED("You forgot to code Update_Resources() of G_BUFFER_DrawPass!\n", true);
+}
+void Main_DrawPass::Execute() {
+	if (!Is_SetupPhase_Called) {
+		TuranAPI::LOG_CRASHING("You should call RenderGraph_SetupPhase first!");
+	}
+	TuranAPI::LOG_STATUS("G-Buffer Render Loop is started to run!");
+
+
+	GFXRENDERER->Bind_Framebuffer(FRAMEBUFFER);
+
 	mat4 proj_mat = perspective(radians(45.0f), float(1920.0f / 1080.0f), 0.1f, 10000.0f);
 	mat4 view_mat;
 	view_mat = translate(view_mat, vec3(0, -8,-22));
 	mat4 world_transform;
 
-	static TuranAPI::File_System::Material_Instance* material_inst = TuranAPI::File_System::Material_Instance::Find_MaterialInstance_byName("SurfaceInst_Default");
-	material_inst->Set_Uniform_Data("projection_matrix", value_ptr(proj_mat));
-	material_inst->Set_Uniform_Data("view_matrix", value_ptr(view_mat));
-	material_inst->Set_Uniform_Data("world_transform", value_ptr(world_transform));
-
-	//For each mesh in the Draw Pass!
-	G_BUFFER_DrawResource* gbuffer_resource = (G_BUFFER_DrawResource*)DRAW_RESOURCE;
-	unsigned int RenderMesh_Number = gbuffer_resource->Static_VAOs.size();
-	cout << "Mesh number that will be rendered: " << RenderMesh_Number << endl;
-
-	for (unsigned int mesh_index = 0; mesh_index < RenderMesh_Number; mesh_index++) {
-		GFX_API::RENDERER->Bind_Material_Instance(material_inst);
-
-
-		GFX_API::GFX_API_OBJ->Check_GL_Errors(string("Before binding uniforms of a mesh in G-Buffer that mesh_index: " + to_string(mesh_index) + " Draw Pass!"));
-		GFX_API::RENDERER->Draw_Indexed_Objects(vector<void*>{(void*)& gbuffer_resource->Static_VAOs[mesh_index]}, vector<unsigned int>{gbuffer_resource->Static_Indice_Numbers[mesh_index]});
+	//Status Report!
+	{
+		String Before_RenderStatus;
+		Before_RenderStatus.append("Mesh number that will be rendered: ");
+		Before_RenderStatus.append(std::to_string(DrawCallBuffer.size()).c_str());
+		TuranAPI::LOG_STATUS(Before_RenderStatus);
 	}
-	*/
-	cout << "G-Buffer Render Loop is finished!\n";
+	
+	for (unsigned int drawcall_index = 0; drawcall_index < DrawCallBuffer.size(); drawcall_index++) {
+		GFX_API::DrawCall& DrawCall = RG_DrawCallBuffer[DrawCallBuffer[drawcall_index]];
+
+		GFXRENDERER->Bind_MatInstance(DrawCall.ShaderInstance_ID);
+		GFXRENDERER->Draw(DrawCall.MeshBuffer_ID);
+	}
+	TuranAPI::LOG_STATUS("G-Buffer Render Loop is finished!");
 }

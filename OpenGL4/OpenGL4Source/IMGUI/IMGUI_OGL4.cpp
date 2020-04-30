@@ -1,6 +1,6 @@
 #include "IMGUI_OGL4.h"
 
-#include "TuranAPI/IMGUI/Includes/imgui.h"
+#include "GFXSource/IMGUI/Includes/imgui.h"
 #include "imgui_impl_glfw.h"
 //We are using our own OpenGL loading function in OGL3_SYS
 #define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
@@ -9,7 +9,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "TuranAPI/API_Logger.h"
+#include "TuranAPI/Logger/Logger_Core.h"
 
 namespace OpenGL4 {
 	//Give GLFW callbacks and OpenGL4 to IMGUI!

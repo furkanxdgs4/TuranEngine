@@ -1,21 +1,8 @@
 #include "GFX_Resource.h"
 
-namespace GFX{
-	unsigned int RenderTarget::Get_ID() const {
-		return ID;
-	}
-
-
-
-	Framebuffer::Framebuffer(unsigned int width, unsigned int height) : WIDTH(width), HEIGHT(height) {
+namespace GFX_API{
+	Framebuffer::Framebuffer() : BOUND_RTs(LASTUSEDALLOCATOR, 1, 3) {
 
 	}
 
-
-
-	vector<GPU_MESH*> GPU_MESH::ALL_GPU_MESHes = vector<GPU_MESH*>{};
-
-	GPU_MESH::GPU_MESH() {
-		ALL_GPU_MESHes.push_back(this);
-	}
 }

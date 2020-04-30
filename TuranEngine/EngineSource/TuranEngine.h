@@ -1,28 +1,34 @@
 #pragma once
 #include "Engine_Includes.h"
+#include "GFXSource/GFX_Core.h"
+#include "FileSystem/Engine_FileSystem.h"
 
-#include "Graphics/SYSTEM_INSPECTOR.h"
+namespace Engine {
+	using ShouldEngineWait_Callback = bool (*)();
 
-//Get engine systems
-#include "Engine/ENGINE_HEADER.h"
+	class ENGINE TuranEngine_Core {
+		bool ShouldApplicationClose;
+		String ApplicationClose_Reason;
 
+		void Start_GFX(TuranAPI::TAPI_Systems* TAPISystems);
+		ShouldEngineWait_Callback Waiting_inClose_Callback;
+	public:
+		TuranEngine_Core(TuranAPI::TAPI_Systems* TAPISystems);
+		~TuranEngine_Core();
 
-class ENGINE TuranEngine {
-	//Turan Engine doesn't work as object! So, this is a empty constructor!
-	TuranEngine();
+		static TuranEngine_Core* SELF;
+		static GFX_API::GFX_Core* Get_GFXSystems();
 
-	static bool ShouldApplicationClose;
-	static string ApplicationClose_Reason;
+		void Take_Inputs();
+		void Close_Engine(const char* reason);
+		bool ShouldEngine_Close();
+		const char* Why_Engine_Closed();
+		void SetEngineClosing_Callback(ShouldEngineWait_Callback Callback_Function);
+		ShouldEngineWait_Callback GetEngineClosing_Callback();
+	};
 
-	static void Start_GFX();
-public:
-	//Access GFX from everywhere in an application that uses TuranEngine!
-	//But please, don't change or delete the pointer!
-	static GFX::GFX_Core* GFX;
+	ENGINE TuranEngine_Core* Start_EngineDLL(TuranAPI::TAPI_Systems* TAPISystems);
+	ENGINE void Close_EngineDLL();
+}
 
-	static void Start_Engine();
-	static void Take_Inputs();
-	static void Close_Engine(string reason);
-	static bool ShouldEngine_Close();
-	static string Why_Engine_Closed();
-};
+#define TuranEngine Engine::TuranEngine_Core::SELF

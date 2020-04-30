@@ -1,212 +1,222 @@
 #include "Properties_Window.h"
-#include "TuranAPI/API_IMGUI.h"
-#include "TuranAPI/API_FileSystem.h"
+#include "TuranAPI/FileSystem/GameObjects/GameComponents/GameComponentTypes.h"
+#include "EditorSource/FileSystem/GameObjects/Camera_Component.h"
+#include "EditorSource/FileSystem/GameObjects/StaticModel_Component.h"
+#include "TuranAPI/FileSystem/Resource_Types/ResourceTYPEs.h"
+#include "GFXSource/GFX_FileSystem/Resource_Type/Texture_Resource.h"
+#include "GFXSource/GFX_Core.h"
+#include "EditorSource/FileSystem/EditorFileSystem_Core.h"
 
-using namespace TuranAPI::Game_Object;
-using namespace TuranAPI::IMGUI;
-using namespace TuranAPI::File_System;
+#include "EditorSource/RenderContext/Game_RenderGraph.h"
+#include "EditorSource/RenderContext/Draw Passes/Draw_Passes.h"
 
-ResourceProperties_Window::ResourceProperties_Window(TuranAPI::File_System::Resource_Type* resource) : IMGUI_WINDOW(resource->NAME) {
-	RESOURCE = resource;
-}
+#include <string>
 
-vector<string> UNIFORM_VAR_TYPE_NAMEs = { "Unsigned Integer 32-bit", "Integer 32-bit", "Float 32-bit", "Vec2 (2 float)", "Vec3 (3 float)", "Vec4 (4 float)", "Matrix 4x4", "Texture 2D" };
-string Find_UNIFORM_VARTYPE_Name(TuranAPI::TuranAPI_ENUMs uniform_var_type);
-void Show_MaterialType_Properties(TuranAPI::File_System::Resource_Type* resource);
-void Show_Model_Properties(TuranAPI::File_System::Resource_Type* resource);
-void Show_MaterialInstance_Properties(TuranAPI::File_System::Resource_Type* resource);
-void Show_Texture_Properties(TuranAPI::File_System::Resource_Type* resource);
+using namespace TuranAPI;
 
-void ResourceProperties_Window::Run_Window() {
-	if (!Is_Window_Open) {
-		delete this;
-		return;
-	}
-	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
-		IMGUI::End_Window();
-		return;
-	}
-	switch (RESOURCE->Get_Resource_Type()) {
-	case TuranAPI::TuranAPI_ENUMs::MATERIAL_TYPE_RESOURCE:
-		Show_MaterialType_Properties(RESOURCE);
-		break;
-	case TuranAPI::TuranAPI_ENUMs::TEXTURE_RESOURCE:
-		Show_Texture_Properties(RESOURCE);
-		break;
-	case TuranAPI::TuranAPI_ENUMs::MATERIAL_INSTANCE_RESOURCE:
-		Show_MaterialInstance_Properties(RESOURCE);
-		break;
-	case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_RESOURCE:
-		Show_Model_Properties(RESOURCE);
-		break;
-	default:
-		cout << "This type's properties can't be shown by Properties Window!\n";
-		this_thread::sleep_for(chrono::seconds(10));
-	}
-	IMGUI::End_Window();
-}
+namespace TuranEditor {
+	ResourceProperties_Window::ResourceProperties_Window(TuranAPI::Resource_Type* resource) : IMGUI_WINDOW(resource->NAME) {
+		RESOURCE = resource;
+		IMGUI_REGISTERWINDOW(this);
 
-void Show_MaterialType_Properties(TuranAPI::File_System::Resource_Type* resource) {
-	TuranAPI::File_System::Material_Type_Resource* material_type_resource = (TuranAPI::File_System::Material_Type_Resource*)resource;
-	
-	IMGUI::Text("Material Type Name: " + material_type_resource->NAME);
-	IMGUI::Text("Vertex Source:");
-	IMGUI::Text(material_type_resource->VERTEX_SOURCE);
-	IMGUI::Text("Fragment Source:");
-	IMGUI::Text(material_type_resource->FRAGMENT_SOURCE + "\n\n");
-
-
-	if (IMGUI::IMGUI::Begin_Tree("Uniform List")) {
-		for (unsigned int i = 0; i < material_type_resource->UNIFORMs.size(); i++) {
-			TuranAPI::File_System::Material_Uniform* UNIFORM = &material_type_resource->UNIFORMs[i];
-
-			if (IMGUI::IMGUI::Begin_Tree(to_string(i))) {
-				IMGUI::IMGUI::Text("Uniform Name: " + UNIFORM->VARIABLE_NAME);
-				IMGUI::IMGUI::Text("Uniform Variable Type: " + Find_UNIFORM_VARTYPE_Name(UNIFORM->VARIABLE_TYPE));
-				IMGUI::IMGUI::End_Tree();
+		if (RESOURCE->Get_Type() == RESOURCETYPEs::EDITOR_STATICMODEL) {
+			RenderGraph = new Game_RenderGraph;
+			Static_Model_Data* MODEL = (Static_Model_Data*)RESOURCE;
+			Vector<unsigned int> MESHIDs = MODEL->Upload_toGPU();
+			for (unsigned int i = 0; i < MESHIDs.size(); i++) {
+				GFX_API::DrawCall Call;
+				Call.JoinedDrawPasses = Main_DrawPass::Get_BitMaskFlag();
+				Call.MeshBuffer_ID = MESHIDs[i];
+				Call.ShaderInstance_ID = 0;
+				RenderGraph->Register_DrawCall(Call);
 			}
 		}
-		IMGUI::IMGUI::End_Tree();
 	}
-}
+	void Show_MaterialType_Properties(TuranAPI::Resource_Type* resource);
+	void Show_Model_Properties(TuranAPI::Resource_Type* resource);
+	void Show_MaterialInstance_Properties(TuranAPI::Resource_Type* resource);
+	void Show_Texture_Properties(TuranAPI::Resource_Type* resource);
 
-void Show_MaterialInstance_Properties(TuranAPI::File_System::Resource_Type* resource) {
-	TuranAPI::File_System::Material_Instance* material_instance_resource = (TuranAPI::File_System::Material_Instance*)resource;
+	void ResourceProperties_Window::Run_Window() {
+		if (!Is_Window_Open) {
+			IMGUI_DELETEWINDOW(this);
+			return;
+		}
+		if (!IMGUI->Create_Window(Window_Name, Is_Window_Open, false)) {
+			IMGUI->End_Window();
+			return;
+		}
+		switch (RESOURCE->Get_Type()) {
+		case RESOURCETYPEs::EDITOR_STATICMODEL:
+			Show_Model_Properties(RESOURCE);
+			break;
+		case RESOURCETYPEs::GFXAPI_TEXTURE:
+			Show_Texture_Properties(RESOURCE);
+			break;
+		case RESOURCETYPEs::GFXAPI_MATTYPE:
+			Show_MaterialType_Properties(RESOURCE);
+			break;
+		case RESOURCETYPEs::GFXAPI_MATINST:
+			Show_MaterialInstance_Properties(RESOURCE);
+			break;
+		default:
+			TuranAPI::LOG_ERROR("This type's properties can't be shown by Properties Window!");
+			SLEEP_THREAD(5);
+		}
+		IMGUI->End_Window();
+	}
 
-	IMGUI::Text("Material Instance Name: " + material_instance_resource->NAME);
-	IMGUI::Text("Material Type Name: " + material_instance_resource->Material_Type->NAME);
-	IMGUI::Text("Vertex Source:");
-	IMGUI::Text(material_instance_resource->Material_Type->VERTEX_SOURCE);
-	IMGUI::Text("Fragment Source:");
-	IMGUI::Text(material_instance_resource->Material_Type->FRAGMENT_SOURCE + "\n\n");
+	void Show_MaterialType_Properties(TuranAPI::Resource_Type* resource) {
+		GFX_API::Material_Type_Resource* material_type_resource = (GFX_API::Material_Type_Resource*)resource;
+		String MatTypeName = "Material Type Name: ";
+		MatTypeName.append(material_type_resource->NAME);
+		IMGUI->Text(MatTypeName);
 
 
-	if (IMGUI::IMGUI::Begin_Tree("Uniform List")) {
-		for (unsigned int i = 0; i < material_instance_resource->UNIFORM_LIST.size(); i++) {
-			TuranAPI::File_System::Material_Uniform* UNIFORM = &material_instance_resource->UNIFORM_LIST[i];
+		if (IMGUI->Begin_Tree("Uniform List")) {
+			for (unsigned int i = 0; i < material_type_resource->UNIFORMs.size(); i++) {
+				GFX_API::Material_Uniform* UNIFORM = &material_type_resource->UNIFORMs[i];
 
-			if (IMGUI::IMGUI::Begin_Tree(to_string(i))) {
-				IMGUI::IMGUI::Text("Uniform Name: " + UNIFORM->VARIABLE_NAME);
-				IMGUI::IMGUI::Text("Uniform Variable Type: " + Find_UNIFORM_VARTYPE_Name(UNIFORM->VARIABLE_TYPE));
-				if (UNIFORM->VARIABLE_TYPE == TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D
-					&& UNIFORM->DATA) {
-						IMGUI::IMGUI::Text("Texture ID: " + *(unsigned int*)UNIFORM->DATA);
+				if (IMGUI->Begin_Tree("number->string isn't supported yet!")) {
+					String UniformName = "Uniform Name: ";
+					UniformName.append(UNIFORM->VARIABLE_NAME);
+					IMGUI->Text(UniformName);
+					IMGUI->Text(("Uniform Variable Type: " + std::string(Find_UNIFORM_VARTYPE_Name(UNIFORM->VARIABLE_TYPE))).c_str());
+					IMGUI->End_Tree();
 				}
-				IMGUI::IMGUI::End_Tree();
 			}
+			IMGUI->End_Tree();
 		}
-		IMGUI::IMGUI::End_Tree();
-	}
-}
-
-
-void Show_Texture_Properties(TuranAPI::File_System::Resource_Type* resource) {
-	TuranAPI::File_System::Texture_Resource* TEXTURE = (TuranAPI::File_System::Texture_Resource*)resource;
-	IMGUI::Display_Texture(&TEXTURE->GL_ID, 1024, 1024);
-}
-
-void Show_Model_Properties(TuranAPI::File_System::Resource_Type* resource) {
-	TuranAPI::File_System::Static_Model_Data* model_data_resource = (TuranAPI::File_System::Static_Model_Data*)resource;
-
-	IMGUI::Text("Model Name: " + model_data_resource->NAME);
-	IMGUI::Text("Mesh Number: " + to_string(model_data_resource->Get_Mesh_Number()));
-}
-
-string Find_UNIFORM_VARTYPE_Name(TuranAPI::TuranAPI_ENUMs uniform_var_type) {
-	switch (uniform_var_type) {
-	case TuranAPI::TuranAPI_ENUMs::VAR_UINT32:
-		return UNIFORM_VAR_TYPE_NAMEs[0];
-	case TuranAPI::TuranAPI_ENUMs::VAR_INT32:
-		return UNIFORM_VAR_TYPE_NAMEs[1];
-	case TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32:
-		return UNIFORM_VAR_TYPE_NAMEs[2];
-	case TuranAPI::TuranAPI_ENUMs::VAR_VEC2:
-		return UNIFORM_VAR_TYPE_NAMEs[3];
-	case TuranAPI::TuranAPI_ENUMs::VAR_VEC3:
-		return UNIFORM_VAR_TYPE_NAMEs[4];
-	case TuranAPI::TuranAPI_ENUMs::VAR_VEC4:
-		return UNIFORM_VAR_TYPE_NAMEs[5];
-	case TuranAPI::TuranAPI_ENUMs::VAR_MAT4x4:
-		return UNIFORM_VAR_TYPE_NAMEs[6];
-	case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D:
-		return UNIFORM_VAR_TYPE_NAMEs[7];
-	default:
-		return "Error, Uniform_Var_Type isn't supported by Find_UNIFORM_VARTYPE_Name!\n";
-	}
-}
-
-
-
-
-
-void Show_StaticModelComp_Properties(TuranAPI::Game_Object::GameComponent* Component);
-void Show_CameraComp_Properties(TuranAPI::Game_Object::GameComponent* Component);
-
-GameComponentProperties_Window::GameComponentProperties_Window(TuranAPI::Game_Object::GameComponent* gamecomponent) : IMGUI_WINDOW("Game Component Properties"), GAMECOMPONENT(gamecomponent) {}
-void GameComponentProperties_Window::Run_Window() {
-	if (!Is_Window_Open) {
-		delete this;
-		return;
-	}
-	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
-		IMGUI::End_Window();
-		return;
-	}
-	switch (GAMECOMPONENT->Get_Component_Type()) {
-	case TuranAPI::TuranAPI_ENUMs::STATIC_MODEL_COMP:
-		Show_StaticModelComp_Properties(GAMECOMPONENT);
-		break;
-	case TuranAPI::TuranAPI_ENUMs::CAMERA_COMP:
-		Show_CameraComp_Properties(GAMECOMPONENT);
-		break;
-	default:
-		cout << "ERROR: Intended Component Type isn't supported by Properties Window!\n";
-		TuranAPI::Breakpoint();
 	}
 
+	void Show_MaterialInstance_Properties(TuranAPI::Resource_Type* resource) {
+		GFX_API::Material_Instance* material_instance_resource = (GFX_API::Material_Instance*)resource;
+		String MatInstName = "Material Instance Name: ";
+		MatInstName.append(material_instance_resource->NAME);
+		IMGUI->Text(MatInstName);
+		String MatTypeName = "Material Type Name: ";
+		MatTypeName.append(material_instance_resource->Material_Type->NAME);
+		IMGUI->Text(MatTypeName);
 
-	IMGUI::End_Window();
-}
 
-void Show_StaticModelComp_Properties(TuranAPI::Game_Object::GameComponent* Component) {
-	StaticModel_Component* COMP = (StaticModel_Component*)Component;
-	IMGUI::Text("Component Name: " + COMP->NAME);
-	IMGUI::Text("Model Name: " + COMP->MODEL->NAME);
-	if (IMGUI::Begin_Tree("Material Instances")) {
-		for (unsigned int i = 0; i < COMP->MATERIALs.size(); i++) {
-			Material_Instance* MatInst = COMP->MATERIALs[i];
-			if (IMGUI::Begin_Tree(to_string(i))) {
-				IMGUI::Text(MatInst->NAME);
-				IMGUI::End_Tree();
+		if (IMGUI->Begin_Tree("Uniform List")) {
+			for (unsigned int i = 0; i < material_instance_resource->UNIFORM_LIST.size(); i++) {
+				GFX_API::Material_Uniform* UNIFORM = &material_instance_resource->UNIFORM_LIST[i];
+
+				if (IMGUI->Begin_Tree("number->string isn't supported yet!")) {
+					String UniformName = "Uniform Name: ";
+					UniformName.append(UNIFORM->VARIABLE_NAME);
+					IMGUI->Text(UniformName);
+					IMGUI->Text(("Uniform Variable Type: " + std::string(Find_UNIFORM_VARTYPE_Name(UNIFORM->VARIABLE_TYPE))).c_str());
+					if (UNIFORM->VARIABLE_TYPE == GFX_API::UNIFORMTYPE::TEXTURE2D && UNIFORM->DATA) {
+						IMGUI->Text("Texture ID: number->string isn't supported yet!");
+					}
+					IMGUI->End_Tree();
+				}
 			}
+			IMGUI->End_Tree();
 		}
-		IMGUI::End_Tree();
 	}
 
-}
-void Show_CameraComp_Properties(TuranAPI::Game_Object::GameComponent* Component) {
-	
-	Camera_Component* COMP = (Camera_Component*)Component;
-	IMGUI::Text("Component Name: " + COMP->NAME);
-	vec3 Position = COMP->Get_Position();
-	vec3 Target = COMP->Get_Target();
-	int FOV_inAngle = COMP->Get_FOV_inAngle();
-	vec2 Aspect_Width_and_Height = COMP->Get_Aspect_Width_and_Height();
-	vec2 Near_and_FarPlane = COMP->Get_Near_and_FarPlane();
 
-	if (IMGUI::Slider_Vec3("Position", &Position, -1000, 1000)) {
-		COMP->Translate(Position);
+	void Show_Texture_Properties(TuranAPI::Resource_Type* resource) {
+		GFX_API::Texture_Resource* TEXTURE = (GFX_API::Texture_Resource*)resource;
+		std::cout << "ID: " << TEXTURE->ID << std::endl;
+		IMGUI->Text(GFX_API::Find_UNIFORM_VARTYPE_Name(TEXTURE->Properties.VALUE_TYPE));
+		IMGUI->Display_Texture(&TEXTURE->ID, TEXTURE->WIDTH, TEXTURE->HEIGHT);
 	}
-	if (IMGUI::Slider_Vec3("Target", &Target, -1000, 1000)) {
-		COMP->Set_Camera_Target(Target);
+
+	void Show_Model_Properties(TuranAPI::Resource_Type* resource) {
+		Static_Model_Data* model_data_resource = (Static_Model_Data*)resource;
+		String ModelName = "Model Name: ";
+		ModelName.append(model_data_resource->NAME);
+		IMGUI->Text(ModelName);
+		String Mesh_Number = "Mesh Number: ";
+		Mesh_Number.append(std::to_string(model_data_resource->MESHes.size()).c_str());
+		IMGUI->Text(Mesh_Number);
+
 	}
-	if (IMGUI::Slider_Int("FOV in angle", &FOV_inAngle, 0, 179)) {
-		COMP->Set_Camera_Properties(FOV_inAngle, Aspect_Width_and_Height.x, Aspect_Width_and_Height.y, Near_and_FarPlane.x, Near_and_FarPlane.y);
+
+
+
+
+
+
+	void Show_StaticModelComp_Properties(TuranAPI::GameComponent* Component);
+	void Show_CameraComp_Properties(TuranAPI::GameComponent* Component);
+
+	GameComponentProperties_Window::GameComponentProperties_Window(TuranAPI::GameComponent* gamecomponent) : IMGUI_WINDOW("Game Component Properties"), GAMECOMPONENT(gamecomponent) {}
+	void GameComponentProperties_Window::Run_Window() {
+		if (!Is_Window_Open) {
+			IMGUI_DELETEWINDOW(this);
+			return;
+		}
+		if (!IMGUI->Create_Window(Window_Name, Is_Window_Open, false)) {
+			IMGUI->End_Window();
+			return;
+		}
+		switch (GAMECOMPONENT->TYPE) {
+		case GameComponentType::STATIC_MODEL_C:
+			Show_StaticModelComp_Properties(GAMECOMPONENT);
+			break;
+		case GameComponentType::CAMERA_C:
+			Show_CameraComp_Properties(GAMECOMPONENT);
+			break;
+		default:
+			std::cout << "ERROR: Intended Component Type isn't supported by Properties Window!\n";
+			TuranAPI::Breakpoint();
+		}
+
+
+		IMGUI->End_Window();
 	}
-	if (IMGUI::Slider_Vec2("Aspect Width and Height", &Aspect_Width_and_Height, 0, 2000)) {
-		COMP->Set_Camera_Properties(FOV_inAngle, Aspect_Width_and_Height.x, Aspect_Width_and_Height.y, Near_and_FarPlane.x, Near_and_FarPlane.y);
+
+	void Show_StaticModelComp_Properties(TuranAPI::GameComponent* Component) {
+		StaticModel_Component* COMP = (StaticModel_Component*)Component;
+		String ComponentName = "Component Name: ";
+		ComponentName.append(COMP->NAME);
+		IMGUI->Text(ComponentName);
+		String ModelName = "Model Name: ";
+		ModelName.append(COMP->MODEL->NAME);
+		IMGUI->Text(ModelName);
+		if (IMGUI->Begin_Tree("Material Instances")) {
+			for (unsigned int i = 0; i < COMP->MATERIALs.size(); i++) {
+				GFX_API::Material_Instance* MatInst = COMP->MATERIALs[i];
+				if (IMGUI->Begin_Tree("number->string isn't supported yet!")) {
+					IMGUI->Text(MatInst->NAME);
+					IMGUI->End_Tree();
+				}
+			}
+			IMGUI->End_Tree();
+		}
+
 	}
-	if (IMGUI::Slider_Vec2("Near and Far Plane", &Near_and_FarPlane, 0, 100000)) {
-		COMP->Set_Camera_Properties(FOV_inAngle, Aspect_Width_and_Height.x, Aspect_Width_and_Height.y, Near_and_FarPlane.x, Near_and_FarPlane.y);
+	void Show_CameraComp_Properties(TuranAPI::GameComponent* Component) {
+		Camera_Component* COMP = (Camera_Component*)Component;
+		String ComponentName = "Component Name: ";
+		ComponentName.append(COMP->NAME);
+		IMGUI->Text(ComponentName);
+		vec3 Position = COMP->Get_Position();
+		vec3 Target = COMP->Get_Target();
+		int FOV_inAngle = COMP->Get_FOV_inAngle();
+		vec2 Aspect_Width_and_Height = COMP->Get_Aspect_Width_and_Height();
+		vec2 Near_and_FarPlane = COMP->Get_Near_and_FarPlane();
+
+		if (IMGUI->Slider_Vec3("Position", &Position, -1000, 1000)) {
+			COMP->Translate(Position);
+		}
+		if (IMGUI->Slider_Vec3("Target", &Target, -1000, 1000)) {
+			COMP->Set_Camera_Target(Target);
+		}
+		if (IMGUI->Slider_Int("FOV in angle", &FOV_inAngle, 0, 179)) {
+			COMP->Set_Camera_Properties(FOV_inAngle, Aspect_Width_and_Height.x, Aspect_Width_and_Height.y, Near_and_FarPlane.x, Near_and_FarPlane.y);
+		}
+		if (IMGUI->Slider_Vec2("Aspect Width and Height", &Aspect_Width_and_Height, 0, 2000)) {
+			COMP->Set_Camera_Properties(FOV_inAngle, Aspect_Width_and_Height.x, Aspect_Width_and_Height.y, Near_and_FarPlane.x, Near_and_FarPlane.y);
+		}
+		if (IMGUI->Slider_Vec2("Near and Far Plane", &Near_and_FarPlane, 0, 100000)) {
+			COMP->Set_Camera_Properties(FOV_inAngle, Aspect_Width_and_Height.x, Aspect_Width_and_Height.y, Near_and_FarPlane.x, Near_and_FarPlane.y);
+		}
 	}
+
 }

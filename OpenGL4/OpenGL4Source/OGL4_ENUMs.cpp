@@ -1,131 +1,134 @@
 #include "OGL4_ENUMs.h"
 
-//OpenGL3 Libs
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
-#include "TuranAPI/API_includes.h"
-#include "TuranAPI/API_Profiler.h"
-#include "TuranAPI/API_Logger.h"
 using namespace TuranAPI;
-using namespace GFX;
+using namespace GFX_API;
 
 namespace OpenGL4 {
-	unsigned int Find_Texture_Attachment_Type(GFX_ENUM attachment) {
-		switch (attachment) {
-		case GFX_ENUM::TEXTURE_ATTACHMENT_COLOR0:
-			return GL_COLOR_ATTACHMENT0;
-		case GFX_ENUM::TEXTURE_ATTACHMENT_DEPTH:
-			return GL_DEPTH_ATTACHMENT;
-
-		default:
-			LOG_NOTCODED("Intended Texture Attachment isn't supported by OpenGL3 for now", true);
-			this_thread::sleep_for(chrono::seconds(5));
-			return NULL;
-		}
-	}
-
-	unsigned int Find_Texture_Dimension(TuranAPI_ENUMs dimension) {
+	unsigned int Find_Texture_Dimension(TEXTURE_DIMENSIONs dimension) {
 		switch (dimension) {
-		case TuranAPI_ENUMs::API_TEXTURE_2D:
+		case TEXTURE_DIMENSIONs::TEXTURE_2D:
 			return GL_TEXTURE_2D;
 		default:
-			LOG_NOTCODED("Intended Texture Dimension isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
+			LOG_CRASHING("Intended Texture Dimension isn't supported by OpenGL4 for now!");
 			return NULL;
 		}
 	}
 
-	unsigned int Find_Texture_Format(GFX_ENUM format) {
-		switch (format) {
-		case GFX_ENUM::COLORTEXTURE_FORMAT:
-			return GL_RGBA;
-		case GFX_ENUM::DEPTHTEXTURE_FORMAT:
-			return GL_DEPTH_COMPONENT;
-		default:
-			LOG_NOTCODED("Intended Texture Format isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
-			return NULL;
-		}
-	}
-
-	unsigned int Find_RenderTarget_Channel_Type(GFX_ENUM texture_format) {
-		switch (texture_format) {
-		case GFX_ENUM::COLORTEXTURE_FORMAT:
-			return GL_RGBA;
-		case GFX_ENUM::DEPTHTEXTURE_FORMAT:
-			return GL_DEPTH_COMPONENT;
-		default:
-			LOG_NOTCODED("Intended texture format isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
-			return NULL;
-		}
-	}
-
-	unsigned int Find_Texture_Channel_Type(TuranAPI::TuranAPI_ENUMs channel_type) {
-		switch (channel_type) {
-		case TuranAPI_ENUMs::API_TEXTURE_RGB:
+	unsigned int Find_Texture_Format(TEXTURE_CHANNELs channels) {
+		switch (channels) {
+		case TEXTURE_CHANNELs::API_TEXTURE_RGB:
 			return GL_RGB;
-		case TuranAPI_ENUMs::API_TEXTURE_RGBA:
+		case TEXTURE_CHANNELs::API_TEXTURE_RGBA:
 			return GL_RGBA;
 		default:
-			LOG_NOTCODED("Intended texture channel type isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
+			LOG_CRASHING("Intended Texture Format isn't supported by OpenGL4 for now!");
 			return NULL;
 		}
 	}
 
-	unsigned int Find_Texture_Value_Type(TuranAPI_ENUMs value_type) {
+	unsigned int Find_Texture_Channel_Type(TEXTURE_CHANNELs channel_type) {
+		switch (channel_type) {
+		case TEXTURE_CHANNELs::API_TEXTURE_RGB:
+			return GL_RGB;
+		case TEXTURE_CHANNELs::API_TEXTURE_RGBA:
+			return GL_RGBA;
+		default:
+			LOG_CRASHING("Intended texture channel type isn't supported by OpenGL4 for now!");
+			return NULL;
+		}
+	}
+
+	unsigned int Find_Texture_Value_Type(UNIFORMTYPE value_type) {
 		switch (value_type) {
-		case TuranAPI_ENUMs::VAR_UBYTE8:
+		case UNIFORMTYPE::VAR_UBYTE8:
 			return GL_UNSIGNED_BYTE;
-		case TuranAPI_ENUMs::VAR_BYTE8:
+		case UNIFORMTYPE::VAR_BYTE8:
 			return GL_BYTE;
-		case TuranAPI_ENUMs::VAR_UINT32:
+		case UNIFORMTYPE::VAR_UINT32:
 			return GL_UNSIGNED_INT;
-		case TuranAPI_ENUMs::VAR_INT32:
+		case UNIFORMTYPE::VAR_INT32:
 			return GL_INT;
-		case TuranAPI_ENUMs::VAR_FLOAT32:
+		case UNIFORMTYPE::VAR_FLOAT32:
 			return GL_FLOAT;
 		default:
-			LOG_NOTCODED("Intended Texture Value Type isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
+			LOG_CRASHING("Intended Texture Value Type isn't supported by OpenGL4 for now!");
 			return NULL;
 		}
 	}
 
-	unsigned int Find_Texture_Wrapping(TuranAPI_ENUMs wrapping) {
+	unsigned int Find_Texture_Wrapping(TEXTURE_WRAPPING wrapping) {
 		switch (wrapping) {
-		case TuranAPI_ENUMs::API_TEXTURE_REPEAT:
+		case TEXTURE_WRAPPING::API_TEXTURE_REPEAT:
 			return GL_REPEAT;
-		case TuranAPI_ENUMs::API_TEXTURE_MIRRORED_REPEAT:
+		case TEXTURE_WRAPPING::API_TEXTURE_MIRRORED_REPEAT:
 			return GL_MIRRORED_REPEAT;
-		case TuranAPI_ENUMs::API_TEXTURE_CLAMP_TO_EDGE:
+		case TEXTURE_WRAPPING::API_TEXTURE_CLAMP_TO_EDGE:
 			return GL_CLAMP_TO_EDGE;
 		default:
-			LOG_NOTCODED("Intended Wrapping Type isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
+			LOG_CRASHING("Intended Wrapping Type isn't supported by OpenGL4 for now!");
 			return NULL;
 		}
 	}
 
-	unsigned int Find_Texture_Mipmap_Filtering(TuranAPI_ENUMs mipmap_filter) {
+	unsigned int Find_Texture_Mipmap_Filtering(TEXTURE_MIPMAPFILTER mipmap_filter) {
 		switch (mipmap_filter) {
-		case TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_1MIP:
+		case TEXTURE_MIPMAPFILTER::API_TEXTURE_LINEAR_FROM_1MIP:
 			return GL_LINEAR;
-		case TuranAPI_ENUMs::API_TEXTURE_LINEAR_FROM_2MIP:
+		case TEXTURE_MIPMAPFILTER::API_TEXTURE_LINEAR_FROM_2MIP:
 			return GL_LINEAR_MIPMAP_LINEAR;
-		case TuranAPI_ENUMs::API_TEXTURE_NEAREST_FROM_1MIP:
+		case TEXTURE_MIPMAPFILTER::API_TEXTURE_NEAREST_FROM_1MIP:
 			return GL_NEAREST;
-		case TuranAPI_ENUMs::API_TEXTURE_NEAREST_FROM_2MIP:
+		case TEXTURE_MIPMAPFILTER::API_TEXTURE_NEAREST_FROM_2MIP:
 			return GL_NEAREST_MIPMAP_LINEAR;
 		default:
-			LOG_NOTCODED("Intended Mipmap Filtering Type isn't supported by OpenGL3 for now!", true);
-			this_thread::sleep_for(chrono::seconds(5));
+			LOG_CRASHING("Intended Mipmap Filtering Type isn't supported by OpenGL4 for now!");
+			return NULL;
+		}
+	}
+	unsigned int Find_ShaderStage(GFX_API::SHADER_STAGE shader_stage) {
+		switch (shader_stage) {
+		case GFX_API::SHADER_STAGE::VERTEXSTAGE:
+			return GL_VERTEX_SHADER;
+		case GFX_API::SHADER_STAGE::FRAGMENTSTAGE:
+			return GL_FRAGMENT_SHADER;
+		case GFX_API::SHADER_STAGE::COMPUTE:
+			return GL_COMPUTE_SHADER;
+		default:
+			LOG_CRASHING("Intended Shader Stage Type isn't supported by OpenGL4 for now!");
 			return NULL;
 		}
 	}
 
+
+	unsigned int Find_RenderTarget_Format_Type(TEXTURE_TYPEs texture_format) {
+		switch (texture_format) {
+		case TEXTURE_TYPEs::COLORTEXTURE:
+			return GL_RGBA;
+		case TEXTURE_TYPEs::DEPTHTEXTURE:
+			return GL_DEPTH_COMPONENT;
+		case TEXTURE_TYPEs::DEPTHSTENCIL:
+			return GL_DEPTH_STENCIL;
+		default:
+			LOG_CRASHING("Intended Render Target format isn't supported by OpenGL4 for now!", true);
+			return NULL;
+		}
+	}
+	unsigned int Find_RenderTarget_AttachmentType(RT_ATTACHMENTs attachment_type) {
+		switch (attachment_type) {
+		case RT_ATTACHMENTs::TEXTURE_ATTACHMENT_COLOR0:
+			return GL_COLOR_ATTACHMENT0;
+		case RT_ATTACHMENTs::TEXTURE_ATTACHMENT_DEPTH:
+			return GL_DEPTH_ATTACHMENT;
+		case RT_ATTACHMENTs::TEXTURE_ATTACHMENT_DEPTHSTENCIL:
+			return GL_DEPTH_STENCIL_ATTACHMENT;
+		default:
+			LOG_CRASHING("Intended Render Target attachment type isn't supported by OpenGL4 for now!", true);
+			return NULL;
+		}
+	}
 	//INPUT HANDLING!
 
 /*
@@ -203,23 +206,71 @@ int ENGINE Convert_MouseButton_to_GLFW_Key(MOUSE_BUTTONs Mouse_Button) {
 
 
 
-	unsigned int Find_GFX_DepthTest_Mode(GFX_ENUM depth_test) {
+	unsigned int Find_GFX_DepthTest_Mode(DEPTH_TESTs depth_test) {
 		switch (depth_test) {
-		case GFX_ENUM::DEPTH_TEST_ALWAYS:
+		case DEPTH_TESTs::DEPTH_TEST_ALWAYS:
 			return GL_ALWAYS;
-		case GFX_ENUM::DEPTH_TEST_GEQUAL:
+		case DEPTH_TESTs::DEPTH_TEST_GEQUAL:
 			return GL_GEQUAL;
-		case GFX_ENUM::DEPTH_TEST_GREATER:
+		case DEPTH_TESTs::DEPTH_TEST_GREATER:
 			return GL_GREATER;
-		case GFX_ENUM::DEPTH_TEST_LEQUAL:
+		case DEPTH_TESTs::DEPTH_TEST_LEQUAL:
 			return GL_LEQUAL;
-		case GFX_ENUM::DEPTH_TEST_LESS:
+		case DEPTH_TESTs::DEPTH_TEST_LESS:
 			return GL_LESS;
-		case GFX_ENUM::DEPTH_TEST_NEVER:
+		case DEPTH_TESTs::DEPTH_TEST_NEVER:
 			return GL_NEVER;
 		default:
 			LOG_NOTCODED("Intended Depth Test Mode can't be found! GL_NEVER is returned!", true);
 			return GL_NEVER;
+		}
+	}
+	
+	void Check_GL_Errors(const char* status) {
+		int error = glGetError();
+		//If there is a error, first print the status!
+		if (error != NULL) {
+			TuranAPI::LOG_ERROR(status);
+		}
+		else {
+			return;
+		}
+
+		//Print the error!
+		if (error == GL_INVALID_OPERATION) {
+			TuranAPI::LOG_ERROR("GL_INVALID_OPERATION!");
+		}
+		if (error == GL_INVALID_ENUM) {
+			TuranAPI::LOG_ERROR("GL_INVALID_ENUM!");
+		}
+		if (error == GL_INVALID_VALUE) {
+			TuranAPI::LOG_ERROR("GL_INVALID_VALUE!");
+		}
+		SLEEP_THREAD(10);
+	}
+
+	void Check_ActiveFramebuffer_Status(const char* Framebuffer_Name) {
+		String log;
+		int fb_status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (fb_status == GL_FRAMEBUFFER_COMPLETE) {
+			log.append("Framebuffer is completed, Name: ");
+			log.append(Framebuffer_Name);
+			TuranAPI::LOG_STATUS(log);
+		}
+		else if (fb_status == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT) {
+			log.append("Framebuffer has incomplete attachment, Name: ");
+			log.append(Framebuffer_Name);
+			TuranAPI::LOG_CRASHING(log);
+		}
+		else if (fb_status == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT) {
+			log.append("Framebuffer has incomplete missing attachment, Name: ");
+			log.append(Framebuffer_Name);
+			TuranAPI::LOG_CRASHING(log);
+		}
+		else if (fb_status == GL_FRAMEBUFFER_UNSUPPORTED) {
+			log.append("Framebuffer has unsupported type of attachment, Name: ");
+			log.append(Framebuffer_Name);
+			TuranAPI::LOG_CRASHING(log);
 		}
 	}
 }

@@ -1,8 +1,5 @@
 #pragma once
-#include "TuranAPI/API_includes.h"
-#include "GFX_ENUMs.h"
-#include "TuranAPI/API_Logger.h"
-#include "TuranAPI/API_Profiler.h"
+#include "TuranAPI/TuranAPI_Core.h"
 
 #ifdef WINDOWS10_FORENGINE
 	#ifdef GFX_BUILD

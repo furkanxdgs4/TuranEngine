@@ -15,22 +15,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GFXSource\Renderer\GFX_Renderer.h">
+    <ClInclude Include="GFXSource\GFX_FileSystem\Resource_Type\Material_Type_Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GFXSource\Renderer\GFX_RenderGraph.h">
+    <ClInclude Include="GFXSource\GFX_FileSystem\Resource_Type\Texture_Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GFXSource\GFX_Core.h">
+    <ClInclude Include="GFXSource\IMGUI\Includes\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GFXSource\GFX_ENUMs.h">
+    <ClInclude Include="GFXSource\IMGUI\Includes\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GFXSource\GFX_Includes.h">
+    <ClInclude Include="GFXSource\IMGUI\Includes\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GFXSource\GFX_FileSystem.h">
+    <ClInclude Include="GFXSource\IMGUI\Includes\imgui_stdlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\IMGUI\Includes\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\IMGUI\Includes\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\IMGUI\Includes\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\IMGUI\IMGUI_Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\IMGUI\IMGUI_GFX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\IMGUI\IMGUI_WINDOW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GFXSource\Renderer\GFX_APICommands.h">
@@ -39,36 +57,102 @@
     <ClInclude Include="GFXSource\Renderer\GFX_RenderCommands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GFXSource\Renderer\GFX_Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\Renderer\GFX_RenderGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GFXSource\Renderer\GFX_Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\Renderer\GPU_ContentManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\GFX_Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GFXSource\GFX_Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GFXSource\GFX_ENUMs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\GFX_Includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\GFX_FileSystem\DataFormats\GFXAPI_Resources_generated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GFXSource\GFX_FileSystem\Resource_Type\Texture_Resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_stdlib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\IMGUI_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\IMGUI\IMGUI_WINDOW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\Renderer\GFX_APICommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\Renderer\GFX_RenderCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GFXSource\Renderer\GFX_Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GFXSource\Renderer\GFX_RenderGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GFXSource\GFX_Core.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXSource\GFX_FileSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXSource\Renderer\GFX_RenderCommands.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GFXSource\Renderer\GFX_Resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\Renderer\GPU_ContentManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\TuranAPI\Bitset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\TuranAPI\MemoryManager_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\TuranAPI\TSTL_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\TuranAPI\Vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\GFX_Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GFXSource\GFX_Display.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GFXSource\Renderer\GFX_APICommands.cpp">
+    <ClCompile Include="GFXSource\GFX_ENUMs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\GFX_Includes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXSource\GFX_FileSystem\Resource_Type\Material_Type_Resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

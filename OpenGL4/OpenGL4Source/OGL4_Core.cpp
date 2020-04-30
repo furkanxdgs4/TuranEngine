@@ -1,11 +1,13 @@
 #include "OGL4_Core.h"
 #include "IMGUI/IMGUI_OGL4.h"
-#include "OGL4_FileSystem.h"
 #include "Renderer/OGL4_APICommands.h"
-using namespace TuranAPI::IMGUI;
+#include "TuranAPI/Logger/Logger_Core.h"
+#include "OGL4_Display.h"
+#include "Renderer/OGL4_GPUContentManager.h"
+using namespace TuranAPI;
 
 namespace OpenGL4 {
-	OpenGL4_Core::OpenGL4_Core() : GFX::GFX_Core() {
+	OpenGL4_Core::OpenGL4_Core() : GFX_API::GFX_Core() {
 		//Set static GFX_API variable to created OGL3_SYS, because there will only one GFX_API in run-time
 		//And we will use this GFX_API_OBJ to give commands to GFX_API in window callbacks
 		SELF = this;
@@ -18,54 +20,29 @@ namespace OpenGL4 {
 		Create_Renderer();
 
 		//Create main window for Turan Engine
-		Create_Window("Turan Engine");
+		Create_MainWindow();
 
-		OpenGL4_FILESYSTEM = new OGL4_FileSystem;
-		OpenGL4_FILESYSTEM->Load_FileListContents_fromDisk();
+		ContentManager = new GPU_ContentManager;
 
-		IMGUI::GFX_IMGUI = new IMGUI_OGL4;
-		IMGUI::Create_Context(GFX_Core::Get_Window_EditableGPUContext(ONSCREEN_Windows[0]));
+		WINDOW* OGL4_WINDOW = (WINDOW*)Main_Window;
+		IMGUI->Create_Context(OGL4_WINDOW->GLFWWINDOW);
 		TuranAPI::LOG_STATUS("OpenGL 4 systems are started!");
+	}
+	OpenGL4_Core::~OpenGL4_Core() {
+		std::cout << "OpenGL4_Core destructor is called!\n";
+		Destroy_GFX_Resources();
 	}
 
 
 	//WINDOW OPERATIONs
 
-	void OpenGL4_Core::Change_Window_Resolution(GFX::WINDOW* window, unsigned int width, unsigned int height) {
+	void OpenGL4_Core::Change_Window_Resolution(GFX_API::WINDOW* window, unsigned int width, unsigned int height) {
 		window->Change_Width_Height(width, height);
 		glViewport(0, 0, width, height);
 	}
 
-	void OpenGL4_Core::Set_Window_Focus(GFX::WINDOW* window, bool is_focused) {
-		if (is_focused) {
-			for (unsigned int i = 0; i < ONSCREEN_Windows.size(); i++) {
-				if (window->Get_Window_ConstGPUContext() == ONSCREEN_Windows[i]->Get_Window_ConstGPUContext()) {
-					FOCUSED_WINDOW_index = i;
-					return;
-				}
-			}
-			cout << "Error: Intended focus window can't be found! That means there is a bug in the system!\n";
-		}
-		else {
-
-		}
-	}
-
-	void OpenGL4_Core::Close_Window(GFX::WINDOW* window) {
-		//First, destroy window and its resources with glfwDestroyWindow
-		glfwDestroyWindow((GLFWwindow*)window->Get_Window_ConstGPUContext());
-
-		//Then delete it from global GFX_WINDOW vector
-		int window_list_index;
-		for (int i = 0; i < ONSCREEN_Windows.size(); i++) {
-			if (window == ONSCREEN_Windows[i])
-				window_list_index = i;
-		}
-		ONSCREEN_Windows.erase(ONSCREEN_Windows.begin() + window_list_index);
-	}
-
 	void OpenGL4_Core::GFX_Error_Callback(int error_code, const char* description) {
-		TuranAPI::LOG_CRASHING("GLFW ERROR CODE: " + to_string(error_code) + "\nDescription: " + description, true);
+		TuranAPI::LOG_CRASHING(description, true);
 	}
 
 	void OpenGL4_Core::Initialization() {
@@ -75,7 +52,7 @@ namespace OpenGL4 {
 		//Initialize GLFW with OpenGL3
 		int status = glfwInit();
 		if (!status) {
-			cout << "GLFW initialization error!\n";
+			TuranAPI::LOG_ERROR("GLFW initialization error!");
 		}
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -84,22 +61,19 @@ namespace OpenGL4 {
 	}
 
 	void OpenGL4_Core::Check_Computer_Specs() {
-		GPU_Vendor = (const char*)glGetString(GL_VENDOR);
-		GPU_Model = (const char*)glGetString(GL_RENDERER);
-		GL_Version = (const char*)glGetString(GL_VERSION);
 
 	}
 
 	void OpenGL4_Core::Save_Monitors() {
 		int monitor_count;
 		GLFWmonitor** monitors = glfwGetMonitors(&monitor_count);
-		cout << "Detected monitors count: " << monitor_count << endl;
+		std::cout << "Detected monitors count: " << monitor_count << std::endl;
 		for (unsigned int i = 0; i < monitor_count; i++) {
 			GLFWmonitor* monitor = monitors[i];
 
 			//Get monitor name provided by OS! It is a driver based name, so it maybe incorrect!
-			string monitor_name = glfwGetMonitorName(monitor);
-			GFX::MONITOR* gfx_monitor = new GFX::MONITOR(monitor, monitor_name);
+			const char* monitor_name = glfwGetMonitorName(monitor);
+			GFX_API::MONITOR* gfx_monitor = new GFX_API::MONITOR(monitor, monitor_name);
 
 			//Get videomode to detect at which resolution the OS is using the monitor
 			const GLFWvidmode* monitor_vid_mode = glfwGetVideoMode(monitor);
@@ -110,30 +84,26 @@ namespace OpenGL4 {
 
 			CONNECTED_Monitors.push_back(gfx_monitor);
 		}
+		TuranAPI::LOG_STATUS("Saved monitors!");
 	}
 
 	//Create window in windowed mode, in final production: A window context should be known (Which screen mode, which GUIs to render etc.) and create this window according to it!s
-	void OpenGL4_Core::Create_Window(string name) {
-		cout << "Creating Window: " << name << endl;
-
+	void OpenGL4_Core::Create_MainWindow() {
 		//Create window as it will share resources with Renderer Context to get display texture!
-		GLFWwindow* window_id = glfwCreateWindow(1280, 720, name.c_str(), NULL, (GLFWwindow*)RENDERER->Renderer_Context);
-		GFX::WINDOW* gfx_window = GFX_Core::Create_WindowOBJ(1280, 720, GFX::WINDOWED, CONNECTED_Monitors[0], CONNECTED_Monitors[0]->REFRESH_RATE, name, GFX::V_SYNC_OFF);
-		gfx_window->Set_Window_GPUContext(window_id);
-		glfwSetWindowMonitor(window_id, NULL, 0, 0, gfx_window->Get_Window_Mode().x, gfx_window->Get_Window_Mode().y, gfx_window->Get_Window_Mode().z);
+		GLFWwindow* window_id = glfwCreateWindow(1280, 720, "OpenGL Window", NULL, (GLFWwindow*)RENDERER->Renderer_Context);
+		Main_Window = new WINDOW(1280, 720, GFX_API::WINDOW_MODE::WINDOWED, CONNECTED_Monitors[0], CONNECTED_Monitors[0]->REFRESH_RATE, "OpenGL Window", GFX_API::V_SYNC::VSYNC_OFF);
+		WINDOW* OGL4_WINDOW = (WINDOW*)Main_Window;
+		OGL4_WINDOW->GLFWWINDOW = window_id;
+		glfwSetWindowMonitor(window_id, NULL, 0, 0, Main_Window->Get_Window_Mode().x, Main_Window->Get_Window_Mode().y, Main_Window->Get_Window_Mode().z);
 
 		//Check and Report if GLFW fails
 		if (window_id == NULL) {
-			cout << "Error: We failed to create the window: " << name << " because of GLFW!\n";
+			TuranAPI::LOG_CRASHING("Failed to create main window because of GLFW!");
 			glfwTerminate();
 		}
 
 		glfwMakeContextCurrent(window_id);
 		glfwSwapInterval(1);
-		//GLAD is already loaded, so send Quad Mesh to context because we will render the texture given by Renderer in GFX->Refresh_Windows()!
-		((OpenGL4_Renderer*)RENDERER)->Send_Quad_to_GPU();
-
-		ONSCREEN_Windows.push_back(gfx_window);
 	}
 
 	void OpenGL4_Core::Create_Renderer() {
@@ -148,7 +118,7 @@ namespace OpenGL4 {
 
 		//Check and Report if GLFW fails
 		if (RENDERER->Renderer_Context == NULL) {
-			cout << "We failed to create the window because of GLFW" << endl;
+			TuranAPI::LOG_ERROR("Failed to create the window because of GLFW");
 			glfwTerminate();
 		}
 
@@ -157,76 +127,51 @@ namespace OpenGL4 {
 
 		//Check and Report if GLAD fails
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-			cout << "We failed to create the window because of GLAD" << endl;
+			TuranAPI::LOG_ERROR("We failed to create the window because of GLAD");
 		}
+
+		//Setup Debug Callback
+		glEnable(GL_DEBUG_OUTPUT);
 
 
 		Check_Computer_Specs();
-		GFX::APICommander::SELF = new OpenGL4::APICommander;
 
-		TuranAPI::LOG_STATUS("GPU Name: " + GPU_Vendor + " " + GPU_Model);
-		TuranAPI::LOG_STATUS("OpenGL Version: " + GL_Version);
-
+		IMGUI->GFX_IMGUI = new IMGUI_OGL4;
 		//Set IMGUI's main renderer to IMGUI_OGL3!
 		//All of the IMGUI contexts will use IMGUI's functionality to specify their rendering data!
 		//But IMGUI will always use this class to render these datas!
 		//So, GFX_IMGUI shouldn't be Window Context specific!
-		IMGUI::IMGUI::GFX_IMGUI = new IMGUI_OGL4;
-		if (!IMGUI::IMGUI::Check_IMGUI_Version()) {
-			cout << "Error: IMGUI version check error!\n";
+		if (!IMGUI->Check_IMGUI_Version()) {
+			TuranAPI::LOG_ERROR("Error: IMGUI version check error!");
 		}
 	}
 
-	//Delete this function!
-	void OpenGL4_Core::Set_Window_Callbacks() {
+	//CALLBACKs
 
-		for (const GFX::WINDOW* WINDOW : Get_Window_List()) {
-			GLFWwindow* window = (GLFWwindow*)(WINDOW->Get_Window_ConstGPUContext());
-
-			glfwMakeContextCurrent(window);
-			//glfwSetFramebufferSizeCallback(window, OGL3_SYS::framebuffer_size_callback);
-			//glfwSetWindowFocusCallback(window, OGL3_SYS::window_focus_callback);
-			//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			cout << "Callbacks set for window: " << WINDOW->Get_Window_Name() << endl;
-		}
-
+	void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+		TuranAPI::LOG_NOTCODED("OpenGL4_Core::MessageCallback isn't coded!", true);
 	}
-
-
-	//WINDOW CALLBACKs
 
 	//Set true if user uses window, otherwise false
 	void OpenGL4_Core::window_focus_callback(GLFWwindow* window, int focused) {
-		GFX::WINDOW* WINDOW = Get_Window_byID(window);
-		SELF->Set_Window_Focus(WINDOW, focused);
+		TuranAPI::LOG_ERROR("Window Focus Callback isn't coded!");
 	}
 
 	//Set window and framebuffer size when windowed window is resized
 	void OpenGL4_Core::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-		GFX::WINDOW* WINDOW = Get_Window_byID(window);
+		GFX_API::WINDOW* WINDOW = SELF->Main_Window;
 		SELF->Change_Window_Resolution(WINDOW, width, height);
-		cout << "Callback Width: " << width << endl;
-		cout << "Callback Height: " << height << endl;
+		std::cout << "Callback Width: " << width << std::endl;
+		std::cout << "Callback Height: " << height << std::endl;
 	}
 
 	void OpenGL4_Core::window_close_callback(GLFWwindow* window) {
-		cout << "Window close callback is called!\n";
-		GFX::WINDOW* WINDOW = Get_Window_byID(window);
-		SELF->Close_Window(WINDOW);
-		cout << "Leaving close callback!\n";
-	}
-	void OpenGL4_Core::Bind_Window_Context(GFX::WINDOW* window) {
-		glfwMakeContextCurrent((GLFWwindow*)window->Get_Window_ConstGPUContext());
+		TuranAPI::LOG_ERROR("Window Close Callback isn't coded!");
 	}
 
 
 	//RENDERING OPERATIONs
 
-	void OpenGL4_Core::Render_IMGUI() {
-		glfwMakeContextCurrent((GLFWwindow*)ONSCREEN_Windows[0]->Get_Window_ConstGPUContext());
-		IMGUI::IMGUI::Render_Frame();
-		IMGUI::IMGUI::Platform_Settings();
-	}
 
 	//Input (Keyboard-Controller) Operations
 
@@ -292,55 +237,68 @@ namespace OpenGL4 {
 
 	//GFX Resource Destroy Operations
 	void OpenGL4_Core::Destroy_GFX_Resources() {
-		for (GFX::MONITOR* monitor : CONNECTED_Monitors) {
+		for (unsigned int i = 0; i < CONNECTED_Monitors.size(); i++) {
+			GFX_API::MONITOR* monitor = CONNECTED_Monitors[i];
 			delete monitor;
 		}
-		for (GFX::WINDOW* window : ONSCREEN_Windows) {
-			Close_Window(window);
-			delete window;
-		}
-		IMGUI::IMGUI::Destroy_IMGUI_Resources();
+
+		//First, destroy window and its resources with glfwDestroyWindow
+		glfwDestroyWindow(((WINDOW*)Main_Window)->GLFWWINDOW);
+		delete Main_Window;
+
+		IMGUI->Destroy_IMGUI_Resources();
 		RENDERER->~Renderer();
 		glfwTerminate();
 	}
 
 	void OpenGL4_Core::Load_GFX_Files() {
-		cout << "ERROR: Define how to load and compile GFX_Files!\n";
-		cout << "We are loading after initializing the Renderer, because we want to compile everything at start!\n";
+		TuranAPI::LOG_ERROR("ERROR: Define how to load and compile GFX_Files!");
+		TuranAPI::LOG_ERROR("We are loading after initializing the Renderer, because we want to compile everything at start!");
 		TuranAPI::Breakpoint();
 	}
 
 
 
-	void OpenGL4_Core::Show_Texture_on_Window(TuranAPI::File_System::Texture_Resource* TEXTURE) {
-		glfwMakeContextCurrent((GLFWwindow*)ONSCREEN_Windows[0]->Get_Window_ConstGPUContext());
+	void OpenGL4_Core::Show_Texture_on_Window(GFX_API::Texture_Resource* TEXTURE) {
+		glfwMakeContextCurrent(((WINDOW*)Main_Window)->GLFWWINDOW);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TEXTURE->GL_ID, 0);
-
+		unsigned int Texture_GLID = ((GPU_ContentManager*)GFXContentManager)->Find_TextureGLID_byAssetID(TEXTURE->ID);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, Texture_GLID, 0);
 	}
 
-	void OpenGL4_Core::Check_GL_Errors(const string& status) {
-		int error = glGetError();
-		//If there is a error, first print the status!
-		if (error != NULL) {
-			TuranAPI::LOG_ERROR("GL in status: " + status);
-		}
-		else {
-			return;
-		}
+	void OpenGL4_Core::Swapbuffers_ofMainWindow() {
+		glfwMakeContextCurrent(((WINDOW*)Main_Window)->GLFWWINDOW);
+		WINDOW* OGL4_WINDOW = (WINDOW*)Main_Window;
+		glfwSwapBuffers(OGL4_WINDOW->GLFWWINDOW);
+	}
 
-		//Print the error!
-		if (error == GL_INVALID_OPERATION) {
-			TuranAPI::LOG_ERROR("GL_INVALID_OPERATION!");
-		}
-		if (error == GL_INVALID_ENUM) {
-			TuranAPI::LOG_ERROR("GL_INVALID_ENUM!");
-		}
-		if (error == GL_INVALID_VALUE) {
-			TuranAPI::LOG_ERROR("GL_INVALID_VALUE!");
-		}
-		//I'm using NSight for graphic debugging for now, so I don't need this!
-		//But if I won't use NSight for a time, I should activate this see real-usage graphic bugs!
-		//SLEEP_THREAD(10);
+
+
+
+
+	GFX_API::GFX_Core* Start_OGL4Systems(TuranAPI::TAPI_Systems* TAPISystems) {
+		TuranAPI::MemoryManagement::TMemoryManager::SELF = &TAPISystems->MemoryManager;
+		TuranAPI::Logging::Logger::SELF = &TAPISystems->Log_Sys;
+		TuranAPI::Active_Profiling_Session::SELF = (TuranAPI::Profiling_Session*) & (TAPISystems->Profiling_Session);
+		TuranAPI::LOG_STATUS("TuranAPI systems are started for Vulkan");
+
+		//GFX_Core uses Memory and Logging systems in constructor
+		//So we need to give these systems to the DLL before initializing
+		GFX_API::Start_GFXDLL(TAPISystems);
+		//We can safely create Vulkan now because GFX_Core has all systems it needs
+		return new OpenGL4_Core;
+	}
+
+	void Close_OGL4DLL() {
+		std::cout << "Started to close GFX DLL!\n";
+		delete ((OpenGL4_Core*)GFX);
+		GFX_API::Close_GFXDLL();
+		std::cout << "Started to delete Vulkan DLL!\n";
+
+		TMemoryManager::SELF = nullptr;
+		TuranAPI::Logging::Logger::SELF = nullptr;
+		TuranAPI::Active_Profiling_Session::SELF = nullptr;
+		GFX = nullptr;
+		std::cout << "Finished deleting Vulkan DLL!\n";
 	}
 }

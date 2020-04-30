@@ -1,8 +1,6 @@
 #pragma once
 #include "ENGINE_ENUMs.h"
-#include "TuranAPI/API_includes.h"
-#include "TuranAPI/API_Logger.h"
-#include "TuranAPI/API_Profiler.h"
+#include "TuranAPI/TuranAPI_Core.h"
 
 
 	//COMPILING PROCESS

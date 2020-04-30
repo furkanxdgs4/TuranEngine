@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineSource\Engine\ENGINE_HEADER.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineSource\Graphics\SYSTEM_INSPECTOR.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EngineSource\Engine_Includes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -30,12 +24,24 @@
     <ClInclude Include="EngineSource\ENGINE_ENUMs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSource\FileSystem\Engine_FileSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineSource\Graphics\SYSTEM_INSPECTOR.cpp">
+    <ClCompile Include="EngineSource\TuranEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EngineSource\TuranEngine.cpp">
+    <ClCompile Include="EngineSource\TuranAPI\MemoryManager_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSource\TuranAPI\TSTL_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSource\TuranAPI\Vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSource\FileSystem\Engine_FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

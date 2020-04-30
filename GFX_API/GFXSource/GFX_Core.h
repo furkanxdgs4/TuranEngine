@@ -1,53 +1,42 @@
 #pragma once
 #include "GFX_Includes.h"
-#include "TuranAPI/FileSystem/FileSystem_Core.h"
-
 #include "GFX_Display.h"
 #include "Renderer/GFX_Renderer.h"
+#include "Renderer/GPU_ContentManager.h"
+#include "IMGUI/IMGUI_Core.h"
 
-namespace GFX {
+
+namespace GFX_API {
 	class GFXAPI GFX_Core {
 	protected:
-		static unsigned int FOCUSED_WINDOW_index;
-		static string GPU_Vendor; static string GPU_Model; static string GL_Version;
+		unsigned int FOCUSED_WINDOW_index;
+		Vector<GPU*> DEVICE_GPUs;
+		//This GPU will be used to render! There is no multi-GPU support for now
+		GPU* GPU_TO_RENDER;
 
 		virtual void Initialization() = 0;
 		virtual void Check_Computer_Specs() = 0;
 		virtual void Save_Monitors() = 0;
 		virtual void Create_Renderer() = 0;
 		GFX_Core();
+		virtual ~GFX_Core();
 
-		static MONITOR* Create_MonitorOBJ(void* monitor, const string& name);
-		static WINDOW* Create_WindowOBJ(unsigned int width, unsigned int height, GFX_ENUM display_mode, MONITOR* display_monitor, unsigned int refresh_rate, const string& window_name, GFX_ENUM v_sync);
+		MONITOR* Create_MonitorOBJ(void* monitor, const char* name);
 	public:
 		static GFX_Core* SELF;
-		static Renderer* RENDERER;
+		Renderer* RENDERER;
+		GPU_ContentManager* ContentManager;
+		IMGUI_Core* IMGUI_o;
 
-		//There will be only one GFX_API instance, so making vectors static allows us to use them in callbacks!
-		static vector<WINDOW*> ONSCREEN_Windows;
-		static vector<MONITOR*> CONNECTED_Monitors;
+		WINDOW* Main_Window;
+		Vector<MONITOR*> CONNECTED_Monitors;
 
 		//Window Operations
-		virtual void Create_Window(string name) = 0;
-		virtual void Close_Window(WINDOW* window) = 0;
 		virtual void Change_Window_Resolution(WINDOW* window, unsigned int width, unsigned int height) = 0;
-		virtual void Set_Window_Focus(WINDOW* window, bool is_focused) = 0;
-		virtual void Set_Window_Callbacks() = 0;
-		static vector<const WINDOW*> Get_Window_List();
-		static WINDOW* Get_Window_byID(void* id);
-		virtual void Bind_Window_Context(WINDOW* window) = 0;
-		static void* Get_Window_EditableGPUContext(WINDOW* window);
 
 		//Renderer Operations
 
-		//Start to record new frame's render calls, handle current resources and rendergraphs for new frame!
-		static void New_Frame();
-		//Render the recorded render calls!
-		static void Render();
-		//Swap buffers of all windows to see latest changes of window contents!
-		static void Show_ThisFrame_onWindows();
-		virtual void Render_IMGUI() = 0;
-		virtual void Check_GL_Errors(const string& status) = 0;
+		virtual void Swapbuffers_ofMainWindow() = 0;
 
 		//Load default GFX_API needed contents (Like PostProccess material type)
 		virtual void Load_GFX_Files() = 0;
@@ -57,4 +46,16 @@ namespace GFX {
 		virtual void Destroy_GFX_Resources() = 0;
 	};
 
+	GFXAPI void Start_GFXDLL(TuranAPI::TAPI_Systems* TAPISystems);
+	void GFXAPI Close_GFXDLL();
 }
+
+#define GFX GFX_API::GFX_Core::SELF
+#define GFXRENDERER GFX_API::GFX_Core::SELF->RENDERER
+#define GFXContentManager GFX_API::GFX_Core::SELF->ContentManager
+#define IMGUI GFX_API::GFX_Core::SELF->IMGUI_o
+
+	//Window Manager functionality!
+#define IMGUI_REGISTERWINDOW(WINDOW) GFX_API::GFX_Core::SELF->IMGUI->WindowManager->Register_WINDOW(WINDOW);
+#define IMGUI_DELETEWINDOW(WINDOW) GFX_API::GFX_Core::SELF->IMGUI->WindowManager->Delete_WINDOW(WINDOW);
+#define IMGUI_RUNWINDOWS() GFX_API::GFX_Core::SELF->IMGUI->WindowManager->Run_IMGUI_WINDOWs()

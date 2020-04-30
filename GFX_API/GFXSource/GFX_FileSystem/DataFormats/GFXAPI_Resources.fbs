@@ -1,0 +1,161 @@
+//File types of Game Content!
+
+namespace GFXAsset;
+
+struct Vec3{
+    x: float;
+    y: float;
+    z: float;
+}
+
+struct Vec2{
+    x: float;
+    y: float;
+}
+
+struct Vec4{
+    x: float;
+    y: float;
+    z: float;
+    w: float;
+}
+
+struct Mat4x4{
+    ROW_1: Vec4;
+    ROW_2: Vec4;
+    ROW_3: Vec4;
+    ROW_4: Vec4;
+}
+
+enum GFX_APIs: ubyte {
+    OPENGL4 = 0,
+    VULKAN = 1
+}
+
+enum SHADER_LANGUAGES: ubyte{
+    GLSL    = 0,
+    HLSL    = 1,
+    SPIRV   = 2,
+    TSL     = 3
+}
+
+table UNIFORM_UINT32{
+    NAME: string;
+    DATA: uint;
+}
+table UNIFORM_INT32{
+    NAME: string;
+    DATA: int;
+}
+table UNIFORM_FLOAT{
+    NAME: string;
+    DATA: float;
+}
+table UNIFORM_VEC2{
+    NAME: string;
+    DATA: Vec2;
+}
+table UNIFORM_VEC3{
+    NAME: string;
+    DATA: Vec3;
+}
+table UNIFORM_VEC4{
+    NAME: string;
+    DATA: Vec4;
+}
+table UNIFORM_MAT4x4{
+    NAME: string;
+    DATA: Mat4x4;
+}
+table UNIFORM_TEXTURE2D{
+    NAME: string;
+    DATA: uint;
+}
+
+union MATERIAL_INSTANCE_UNIFORM{
+    UINT32: UNIFORM_UINT32,
+    INT32: UNIFORM_INT32,
+    FLOAT: UNIFORM_FLOAT,
+    VEC2: UNIFORM_VEC2,
+    VEC3: UNIFORM_VEC3,
+    VEC4: UNIFORM_VEC4,
+    Mat4x4: UNIFORM_MAT4x4,
+    TEXTURE2D: UNIFORM_TEXTURE2D
+}
+
+table MATERIAL_INSTANCE_UNIFORM_TABLE{
+    UNIFORM: MATERIAL_INSTANCE_UNIFORM;
+}
+
+
+
+enum SHADERSTAGEs : ubyte{
+    VERTEX_STAGE    = 0,
+    //There should be Tesselation etc.
+    FRAGMENT_STAGE  = 1,
+    COMPUTE         = 2
+}
+
+table SHADERSOURCE{
+    STAGE: SHADERSTAGEs;
+    CODE: string;
+    LANGUAGE: SHADER_LANGUAGES;
+}
+
+
+table MATERIAL_TYPE{
+    STAGEs: [uint];
+    MATERIAL_INPUTs: [MATERIAL_INSTANCE_UNIFORM_TABLE];
+}
+
+//Material Instance only stores needed resources like Textures, Uniforms etc.!
+//MATERIAL_TYPE_ID stores used Shader Stage's (Vertex and Fragment Shader) ID!
+table MATERIAL_INSTANCE{
+    MATERIAL_TYPE_ID: uint;
+    UNIFORMs: [MATERIAL_INSTANCE_UNIFORM_TABLE];
+}
+
+enum TEXTURE_DIMENSION : ubyte {
+    TEXTURE_2D = 0
+}
+
+enum TEXTURE_CHANNELs : ubyte {
+    TEXTURE_RGB = 0, TEXTURE_RGBA, TEXTURE_DEPTH
+}
+
+enum TEXTURE_MIPMAP_FILTERING : ubyte{
+    LINEAR_FROM_1MIP = 0, LINEAR_FROM_2MIP, NEAREST_FROM_1MIP, NEAREST_FROM_2MIP
+}
+
+enum TEXTURE_WRAPPING : ubyte {
+    REPEAT = 0, MIRRORED_REPEAT, CLAMP_TO_EDGE
+}
+
+enum TEXTURE_VALUETYPE : ubyte {
+    UBYTE8, BYTE8, UINT32, INT32, FLOAT32
+}
+
+table TEXTURE{
+    WIDTH: uint;
+    HEIGHT: uint;
+    DATA: [ubyte];
+    DIMENSION: TEXTURE_DIMENSION;
+    CHANNELs: TEXTURE_CHANNELs;
+    VALUE_TYPE: TEXTURE_VALUETYPE;
+    MIPMAP_FILTERING: TEXTURE_MIPMAP_FILTERING;
+    WRAPPING: TEXTURE_WRAPPING;
+}
+
+
+union Resource_Type {
+    Shader_Source: SHADERSOURCE,
+    Material_Type: MATERIAL_TYPE,
+    Material_Instance: MATERIAL_INSTANCE,
+    Texture : TEXTURE
+}
+
+table Resource{
+    TYPE: Resource_Type;
+}
+
+root_type Resource;

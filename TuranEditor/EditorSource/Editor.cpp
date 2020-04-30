@@ -1,41 +1,30 @@
 #include "Editor.h"
-
+using namespace TuranEditor;
+#include <vector>
 
 int main() {
-	TuranAPI::LOG_STATUS("Editor is running!");
-	TuranEngine::Start_Engine();
-	EDITOR_FILESYSTEM->Start_EditorFileSystem();
-	EDITOR_FILESYSTEM->Load_FileListContents_fromDisk();
+	TuranEditor::TE_DependentSystems DependentSystem_Creation;		//This class will hold up pointers to all of the system used in Turan Editor.
+	TuranEditor::EditorSystems EditorSYSTEMs;
 
-	Main_Window* main_window = new Main_Window;
 
-	//GameEngine.ShouldApplication_Close() doesn't work properly for now!
-	while (!TuranEngine::ShouldEngine_Close()) {
-		TuranAPI::LOG_STATUS("New Loop!");
+	Game_RenderGraph Scene;
+	Main_Window* main_window = new Main_Window(&Scene);
+	TuranAPI::WRITE_LOGs_toFILEs();
+	while (!TuranEngine->ShouldEngine_Close()) {
 
-		//Notify systems that we are in new Frame!
-		TuranAPI::IMGUI::IMGUI::New_Frame();
-		TuranEngine::GFX->New_Frame();
-
-		//Editor is just a pack of IMGUI windows, so run them!
-		TuranAPI::IMGUI::IMGUI_WINDOW::Run_IMGUI_WINDOWs();
-
-		//In Editor, the resources that are send to Renderer will be rendered! Renderer will gather the data and render.
-		TuranEngine::GFX->Render();
+		IMGUI->New_Frame();
+		IMGUI_RUNWINDOWS();
 		//IMGUI can use main renderer's contents, so render IMGUI later!
-		TuranEngine::GFX->Render_IMGUI();
+		IMGUI->Render_Frame();
 
-		//Swap buffers for all windows to display latest changes on windows (Geometry Viewports and IMGUIs)!
-		TuranEngine::GFX->Show_ThisFrame_onWindows();
-
+		GFX->Swapbuffers_ofMainWindow();
 		//Take inputs by GFX API specific library that supports input (For now, just GLFW for OpenGL3) and send it to Engine!
 		//In final product, directly OS should be used to take inputs!
-		TuranEngine::GFX->Take_Inputs();
+		TuranEngine->Take_Inputs();
+		TuranAPI::WRITE_LOGs_toFILEs();
 	}
-	TuranAPI::LOG_STATUS("Application exited from the frame loop, because: " + TuranEngine::Why_Engine_Closed());
-	TuranAPI::WRITE_LOGs_toFILEs();
-	cout << "Application is closing in 1 seconds!\n";
-	this_thread::sleep_for(chrono::seconds(1));
-	
+	std::cout << "Application is closing in 1 seconds!\n";
+	SLEEP_THREAD(1);
+
 	return 1;
 }

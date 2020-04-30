@@ -43,7 +43,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -64,9 +64,17 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEngine" /Y
-xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEditor" /Y</Command>
+      <Command>xcopy "$(SolutionDir)bin\OpenGL4\OpenGL4.dll" "$(SolutionDir)bin\TuranEngine" /Y
+xcopy "$(SolutionDir)bin\OpenGL4\OpenGL4.dll" "$(SolutionDir)bin\TuranEditor" /Y</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)bin\TuranAPI\TuranAPI.dll" "$(SolutionDir)bin\OpenGL4" /Y
+xcopy "$(SolutionDir)bin\GFX_API\GFX_API.dll" "$(SolutionDir)bin\OpenGL4" /Y
+
+xcopy "$(SolutionDir)\TuranAPI\TuranAPI\MemoryManager\MemoryManager_Core.cpp" "$(SolutionDir)\OpenGL4\OpenGL4Source\TuranAPI" /Y
+xcopy "$(SolutionDir)\TuranAPI\TuranAPI\TSTL\TSTL_Core.cpp" "$(SolutionDir)\OpenGL4\OpenGL4Source\TuranAPI" /Y
+xcopy "$(SolutionDir)\TuranAPI\TuranAPI\TSTL\Vector.cpp" "$(SolutionDir)\OpenGL4\OpenGL4Source\TuranAPI" /Y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\GFX_API\GFX_API.vcxproj">
@@ -85,21 +93,26 @@ xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\T
     <ClCompile Include="OpenGL4Source\IMGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="OpenGL4Source\IMGUI\IMGUI_OGL4.cpp" />
     <ClCompile Include="OpenGL4Source\OGL4_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_Display.cpp" />
     <ClCompile Include="OpenGL4Source\OGL4_ENUMs.cpp" />
-    <ClCompile Include="OpenGL4Source\OGL4_FileSystem.cpp" />
     <ClCompile Include="OpenGL4Source\Renderer\OGL4_APICommands.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_ContentManager.cpp" />
     <ClCompile Include="OpenGL4Source\Renderer\OGL4_Renderer_Core.cpp" />
     <ClCompile Include="OpenGL4Source\Renderer\OGL4_RenderGraph.cpp" />
+    <ClCompile Include="OpenGL4Source\TuranAPI\MemoryManager_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\TuranAPI\TSTL_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\TuranAPI\Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL4Source\IMGUI\imgui_impl_glfw.h" />
     <ClInclude Include="OpenGL4Source\IMGUI\imgui_impl_opengl3.h" />
     <ClInclude Include="OpenGL4Source\IMGUI\IMGUI_OGL4.h" />
     <ClInclude Include="OpenGL4Source\OGL4_Core.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_Display.h" />
     <ClInclude Include="OpenGL4Source\OGL4_ENUMs.h" />
-    <ClInclude Include="OpenGL4Source\OGL4_FileSystem.h" />
     <ClInclude Include="OpenGL4Source\OpenGL4_Includes.h" />
     <ClInclude Include="OpenGL4Source\Renderer\OGL4_APICommands.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_GPUContentManager.h" />
     <ClInclude Include="OpenGL4Source\Renderer\OGL4_Renderer_Core.h" />
     <ClInclude Include="OpenGL4Source\Renderer\OGL4_RenderGraph.h" />
   </ItemGroup>

@@ -1,11 +1,14 @@
 #pragma once
-//Turan API will be included by GFX!
-#include "GFXSource/GFX_Core.h"
+#include "TuranAPI/Logger/Logger_Core.h"
+#include "TuranAPI/Profiler/Profiler_Core.h"
 
-//OpenGL4 Libs
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "OGL4_ENUMs.h"
-#include "TuranAPI/API_Logger.h"
-#include "TuranAPI/API_Profiler.h"
+#ifdef WINDOWS10_FORENGINE
+#ifdef OPENGL4_BUILD
+#define OGL4_API __declspec(dllexport)
+#else
+#define OGL4_API __declspec(dllimport)
+#endif // OPENGL4_BUILD
+#endif // WINDOWS10_FORENGINE

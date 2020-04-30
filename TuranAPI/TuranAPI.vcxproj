@@ -6,6 +6,36 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TuranAPI\API_ENUMs.h" />
+    <ClInclude Include="TuranAPI\API_includes.h" />
+    <ClInclude Include="TuranAPI\FileSystem\DataFormats\TuranAPIFormats_generated.h" />
+    <ClInclude Include="TuranAPI\FileSystem\FileSystem_Core.h" />
+    <ClInclude Include="TuranAPI\FileSystem\GameObjects\GameComponents\GameComponent.h" />
+    <ClInclude Include="TuranAPI\FileSystem\GameObjects\GameComponents\GameComponentTypes.h" />
+    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\ResourceTYPEs.h" />
+    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\Resource_Type.h" />
+    <ClInclude Include="TuranAPI\Logger\Logger_Core.h" />
+    <ClInclude Include="TuranAPI\MemoryManager\MemoryManager_Core.h" />
+    <ClInclude Include="TuranAPI\Profiler\Profiler_Core.h" />
+    <ClInclude Include="TuranAPI\TSTL\Bitset.h" />
+    <ClInclude Include="TuranAPI\TSTL\TSTL_Core.h" />
+    <ClInclude Include="TuranAPI\TSTL\Vector.h" />
+    <ClInclude Include="TuranAPI\TuranAPI_Core.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TuranAPI\API_includes.cpp" />
+    <ClCompile Include="TuranAPI\FileSystem\FileSystem_Core.cpp" />
+    <ClCompile Include="TuranAPI\FileSystem\GameObjects\GameComponents\GameComponent.cpp" />
+    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\Resource_Type.cpp" />
+    <ClCompile Include="TuranAPI\Logger\Logger_Core.cpp" />
+    <ClCompile Include="TuranAPI\MemoryManager\MemoryManager_Core.cpp" />
+    <ClCompile Include="TuranAPI\Profiler\Profiler_Core.cpp" />
+    <ClCompile Include="TuranAPI\TSTL\Bitset.cpp" />
+    <ClCompile Include="TuranAPI\TSTL\TSTL_Core.cpp" />
+    <ClCompile Include="TuranAPI\TSTL\Vector.cpp" />
+    <ClCompile Include="TuranAPI\TuranAPI_Core.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}</ProjectGuid>
@@ -34,14 +64,14 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(ProjectName)</IntDir>
-    <IncludePath>$(SolutionDir)3rdPartyLibraries\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)3rdPartyLibraries\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\dev\TuranEngine\3rdPartyLibraries\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\dev\TuranEngine\3rdPartyLibraries\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -50,7 +80,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\TuranEngine\TuranAPI\</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
@@ -62,78 +92,38 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\GFX_API" /Y
-xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\OpenGL3" /Y
-xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEngine" /Y
-xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEditor" /Y</Command>
+      <Command>xcopy "$(SolutionDir)bin\TuranAPI\TuranAPI.dll" "$(SolutionDir)bin\GFX_API\" /Y
+xcopy "$(SolutionDir)bin\TuranAPI\TuranAPI.dll" "$(SolutionDir)bin\Vulkan\" /Y
+xcopy "$(SolutionDir)bin\TuranAPI\TuranAPI.dll" "$(SolutionDir)bin\TuranEngine\" /Y
+xcopy "$(SolutionDir)bin\TuranAPI\TuranAPI.dll" "$(SolutionDir)bin\TuranEditor\" /Y</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)TuranAPI\TuranAPI\MemoryManager\MemoryManager_Core.cpp" "$(SolutionDir)GFX_API\GFXSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\TSTL_Core.cpp" "$(SolutionDir)GFX_API\GFXSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Vector.cpp" "$(SolutionDir)GFX_API\GFXSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Bitset.cpp" "$(SolutionDir)GFX_API\GFXSource\TuranAPI" /Y
+
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\MemoryManager\MemoryManager_Core.cpp" "$(SolutionDir)OpenGL4\OpenGL4Source\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\TSTL_Core.cpp" "$(SolutionDir)OpenGL4\OpenGL4Source\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Vector.cpp" "$(SolutionDir)OpenGL4\OpenGL4Source\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Bitset.cpp" "$(SolutionDir)OpenGL4\OpenGL4Source\TuranAPI" /Y
+
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\MemoryManager\MemoryManager_Core.cpp" "$(SolutionDir)Vulkan\Vulkan\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\TSTL_Core.cpp" "$(SolutionDir)Vulkan\Vulkan\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Vector.cpp" "$(SolutionDir)Vulkan\Vulkan\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Bitset.cpp" "$(SolutionDir)Vulkan\Vulkan\TuranAPI" /Y
+
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\MemoryManager\MemoryManager_Core.cpp" "$(SolutionDir)TuranEngine\EngineSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\TSTL_Core.cpp" "$(SolutionDir)TuranEngine\EngineSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Vector.cpp" "$(SolutionDir)TuranEngine\EngineSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Bitset.cpp" "$(SolutionDir)TuranEngine\EngineSource\TuranAPI" /Y
+
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\MemoryManager\MemoryManager_Core.cpp" "$(SolutionDir)TuranEditor\EditorSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\TSTL_Core.cpp" "$(SolutionDir)TuranEditor\EditorSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Vector.cpp" "$(SolutionDir)TuranEditor\EditorSource\TuranAPI" /Y
+xcopy "$(SolutionDir)TuranAPI\TuranAPI\TSTL\Bitset.cpp" "$(SolutionDir)TuranEditor\EditorSource\TuranAPI" /Y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="TuranAPI\API_Logger.h" />
-    <ClInclude Include="TuranAPI\API_Profiler.h" />
-    <ClInclude Include="TuranAPI\FileSystem\DataFormats\GameResource_generated.h" />
-    <ClInclude Include="TuranAPI\FileSystem\DataFormats\TuranAPIFormats_generated.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\FileList_Resource.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\GameComponent.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\Scene_Resource.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\Texture_Resource.h" />
-    <ClInclude Include="TuranAPI\IMGUI\IMGUI_Core.h" />
-    <ClInclude Include="TuranAPI\API_ENUMs.h" />
-    <ClInclude Include="TuranAPI\API_IMGUI.h" />
-    <ClInclude Include="TuranAPI\API_includes.h" />
-    <ClInclude Include="TuranAPI\API_ALL.h" />
-    <ClInclude Include="TuranAPI\FileSystem\FileSystem_Core.h" />
-    <ClInclude Include="TuranAPI\API_FileSystem.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\Model_Resource.h" />
-    <ClInclude Include="TuranAPI\FileSystem\Resource_Types\Resource_Type.h" />
-    <ClInclude Include="TuranAPI\IMGUI\IMGUI_GFX.h" />
-    <ClInclude Include="TuranAPI\IMGUI\IMGUI_WINDOW.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imconfig.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imgui.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imgui_internal.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imgui_stdlib.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imstb_rectpack.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imstb_textedit.h" />
-    <ClInclude Include="TuranAPI\IMGUI\Includes\imstb_truetype.h" />
-    <ClInclude Include="TuranAPI\Logger\Logger_Core.h" />
-    <ClInclude Include="TuranAPI\Profiler\Profiler_Core.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="TuranAPI\API_includes.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Loaders\Load_FileList_Resource.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Loaders\Load_Material_Instance.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Loaders\Load_Scene_Resource.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Loaders\Load_Texture.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\FileList_Resource.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\Camera_Component.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\GameComponent.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\GameObjects\GameComponents\StaticModel_Component.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\Material_Type_Resource.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\Scene_Resource.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\Texture_Resource.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\IMGUI_Core.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\FileSystem_Core.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Loaders\Load_Material_Type.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Loaders\Load_Model.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\Model_Resource.cpp" />
-    <ClCompile Include="TuranAPI\FileSystem\Resource_Types\Resource_Type.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\IMGUI_WINDOW.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\Includes\imgui.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_demo.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_draw.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_stdlib.cpp" />
-    <ClCompile Include="TuranAPI\IMGUI\Includes\imgui_widgets.cpp" />
-    <ClCompile Include="TuranAPI\Logger\Logger_Core.cpp" />
-    <ClCompile Include="TuranAPI\Profiler\Profiler_Core.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TuranAPI\FileSystem\DataFormats\flatc.exe" />
-    <None Include="TuranAPI\FileSystem\DataFormats\GameResource.fbs" />
-    <None Include="TuranAPI\FileSystem\DataFormats\TuranAPIFormats.fbs" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -15,48 +15,44 @@
 */
 
 #pragma once
+
+#ifdef WINDOWS10_FORENGINE
+#ifdef TURANAPI_BUILD
+#define TURANAPI __declspec(dllexport)
+#else
+#define TURANAPI __declspec(dllimport)
+#endif // TURANAPI_BUILD
+#else
+#error TuranAPI only supports Windows 10 for now!
+#endif // WINDOWS10_FORENGINE
+
 #include <iostream>
-#include <string>
 #include <cmath>
-#include <vector>
-#include <fstream>
-#include <sstream>
 #include <chrono>
 #include <algorithm>
-using namespace std;
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 
+#include "MemoryManager/MemoryManager_Core.h"
+#include "TSTL/TSTL_Core.h"
+using namespace TuranAPI::MemoryManagement;
+using namespace TuranAPI::STL;
 #include "TuranAPI/API_ENUMs.h"
 
 //Not used:
 #include <thread>
 #include <map>
 
-//COMPILING PROCESS
-#ifdef WINDOWS10_FORENGINE
-//Not forget that "Start Without Debugging" uses this definition. So if you want to avoid all debugging code, remove this definition
-#define TURAN_DEBUGGING
-#ifdef TURANAPI_BUILD
-#define TURANAPI __declspec(dllexport) 
-#else
-#define TURANAPI __declspec(dllimport)
-#endif
-#else
-#error "TuranEngine only supports Windows 10 for now!"
-#endif // _WINDOWS_
-
 
 namespace TuranAPI {
 	//Stop the application and ask the user to close or continue!
 	//I'm using this to remind myself there are problems while I'm working on another thing!
-	void TURANAPI Breakpoint(string Breakpoint_Reason = "");
+	void TURANAPI Breakpoint(const char* Breakpoint_Reason = nullptr);
 
 	template<typename T>
-	unsigned int TURANAPI Delete_Items_from_Vector(vector<T>* Vector_to_EraseSomething, vector<bool>* ShouldErase_forEachIndex, unsigned int start_index);
+	unsigned int TURANAPI Delete_Items_from_Vector(Vector<T>* Vector_to_EraseSomething, Vector<bool>* ShouldEraseArray_forEachIndex, unsigned int start_index);
 
 	//Enumeration Functions
 	//extern string* Find_TuranAPIEnumsName_byValue(unsigned short Enums_Value);
@@ -66,4 +62,4 @@ namespace TuranAPI {
 
 //Some basic functionality to do debugging!
 #define GET_VARIABLE_NAME(Variable) (#Variable)
-#define SLEEP_THREAD(Variable) std::this_thread::sleep_for(chrono::seconds(Variable));
+#define SLEEP_THREAD(Variable) std::this_thread::sleep_for(std::chrono::seconds(Variable));

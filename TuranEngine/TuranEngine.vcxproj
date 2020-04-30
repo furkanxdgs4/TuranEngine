@@ -38,12 +38,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)TuranAPI;$(SolutionDir)$(ProjectName)\EngineSource;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vulkan;$(SolutionDir)TuranAPI;$(SolutionDir)$(ProjectName)\EngineSource;$(SolutionDir)GFX_API;$(SolutionDir)OpenGL4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WINDOWS10_FORENGINE;ENGINE_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -51,21 +51,27 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;assimp.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)bin\$(ProjectName)\$(ProjectName).dll" "$(SolutionDir)bin\TuranEditor" /Y</Command>
+      <Command>xcopy "$(SolutionDir)bin\TuranEngine\TuranEngine.dll" "$(SolutionDir)bin\TuranEditor\" /Y</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EngineSource\ENGINE_ENUMs.h" />
-    <ClInclude Include="EngineSource\Engine\ENGINE_HEADER.h" />
-    <ClInclude Include="EngineSource\Graphics\SYSTEM_INSPECTOR.h" />
     <ClInclude Include="EngineSource\Engine_Includes.h" />
+    <ClInclude Include="EngineSource\FileSystem\Engine_FileSystem.h" />
     <ClInclude Include="EngineSource\TuranEngine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineSource\Graphics\SYSTEM_INSPECTOR.cpp" />
+    <ClCompile Include="EngineSource\FileSystem\Engine_FileSystem.cpp" />
+    <ClCompile Include="EngineSource\TuranAPI\MemoryManager_Core.cpp" />
+    <ClCompile Include="EngineSource\TuranAPI\TSTL_Core.cpp" />
+    <ClCompile Include="EngineSource\TuranAPI\Vector.cpp" />
     <ClCompile Include="EngineSource\TuranEngine.cpp" />
   </ItemGroup>
   <ItemGroup>

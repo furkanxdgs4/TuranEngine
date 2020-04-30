@@ -1,55 +1,32 @@
 #include "OGL4_Renderer_Core.h"
-using namespace TuranAPI::File_System;
+#include "OGL4_GPUContentManager.h"
+
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace OpenGL4 {
-	void OpenGL4_Renderer::Send_Quad_to_GPU() {
-		vec2 quadVertices[] = {
-			// positions   // texCoords
-			vec2(-1.0f, 1.0f),
-			vec2(-1.0f, -1.0f),
-			vec2(1.0f, -1.0f),
 
-			vec2(-1.0f, 1.0f),
-			vec2(1.0f, -1.0f),
-			vec2(1.0f, 1.0f),
-		};
+	void OpenGL4_Renderer::Bind_Framebuffer(unsigned int FB_ID) {
+		if (FB_ID) {
+			glBindFramebuffer(GL_FRAMEBUFFER, ((GPU_ContentManager*)GFXContentManager)->Find_FrameBufferGLID_byGFXID(FB_ID));
+			TuranAPI::LOG_NOTCODED("Render Target's should be cleared here if it's necessary!\n", true);
+			return;
+		}
+		TuranAPI::LOG_CRASHING("Framebuffer's ID is 0! Framebuffer ID can't be zero in GFX!");
+	}
+	void OpenGL4_Renderer::Bind_MatInstance(unsigned int MatInstance_ID) {
+		TuranAPI::LOG_NOTCODED("Bind Material Instance isn't coded!\n", true);
+		if (MatInstance_ID) {
 
-		vec2 quadTextCoords[] = {
-			vec2(0.0f, 1.0f),
-			vec2(0.0f, 0.0f),
-			vec2(1.0f, 0.0f),
-			vec2(0.0f, 1.0f),
-			vec2(1.0f, 0.0f),
-			vec2(1.0f, 1.0f)
-		};
+		}
+	}
+	void OpenGL4_Renderer::Draw(unsigned int MeshBuffer_ID) {
+		TuranAPI::LOG_NOTCODED("Renderer->Draw isn't coded!\n", true);
+		if (MeshBuffer_ID) {
+			OGL4_MESH* MESH = ((GPU_ContentManager*)GFXContentManager)->Find_MeshBuffer_byBufferID(MeshBuffer_ID);
 
-		//Load once!
-		unsigned int position_buffer_size = 6 * sizeof(vec2);
-		GLuint PostProcessQuad_VAO, PostProcessQuad_VBO;
-		glGenVertexArrays(1, &PostProcessQuad_VAO);
-		glGenBuffers(1, &PostProcessQuad_VBO);
-		glBindVertexArray(PostProcessQuad_VAO);
-		GFX::GFX_Core::SELF->Check_GL_Errors("Error after binding VAO");
-
-		glBindBuffer(GL_ARRAY_BUFFER, PostProcessQuad_VBO);
-		glBufferData(GL_ARRAY_BUFFER, position_buffer_size * 2, NULL, GL_STATIC_DRAW);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, position_buffer_size, quadVertices);
-		glBufferSubData(GL_ARRAY_BUFFER, position_buffer_size, position_buffer_size, quadTextCoords);
-		GFX::GFX_Core::SELF->Check_GL_Errors("Error after glBufferSubDatas");
-
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(vec2), (void*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vec2), (void*)(position_buffer_size));
-		GFX::GFX_Core::SELF->Check_GL_Errors("Error after attribute settings");
-
-		glBindVertexArray(0);
-		TuranAPI::LOG_STATUS("Quad Mesh VAO: " + to_string(PostProcessQuad_VAO));
-		//GFXI_MESH* gpu_mesh = new GFXI_MESH;
-		//gpu_mesh->Indices_Number = 6;
-		//gpu_mesh->VAO = PostProcessQuad_VAO;
-		//gpu_mesh->VBO = PostProcessQuad_VBO;
+			//
+		}
 	}
 	/*
 	void OGL3_Renderer::Show_RenderTarget_onWindow(WINDOW* WINDOW_to_Display, RenderTarget* RenderTarget_to_Show) {
@@ -59,9 +36,9 @@ namespace OpenGL4 {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		//Bind Material Instance to display Render Target and bind Render Texture!
-		Material_Instance* PP_TextureDisplay_MatInst = TuranAPI::File_System::Material_Instance::Find_MaterialInstance_byName("PP_TextureDisplay_inst");
+		Material_Instance* PP_TextureDisplay_MatInst = TAPIFILESYSTEM::Material_Instance::Find_MaterialInstance_byName("PP_TextureDisplay_inst");
 		PP_TextureDisplay_MatInst->Set_Uniform_Data("Display_Texture", &RenderTarget_to_Show->ID);
-		//PP_TextureDisplay_MatInst->Set_Uniform_Data("Display_Texture", &TuranAPI::File_System::Texture_Resource::ALL_TEXTUREs[0]->GL_ID);
+		//PP_TextureDisplay_MatInst->Set_Uniform_Data("Display_Texture", &TAPIFILESYSTEM::Texture_Resource::ALL_TEXTUREs[0]->GL_ID);
 		Bind_Material_Instance(PP_TextureDisplay_MatInst);
 
 		//Draw Full-Screen Quad!
@@ -93,7 +70,7 @@ namespace OpenGL4 {
 	}
 
 	//Each Render Target Texture is in linear filter mode!
-	void OGL3_Renderer::Create_RenderTarget(Framebuffer* FRAMEBUFFER, unsigned int width, unsigned int height, TuranAPI::TuranAPI_ENUMs dimension, GFX_ENUM format, GFX_ENUM attachment, TuranAPI::TuranAPI_ENUMs value_type) {
+	void OGL3_Renderer::Create_RenderTarget(Framebuffer* FRAMEBUFFER, unsigned int width, unsigned int height, TuranAPI_ENUMs dimension, GFX_ENUM format, GFX_ENUM attachment, TuranAPI_ENUMs value_type) {
 		Render_Target* gfx_rt = new GFX_Render_Target;
 		//Note: Wrapping isn't supported for Render Target Textures
 		gfx_rt->ATTACHMENT = attachment;
@@ -281,9 +258,9 @@ namespace OpenGL4 {
 		}
 	}
 
-	void OGL3_Renderer::Send_Textures_to_GPU(vector<TuranAPI::File_System::Texture_Resource*>* Textures) {
+	void OGL3_Renderer::Send_Textures_to_GPU(vector<TAPIFILESYSTEM::Texture_Resource*>* Textures) {
 		unsigned int i = 0;
-		for (TuranAPI::File_System::Texture_Resource* texture : *Textures) {
+		for (TAPIFILESYSTEM::Texture_Resource* texture : *Textures) {
 			if (texture->GL_ID != 0) {
 				continue;
 			}
@@ -298,9 +275,9 @@ namespace OpenGL4 {
 
 
 			glGenTextures(1, &texture->GL_ID);
-			GFX_API::GFX_API_OBJ->Check_GL_Errors("After generating the texture!\n");
+			GFX_API::GFX_API_OBJ->Check_GL_Errors("After generating the texture!");
 			glBindTexture(texture_D, texture->GL_ID);
-			GFX_API::GFX_API_OBJ->Check_GL_Errors("After binding the texture!\n");
+			GFX_API::GFX_API_OBJ->Check_GL_Errors("After binding the texture!");
 
 
 			// Set the texture wrapping/filtering options (on the currently bound texture object)
@@ -308,12 +285,12 @@ namespace OpenGL4 {
 			glTexParameteri(texture_D, GL_TEXTURE_WRAP_T, Wrapping);
 			glTexParameteri(texture_D, GL_TEXTURE_MIN_FILTER, Mipmap_Filtering);
 			glTexParameteri(texture_D, GL_TEXTURE_MAG_FILTER, Upscale_filtering);
-			GFX_API::GFX_API_OBJ->Check_GL_Errors("After setting Wrapping and Filtering!\n");
+			GFX_API::GFX_API_OBJ->Check_GL_Errors("After setting Wrapping and Filtering!");
 			cout << "Set wrapping!\n";
 			glTexImage2D(texture_D, 0, Channel_Type, texture->WIDTH, texture->HEIGHT, 0, Channel_Type, Value_Type, texture->DATA);
 			glGenerateMipmap(texture_D);
 			//glGenerateMipmap(texture_D);
-			GFX_API::GFX_API_OBJ->Check_GL_Errors("After sending model texture: " + to_string(i) + "!\n");
+			GFX_API::GFX_API_OBJ->Check_GL_Errors("After sending model texture: " + to_string(i) + "!");
 			LOG_STATUS("TexImage2D is finished!");
 			LOG_STATUS("Texture's GL_ID is: " + to_string(texture->GL_ID));
 			i++;
@@ -321,7 +298,7 @@ namespace OpenGL4 {
 		LOG_STATUS("Send Texture Number: " + to_string(i));
 	}
 
-	void OGL3_Renderer::Send_StaticModelDatas_to_GPU(vector<TuranAPI::File_System::Static_Model_Data*>* StaticModel_Datas) {
+	void OGL3_Renderer::Send_StaticModelDatas_to_GPU(vector<TAPIFILESYSTEM::Static_Model_Data*>* StaticModel_Datas) {
 		unsigned int sent_mesh_number = 0;
 		//For each model in scene!
 		for (Static_Model_Data* model_data : *StaticModel_Datas) {
@@ -392,14 +369,14 @@ namespace OpenGL4 {
 
 	void Bind_Uniform(const unsigned int& PROGRAM_ID, const Material_Uniform* uniform);
 
-	void OGL3_Renderer::Bind_Material_Instance(TuranAPI::File_System::Material_Instance* MATERIAL_INST) {
-		if (MATERIAL_INST->Material_Type->GFX_API != TuranAPI::TuranAPI_ENUMs::OPENGL3) {
+	void OGL3_Renderer::Bind_Material_Instance(TAPIFILESYSTEM::Material_Instance* MATERIAL_INST) {
+		if (MATERIAL_INST->Material_Type->GFX_API != TuranAPI_ENUMs::OPENGL3) {
 			cout << "Error: Bound Material Instance's Type isn't written in OpenGL3!\n";
 			SLEEP_THREAD(10);
 			return;
 		}
 
-		GFX_API::GFX_API_OBJ->Check_GL_Errors("Before binding shader!\n");
+		GFX_API::GFX_API_OBJ->Check_GL_Errors("Before binding shader!");
 		unsigned int PROGRAM_ID = MATERIAL_INST->Material_Type->PROGRAM_ID;
 		if (Active_ShaderProgram != MATERIAL_INST->Material_Type) { glUseProgram(PROGRAM_ID); }		//Bind Material Type (Shader Program), if it's not active!
 
@@ -447,28 +424,28 @@ namespace OpenGL4 {
 
 		void* data = uniform->DATA;
 		switch (uniform->VARIABLE_TYPE) {
-		case TuranAPI::TuranAPI_ENUMs::VAR_UINT32:
+		case TuranAPI_ENUMs::VAR_UINT32:
 			glUniform1i(location, *(unsigned int*)data);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::VAR_INT32:
+		case TuranAPI_ENUMs::VAR_INT32:
 			glUniform1i(location, *(int*)data);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::VAR_FLOAT32:
+		case TuranAPI_ENUMs::VAR_FLOAT32:
 			glUniform1f(location, *(float*)data);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::VAR_VEC2:
+		case TuranAPI_ENUMs::VAR_VEC2:
 			glUniform2f(location, ((vec2*)data)->x, ((vec2*)data)->y);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::VAR_VEC3:
+		case TuranAPI_ENUMs::VAR_VEC3:
 			glUniform3f(location, ((vec3*)data)->x, ((vec3*)data)->y, ((vec3*)uniform->DATA)->z);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::VAR_VEC4:
+		case TuranAPI_ENUMs::VAR_VEC4:
 			glUniform4f(location, ((vec4*)data)->x, ((vec4*)data)->y, ((vec4*)uniform->DATA)->z, ((vec4*)uniform->DATA)->w);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::VAR_MAT4x4:
+		case TuranAPI_ENUMs::VAR_MAT4x4:
 			glUniformMatrix4fv(location, 1, GL_FALSE, (float*)data);
 			break;
-		case TuranAPI::TuranAPI_ENUMs::API_TEXTURE_2D:
+		case TuranAPI_ENUMs::API_TEXTURE_2D:
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, *(unsigned int*)uniform->DATA);
 			break;

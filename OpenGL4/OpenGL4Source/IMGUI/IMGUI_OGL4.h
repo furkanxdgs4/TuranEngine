@@ -1,9 +1,9 @@
 #pragma once
 #include "TuranAPI/API_includes.h"
-#include "TuranAPI/API_IMGUI.h"
+#include "GFXSource/IMGUI/IMGUI_GFX.h"
 
 namespace OpenGL4 {
-	class IMGUI_OGL4 : public TuranAPI::IMGUI::IMGUI_GFX {
+	class IMGUI_OGL4 : public GFX_API::IMGUI_GFX {
 	public:
 		virtual void Initialize(void* Window_GPU_Context);
 		virtual void Render_IMGUI(void* data);

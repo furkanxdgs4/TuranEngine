@@ -1,200 +1,116 @@
 #include "Content_Browser.h"
 #include "EditorSource/FileSystem/EditorFileSystem_Core.h"
-#include "TuranAPI/API_IMGUI.h"
-#include "GFXSource/GFX_FileSystem.h"
 
 #include "Status_Window.h"
 #include "Properties_Window.h"
 
-#include "EditorSource/FileSystem/ResourceLoaders/Model_Loader.h"
-#include "EditorSource/FileSystem/ResourceLoaders/Material_Type_Loader.h"
-#include "EditorSource/FileSystem/ResourceLoaders/MaterialInstance_Import.h"
-#include "EditorSource/FileSystem/ResourceLoaders/Texture_Loader.h"
+#include "ResourceLoaders/Material_Type_Loader.h"
+#include "ResourceLoaders/MaterialInstance_Import.h"
+#include "ResourceLoaders/Model_Loader.h"
+#include "ResourceLoaders/Texture_Loader.h"
 #include "EditorSource/Editors/Scene_Editor.h"
 
-
-using namespace TuranAPI::IMGUI;
-using namespace TuranAPI::File_System;
-using namespace Editor::File_System;
-
-GameContent_Browser::GameContent_Browser() : IMGUI_WINDOW("GameContent Browser") {
-
-}
-
-void GameContent_Browser::Run_Window() {
-	if (!Is_Window_Open) {
-		delete this;
-		return;
+namespace TuranEditor {
+	using namespace GFX_API;
+	GameContent_Browser::GameContent_Browser() : IMGUI_WINDOW("GameContent Browser"), Asset_CheckList(100, LASTUSEDALLOCATOR), item_names(LASTUSEDALLOCATOR, 10, 100) {
+		IMGUI_REGISTERWINDOW(this);
 	}
-	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
-		IMGUI::End_Window();
-		return;
+	GameContent_Browser::~GameContent_Browser() {
+		std::cout << "GameContent Browser destructor is called!\n";
 	}
-	if (GameContent_EditMode) {
-		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *EDITOR_FILESYSTEM->Get_Const_FileListContentVector()) {
-			item_names.push_back(RESOURCE->NAME);
-		}
-		GameContentList_CheckList.resize(item_names.size(), false);
 
-		if (IMGUI::Button("Delete All")) {
-			EDITOR_FILESYSTEM->Clear_FileListContents();
-			GameContentList_CheckList.clear();
-			GameContent_EditMode = false;
+	void GameContent_Browser::Run_Window() {
+		if (!Is_Window_Open) {
+			IMGUI_DELETEWINDOW(this);
+			return;
 		}
-		IMGUI::Same_Line();
-		if (IMGUI::Button("Delete")) {
-			if (EDITOR_FILESYSTEM->Get_LengthOf_FileListContentVector() != GameContentList_CheckList.size()) {
-				cout << "Error: in Delete Items from Vector(), 2 vectors should have same size!\n";
-				TuranAPI::Breakpoint();
-			}
-			for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_LengthOf_FileListContentVector(); i++) {
-				bool should_erase = GameContentList_CheckList[i];
-				if (should_erase) {
-					Resource_Type* resource_to_delete = (*EDITOR_FILESYSTEM->Get_Const_FileListContentVector())[i];
-					EDITOR_FILESYSTEM->Remove_Content_fromFileList(i);
-					GameContentList_CheckList.erase(GameContentList_CheckList.begin() + i);
-					i -= 1;
-					cout << "Deleted an item!\n";
+		if (!IMGUI->Create_Window(Window_Name, Is_Window_Open, false)) {
+			IMGUI->End_Window();
+			return;
+		}
+		if (GameContent_EditMode) {
+			if (item_names.size() != EDITOR_FILESYSTEM->Get_AssetList().size()) {
+				item_names.clear();
+				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
+					TuranAPI::Resource_Type* RESOURCE = EDITOR_FILESYSTEM->Get_AssetList().Get(i);
+					item_names.push_back(RESOURCE->NAME);
 				}
 			}
-			GameContentList_CheckList.clear();
-			GameContent_EditMode = false;
-		}
-		IMGUI::Same_Line();
-		if (IMGUI::Button("Cancel")) {
-			GameContentList_CheckList.clear();
-			GameContent_EditMode = false;
+
+			if (IMGUI->Button("Delete All")) {
+				EDITOR_FILESYSTEM->Clear_AllFileList();
+				Asset_CheckList.Clear(false);
+				GameContent_EditMode = false;
+			}
+			IMGUI->Same_Line();
+			if (IMGUI->Button("Delete")) {
+				if (EDITOR_FILESYSTEM->Get_AssetList().size() > Asset_CheckList.GetByte_Length() * 8) {
+					TuranAPI::LOG_STATUS("Bitset's size isn't enough to create a Checklist for all Assets! Expanding its size!");
+					unsigned int expand_size = (EDITOR_FILESYSTEM->Get_AssetList().size() - (Asset_CheckList.GetByte_Length() * 8)) / 8;
+					Asset_CheckList.Expand(expand_size);
+				}
+				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
+					bool should_erase = Asset_CheckList.GetBit_Value(i);
+					if (should_erase) {
+						TuranAPI::Resource_Type* resource_to_delete = EDITOR_FILESYSTEM->Get_AssetList()[i];
+						EDITOR_FILESYSTEM->Delete_anAsset_fromFileList(resource_to_delete);
+						std::cout << "Deleted an item!\n";
+					}
+				}
+				Asset_CheckList.Clear(false);
+				GameContent_EditMode = false;
+			}
+			IMGUI->Same_Line();
+			if (IMGUI->Button("Cancel")) {
+				Asset_CheckList.Clear(false); 
+				GameContent_EditMode = false;
+			}
+			else {
+				IMGUI->CheckListBox("Game Content List", &Asset_CheckList, &item_names);
+			}
+
+			IMGUI->End_Window();
+			return;
 		}
 		else {
-			IMGUI::CheckListBox("Game Content List", &GameContentList_CheckList, &item_names);
-		}
-
-		IMGUI::End_Window();
-		return;
-	}
-	else {
-		if (IMGUI::Button("Edit List")) {
-			GameContent_EditMode = true;
-		}
-		IMGUI::Same_Line();
-		//Import Buttons
-		{
-			if (IMGUI::Button("Import Model")) {new Model_Import_Window((FileSystem*)&EDITOR_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Material Type")) {new Material_Import_Window((FileSystem*)&EDITOR_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Texture")) {new Texture_Import_Window((FileSystem*)&EDITOR_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Create Material Instance")) {new MaterialInstance_CreationWindow((FileSystem*)&EDITOR_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Create Scene")) { new Scene_Create_Window((FileSystem*)&EDITOR_FILESYSTEM); }
-		}
-
-		//Even if there is a importing proccess, show the contents!
-		int selected_list_item_index = -1;
-		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *EDITOR_FILESYSTEM->Get_Const_FileListContentVector()) {
-			item_names.push_back(RESOURCE->NAME);
-		}
-		//Show selected content's properties!
-		if (IMGUI::Selectable_ListBox("Game Content List", &selected_list_item_index, &item_names)) {
-			ResourceProperties_Window* properties = new ResourceProperties_Window(
-				(*EDITOR_FILESYSTEM->Get_Const_FileListContentVector())[selected_list_item_index]
-			);
-		}
-
-		IMGUI::End_Window();
-		return;
-	}
-}
-
-
-GFX_Content_Browser::GFX_Content_Browser() : IMGUI_WINDOW("GFX Content Browser"){}
-
-void GFX_Content_Browser::Run_Window() {
-	if (!Is_Window_Open) {
-		delete this;
-		return;
-	}
-	if (!IMGUI::Create_Window(Window_Name, Is_Window_Open, false)) {
-		IMGUI::End_Window();
-		return;
-	}
-	if (GFXContent_EditMode) {
-		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *GFX::GFX_FILESYSTEM->Get_GFXContentList()->Get_ContentListVector()) {
-			item_names.push_back(RESOURCE->NAME);
-		}
-		GFXContentList_CheckList.resize(item_names.size(), false);
-
-		if (IMGUI::Button("Delete All")) {
-			GFX::GFX_FILESYSTEM->Clear_FileListContents();
-			GFXContentList_CheckList.clear();
-			GFXContent_EditMode = false;
-		}
-		IMGUI::Same_Line();
-		if (IMGUI::Button("Delete")) {
-			vector<Resource_Type*>* Vector_to_Erase = GFX::GFX_FILESYSTEM->Get_GFXContentList()->Get_ContentListVector();
-			if (Vector_to_Erase->size() != GFXContentList_CheckList.size()) {
-				cout << "Error: Vector to Erase and Erase list doesn't match in Content Browser.cpp!\n";
-				TuranAPI::Breakpoint();
+			if (IMGUI->Button("Edit List")) {
+				GameContent_EditMode = true;
 			}
-			for (unsigned int i = 0; i < Vector_to_Erase->size(); i++) {
-				bool should_erase = GFXContentList_CheckList[i];
-				if (should_erase) {
-					Vector_to_Erase->erase(Vector_to_Erase->begin() + i);
-					GFXContentList_CheckList.erase(GFXContentList_CheckList.begin() + i);
-					i -= 1;
-					cout << "Deleted an item!\n";
+			
+			IMGUI->Same_Line();
+			//Import Buttons
+			{
+				if (IMGUI->Button("Import Model")) { new Model_Import_Window; }
+				IMGUI->Same_Line();
+				if (IMGUI->Button("Import Material Type")) { new Material_Import_Window; }
+				IMGUI->Same_Line();
+				if (IMGUI->Button("Import Texture")) { new Texture_Import_Window; }
+				IMGUI->Same_Line();
+				if (IMGUI->Button("Create Material Instance")) { new MaterialInstance_CreationWindow; }
+				IMGUI->Same_Line();
+				if (IMGUI->Button("Create Scene")) { new Scene_Create_Window; }
+			}
+			
+			//Even if there is a importing proccess, show the contents!
+			int selected_list_item_index = -1;
+			if (item_names.size() != EDITOR_FILESYSTEM->Get_AssetList().size()) {
+				item_names.clear();
+				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
+					TuranAPI::Resource_Type* RESOURCE = EDITOR_FILESYSTEM->Get_AssetList().Get(i);
+					item_names.push_back(RESOURCE->NAME);
 				}
 			}
-			GFXContentList_CheckList.clear();
-			GFXContent_EditMode = false;
-			TuranAPI::File_System::FileSystem::Write_a_Resource_toDisk(GFX::GFX_FILESYSTEM->Get_GFXContentList());
-		}
-		IMGUI::Same_Line();
-		if (IMGUI::Button("Cancel")) {
-			GFXContentList_CheckList.clear();
-			GFXContent_EditMode = false;
-		}
-		else {
-			IMGUI::CheckListBox("GFX Content List", &GFXContentList_CheckList, &item_names);
-		}
+			//Show selected content's properties!
+			if (IMGUI->Selectable_ListBox("Game Content List", &selected_list_item_index, &item_names)) {
+				ResourceProperties_Window* properties = new ResourceProperties_Window(
+					EDITOR_FILESYSTEM->Get_AssetList()[selected_list_item_index]
+				);
+			}
 
-		IMGUI::End_Window();
-		return;
+			IMGUI->End_Window();
+			return;
+		}
 	}
-	else {
-		if (IMGUI::Button("Edit List")) {
-			GFXContent_EditMode = true;
-		}
-		IMGUI::Same_Line();
-		//Import Buttons
-		{
-			if (IMGUI::Button("Import Model")) { Model_Import_Window* import_window = new Model_Import_Window((FileSystem*)GFX::GFX_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Material Type")) { Material_Import_Window* import_window = new Material_Import_Window((FileSystem*)GFX::GFX_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Import Texture")) { Texture_Import_Window* import_window = new Texture_Import_Window((FileSystem*)GFX::GFX_FILESYSTEM); }
-			IMGUI::Same_Line();
-			if (IMGUI::Button("Create Material Instance")) { MaterialInstance_CreationWindow* import_window = new MaterialInstance_CreationWindow((FileSystem*)GFX::GFX_FILESYSTEM); }
-		}
 
-		//Even if there is a importing proccess, show the contents!
-		int selected_list_item_index = -1;
-		vector<string> item_names;
-		for (Resource_Type* RESOURCE : *GFX::GFX_FILESYSTEM->Get_GFXContentList()->Get_ContentListVector()) {
-			item_names.push_back(RESOURCE->NAME);
-		}
-		//Show selected content's properties!
-		if (IMGUI::Selectable_ListBox("GFX Content List", &selected_list_item_index, &item_names)) {
-			ResourceProperties_Window* properties = new ResourceProperties_Window(
-				(*GFX::GFX_FILESYSTEM->Get_Const_FileListContentVector())[selected_list_item_index]
-			);
-		}
 
-		IMGUI::End_Window();
-		return;
-	}
 }

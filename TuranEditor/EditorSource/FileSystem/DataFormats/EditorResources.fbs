@@ -1,0 +1,124 @@
+namespace EditorAsset;
+
+struct Vec2{
+    x: float;
+    y: float;
+}
+
+struct Vec3{
+    x: float;
+    y: float;
+    z: float;
+}
+
+struct Vec4{
+    x: float;
+    y: float;
+    z: float;
+    w: float;
+}
+
+struct Mat4x4{
+    ROW_1: Vec4;
+    ROW_2: Vec4;
+    ROW_3: Vec4;
+    ROW_4: Vec4;
+}
+
+enum ATTRIBUTE_DATATYPE : ubyte {
+    UBYTE8 = 0, BYTE8, UINT32, INT32, FLOAT32, VEC2, VEC3, VEC4
+}
+
+
+table VERTEX_ATTRIBUTE{
+    AttributeName: string;
+    DataType: ATTRIBUTE_DATATYPE;
+    AttributeIndex: ubyte;
+    Stride: uint;
+    Start_Offset: uint;
+}
+
+
+//Each Mesh will store vertex attributes and material index to reference!
+//Material index is index in the Model's MATERIALs vector
+table MESH{
+    DATA: [byte];
+    AttributeLayout: [VERTEX_ATTRIBUTE];
+    Material_Index: ubyte;
+    VertexNumber: uint;
+}
+
+table STATIC_MODEL{
+    MESHes: [MESH];
+    Material_Number: ubyte;
+}
+
+
+
+
+
+
+//Define all of the components!
+table StaticModel_ComponentTable{
+    NAME: string;
+    Model_ID: uint;
+    //This vector's size should match with attached Static_Model's total material number!
+    MaterialInstances_IDs: [uint];
+    LOCATION: Vec3;
+    ROTATION: Vec3;
+    SCALE: Vec3;
+}
+
+table Camera_ComponentTable{
+    NAME: string;
+    LOCATION: Vec3;
+    FOV_inAngle: ushort;
+    Aspect_WIDTH: ushort;
+    Aspect_HEIGHT: ushort;
+    Near_Plane: float;
+    Far_Plane: float;
+    Target: Vec3;
+}
+
+union GameComponent_Type{
+    StaticModel_Component: StaticModel_ComponentTable,
+    Camera_Component: Camera_ComponentTable
+}
+
+table GameComponent{
+    COMPONENT: GameComponent_Type;
+} 
+
+table SCENE{
+    NAME: string;
+    COMPONENTs: [GameComponent];
+}
+
+
+
+//Please don't forget that, this should match Resource_Type!
+enum File_Type: ubyte { ERROR = 0, Material_Type = 1, Material_Instance, Texture, Static_Model, Scene}
+
+table File{
+    PATH: string;
+    TYPE: File_Type;
+    ID: uint;
+}
+
+
+table FileList{
+    FILE_LIST: [File];
+    LAST_ID: uint;
+}
+
+union Resource_Type {
+    Scene: SCENE,
+    File_List: FileList,
+    Static_Model: STATIC_MODEL
+}
+
+table Resource{
+    TYPE: Resource_Type;
+}
+
+root_type Resource;
