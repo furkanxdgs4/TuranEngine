@@ -1,0 +1,14 @@
+#pragma once
+
+namespace TuranEditor {
+
+	enum class RESOURCETYPEs : char {
+		EDITOR_STATICMODEL = 0,
+		GFXAPI_TEXTURE = 1,
+		GFXAPI_SHADERSOURCE,
+		GFXAPI_MATTYPE,
+		GFXAPI_MATINST,
+		EDITOR_SCENE,
+		EDITOR_FILELIST
+	};
+}

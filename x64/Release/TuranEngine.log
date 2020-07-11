@@ -1,0 +1,138 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1006,5): warning MSB8027: Two or more files with the name of Bitset.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are EditorSource\TuranAPI\Bitset.cpp, TuranAPI\TSTL\Bitset.cpp.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1006,5): warning MSB8027: Two or more files with the name of MemoryManager_Core.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are EditorSource\TuranAPI\MemoryManager_Core.cpp, TuranAPI\MemoryManager\MemoryManager_Core.cpp.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1006,5): warning MSB8027: Two or more files with the name of TSTL_Core.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are EditorSource\TuranAPI\TSTL_Core.cpp, TuranAPI\TSTL\TSTL_Core.cpp.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1006,5): warning MSB8027: Two or more files with the name of Vector.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are EditorSource\TuranAPI\Vector.cpp, TuranAPI\TSTL\Vector.cpp.
+  Editor.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editor_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  Content_Browser.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\Content_Browser.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  IMGUI_DEFAULT_WINDOWs.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Main_Window.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\Main_Window.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Profiling_Window.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\Profiling_Window.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Properties_Window.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\Properties_Window.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  MaterialInstance_Import.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\ResourceLoaders\MaterialInstance_Import.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Material_Type_Loader.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\ResourceLoaders\Material_Type_Loader.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Model_Loader.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\ResourceLoaders\Model_Loader.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Texture_Loader.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\ResourceLoaders\Texture_Loader.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Scene_Editor.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\Scene_Editor.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Status_Window.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editors\Status_Window.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Editor_Includes.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\Editor_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  EditorFileSystem_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\FileSystem\EditorFileSystem_Core.h(2,10): fatal error C1083: Cannot open include file: 'EngineSource/TuranEngine.h': No such file or directory
+  Camera_Component.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\FileSystem\GameObjects\Camera_Component.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  StaticModel_Component.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\FileSystem\GameObjects\StaticModel_Component.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  FileList_Resource.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\FileSystem\ResourceTypes\FileList_Resource.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Model_Resource.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\FileSystem\ResourceTypes\Model_Resource.h(2,10): fatal error C1083: Cannot open include file: 'EditorSource/Editor_Includes.h': No such file or directory
+  Scene_Resource.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\FileSystem\ResourceTypes\Scene_Resource.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  GBuffer_DrawPass.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  Compiling...
+  Game_RenderGraph.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\RenderContext\Game_RenderGraph.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  Bitset.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\TuranAPI\Bitset.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/Bitset.h': No such file or directory
+  MemoryManager_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\TuranAPI\MemoryManager_Core.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/MemoryManager/MemoryManager_Core.h': No such file or directory
+  TSTL_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\TuranAPI\TSTL_Core.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/TSTL_Core.h': No such file or directory
+  Vector.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EditorSource\TuranAPI\Vector.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/Vector.h': No such file or directory
+  TuranEngine.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EngineSource\Engine_Includes.h(3,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  BasicCommands.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EngineSource\TuranLang\BasicCommands.cpp(1,10): fatal error C1083: Cannot open include file: 'EngineSource/Engine_Includes.h': No such file or directory
+  TuranLang_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\EngineSource\TuranLang\TuranLang_Core.h(2,10): fatal error C1083: Cannot open include file: 'EngineSource/Engine_Includes.h': No such file or directory
+  GFX_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\GFX_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  GFX_Display.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\GFX_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  GFX_ENUMs.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\GFX_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  Material_Type_Resource.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\GFX_FileSystem\Resource_Type\Material_Type_Resource.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  Texture_Resource.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\GFX_FileSystem\Resource_Type\Texture_Resource.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  GFX_Includes.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\GFX_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/TuranAPI_Core.h': No such file or directory
+  IMGUI_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\IMGUI\IMGUI_Core.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  IMGUI_WINDOW.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\IMGUI\IMGUI_WINDOW.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_stdlib.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\IMGUI\Includes\imgui_stdlib.h(15,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/TSTL_Core.h': No such file or directory
+  Compiling...
+  imgui_widgets.cpp
+  GFX_APICommands.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\Renderer\GFX_APICommands.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  GFX_RenderCommands.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\Renderer\GFX_RenderCommands.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  GFX_Renderer.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\Renderer\GFX_Renderer.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  GFX_RenderGraph.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\Renderer\GFX_RenderGraph.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  GFX_Resource.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\Renderer\GFX_Resource.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  GPU_ContentManager.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\GFXSource\Renderer\GPU_ContentManager.h(2,10): fatal error C1083: Cannot open include file: 'GFXSource/GFX_Includes.h': No such file or directory
+  imgui_impl_glfw.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\IMGUI\imgui_impl_glfw.cpp(39,10): fatal error C1083: Cannot open include file: 'GFXSource/IMGUI/Includes/imgui.h': No such file or directory
+  imgui_impl_opengl3.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\IMGUI\imgui_impl_opengl3.cpp(68,10): fatal error C1083: Cannot open include file: 'GFXSource/IMGUI/Includes/imgui.h': No such file or directory
+  IMGUI_OGL4.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\IMGUI\IMGUI_OGL4.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  OGL4_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\OGL4_ENUMs.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_ENUMs.h': No such file or directory
+  OGL4_Display.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\OpenGL4_Includes.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/Logger/Logger_Core.h': No such file or directory
+  OGL4_ENUMs.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\OGL4_ENUMs.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_ENUMs.h': No such file or directory
+  OGL4_APICommands.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\Renderer\OGL4_APICommands.h(2,10): fatal error C1083: Cannot open include file: 'OpenGL4Source/OGL4_ENUMs.h': No such file or directory
+  OGL4_ContentManager.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\Renderer\OGL4_GPUContentManager.h(2,10): fatal error C1083: Cannot open include file: 'OpenGL4Source/OpenGL4_Includes.h': No such file or directory
+  OGL4_Renderer_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\OpenGL4Source\Renderer\OGL4_Renderer_Core.h(2,10): fatal error C1083: Cannot open include file: 'OpenGL4Source/OGL4_ENUMs.h': No such file or directory
+  OGL4_RenderGraph.cpp
+  API_includes.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\API_includes.h(35,10): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  FileSystem_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\FileSystem\FileSystem_Core.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  GameComponent.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\FileSystem\GameObjects\GameComponents\GameComponent.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  Compiling...
+  Resource_Type.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\FileSystem\Resource_Types\Resource_Type.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  Logger_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\Logger\Logger_Core.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  MemoryManager_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\MemoryManager\MemoryManager_Core.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/MemoryManager/MemoryManager_Core.h': No such file or directory
+  Profiler_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\Profiler\Profiler_Core.h(2,10): fatal error C1083: Cannot open include file: 'TuranAPI/API_includes.h': No such file or directory
+  Bitset.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\TSTL\Bitset.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/Bitset.h': No such file or directory
+  TSTL_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\TSTL\TSTL_Core.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/TSTL_Core.h': No such file or directory
+  Vector.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\TSTL\Vector.cpp(1,10): fatal error C1083: Cannot open include file: 'TuranAPI/TSTL/Vector.h': No such file or directory
+  TuranAPI_Core.cpp
+C:\dev\TuranEngine-NonDLL\TuranEngine\TuranAPI\API_includes.h(35,10): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory

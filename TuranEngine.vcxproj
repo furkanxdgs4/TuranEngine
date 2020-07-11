@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{29D235C1-946B-4EDF-A811-F11451E9A5D4}</ProjectGuid>
+    <RootNamespace>TuranEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)</IntDir>
+    <IncludePath>C:\dev\TuranEngine-NonDLL\TuranEngine\3rdPartyLibraries\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\dev\TuranEngine-NonDLL\TuranEngine\3rdPartyLibraries\Libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)</IntDir>
+    <IncludePath>C:\dev\TuranEngine-NonDLL\TuranEngine\3rdPartyLibraries\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\dev\TuranEngine-NonDLL\TuranEngine\3rdPartyLibraries\Libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\dev\TuranEngine-NonDLL\TuranEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\dev\TuranEngine-NonDLL\TuranEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="EditorSource\Editor.cpp" />
+    <ClCompile Include="EditorSource\Editors\Content_Browser.cpp" />
+    <ClCompile Include="EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.cpp" />
+    <ClCompile Include="EditorSource\Editors\Main_Window.cpp" />
+    <ClCompile Include="EditorSource\Editors\Profiling_Window.cpp" />
+    <ClCompile Include="EditorSource\Editors\Properties_Window.cpp" />
+    <ClCompile Include="EditorSource\Editors\ResourceLoaders\MaterialInstance_Import.cpp" />
+    <ClCompile Include="EditorSource\Editors\ResourceLoaders\Material_Type_Loader.cpp" />
+    <ClCompile Include="EditorSource\Editors\ResourceLoaders\Model_Loader.cpp" />
+    <ClCompile Include="EditorSource\Editors\ResourceLoaders\Texture_Loader.cpp" />
+    <ClCompile Include="EditorSource\Editors\Scene_Editor.cpp" />
+    <ClCompile Include="EditorSource\Editors\Status_Window.cpp" />
+    <ClCompile Include="EditorSource\Editor_Includes.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\EditorFileSystem_Core.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\GameObjects\Camera_Component.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\GameObjects\StaticModel_Component.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Load_Material_TypeandInst.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Load_SceneResource.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Load_StaticModel.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Load_Texture.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceTypes\FileList_Resource.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceTypes\Model_Resource.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceTypes\Resource_Identifier.cpp" />
+    <ClCompile Include="EditorSource\FileSystem\ResourceTypes\Scene_Resource.cpp" />
+    <ClCompile Include="EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.cpp" />
+    <ClCompile Include="EditorSource\RenderContext\Game_RenderGraph.cpp" />
+    <ClCompile Include="EngineSource\TuranEngine.cpp" />
+    <ClCompile Include="EngineSource\TuranLang\BasicCommands.cpp" />
+    <ClCompile Include="EngineSource\TuranLang\TuranLang_Core.cpp" />
+    <ClCompile Include="GFXSource\GFX_Core.cpp" />
+    <ClCompile Include="GFXSource\GFX_Display.cpp" />
+    <ClCompile Include="GFXSource\GFX_ENUMs.cpp" />
+    <ClCompile Include="GFXSource\GFX_FileSystem\Resource_Type\Material_Type_Resource.cpp" />
+    <ClCompile Include="GFXSource\GFX_FileSystem\Resource_Type\Texture_Resource.cpp" />
+    <ClCompile Include="GFXSource\GFX_Includes.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\IMGUI_Core.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\IMGUI_WINDOW.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_demo.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_draw.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_stdlib.cpp" />
+    <ClCompile Include="GFXSource\IMGUI\Includes\imgui_widgets.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_APICommands.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_RenderCommands.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_Renderer.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_RenderGraph.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GFX_Resource.cpp" />
+    <ClCompile Include="GFXSource\Renderer\GPU_ContentManager.cpp" />
+    <ClCompile Include="OpenGL4Source\glad.c" />
+    <ClCompile Include="OpenGL4Source\IMGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="OpenGL4Source\IMGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="OpenGL4Source\IMGUI\IMGUI_OGL4.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_Display.cpp" />
+    <ClCompile Include="OpenGL4Source\OGL4_ENUMs.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_APICommands.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_ContentManager.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_Renderer_Core.cpp" />
+    <ClCompile Include="OpenGL4Source\Renderer\OGL4_RenderGraph.cpp" />
+    <ClCompile Include="TuranAPI\API_includes.cpp" />
+    <ClCompile Include="TuranAPI\FileSystem\FileSystem_Core.cpp" />
+    <ClCompile Include="TuranAPI\FileSystem\GameObjects\GameComponents\GameComponent.cpp" />
+    <ClCompile Include="TuranAPI\Logger\Logger_Core.cpp" />
+    <ClCompile Include="TuranAPI\MemoryManager\MemoryManager_Core.cpp" />
+    <ClCompile Include="TuranAPI\Profiler\Profiler_Core.cpp" />
+    <ClCompile Include="TuranAPI\TSTL\Bitset.cpp" />
+    <ClCompile Include="TuranAPI\TuranAPI_Core.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EditorSource\Editor.h" />
+    <ClInclude Include="EditorSource\Editors\Content_Browser.h" />
+    <ClInclude Include="EditorSource\Editors\EDITORs.h" />
+    <ClInclude Include="EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.h" />
+    <ClInclude Include="EditorSource\Editors\Main_Window.h" />
+    <ClInclude Include="EditorSource\Editors\Profiling_Window.h" />
+    <ClInclude Include="EditorSource\Editors\Properties_Window.h" />
+    <ClInclude Include="EditorSource\Editors\ResourceLoaders\MaterialInstance_Import.h" />
+    <ClInclude Include="EditorSource\Editors\ResourceLoaders\Material_Type_Loader.h" />
+    <ClInclude Include="EditorSource\Editors\ResourceLoaders\Model_Loader.h" />
+    <ClInclude Include="EditorSource\Editors\ResourceLoaders\Texture_Loader.h" />
+    <ClInclude Include="EditorSource\Editors\Scene_Editor.h" />
+    <ClInclude Include="EditorSource\Editors\Status_Window.h" />
+    <ClInclude Include="EditorSource\Editor_Includes.h" />
+    <ClInclude Include="EditorSource\FileSystem\DataFormats\EditorResources_generated.h" />
+    <ClInclude Include="EditorSource\FileSystem\EditorFileSystem_Core.h" />
+    <ClInclude Include="EditorSource\FileSystem\GameObjects\Camera_Component.h" />
+    <ClInclude Include="EditorSource\FileSystem\GameObjects\StaticModel_Component.h" />
+    <ClInclude Include="EditorSource\FileSystem\ResourceTypes\FileList_Resource.h" />
+    <ClInclude Include="EditorSource\FileSystem\ResourceTypes\Model_Resource.h" />
+    <ClInclude Include="EditorSource\FileSystem\ResourceTypes\ResourceTYPEs.h" />
+    <ClInclude Include="EditorSource\FileSystem\ResourceTypes\Resource_Identifier.h" />
+    <ClInclude Include="EditorSource\FileSystem\ResourceTypes\Scene_Resource.h" />
+    <ClInclude Include="EditorSource\RenderContext\Draw Passes\Draw_Passes.h" />
+    <ClInclude Include="EditorSource\RenderContext\Draw Passes\GBuffer_DrawPass.h" />
+    <ClInclude Include="EditorSource\RenderContext\Game_RenderGraph.h" />
+    <ClInclude Include="EngineSource\ENGINE_ENUMs.h" />
+    <ClInclude Include="EngineSource\Engine_Includes.h" />
+    <ClInclude Include="EngineSource\TuranEngine.h" />
+    <ClInclude Include="EngineSource\TuranLang\TuranLang_Core.h" />
+    <ClInclude Include="GFXSource\GFX_Core.h" />
+    <ClInclude Include="GFXSource\GFX_Display.h" />
+    <ClInclude Include="GFXSource\GFX_ENUMs.h" />
+    <ClInclude Include="GFXSource\GFX_FileSystem\DataFormats\GFXAPI_Resources_generated.h" />
+    <ClInclude Include="GFXSource\GFX_FileSystem\Resource_Type\Material_Type_Resource.h" />
+    <ClInclude Include="GFXSource\GFX_FileSystem\Resource_Type\Texture_Resource.h" />
+    <ClInclude Include="GFXSource\GFX_Includes.h" />
+    <ClInclude Include="GFXSource\IMGUI\IMGUI_Core.h" />
+    <ClInclude Include="GFXSource\IMGUI\IMGUI_GFX.h" />
+    <ClInclude Include="GFXSource\IMGUI\IMGUI_WINDOW.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imconfig.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imgui.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imgui_internal.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imgui_stdlib.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imstb_rectpack.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imstb_textedit.h" />
+    <ClInclude Include="GFXSource\IMGUI\Includes\imstb_truetype.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_APICommands.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_RenderCommands.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_Renderer.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_RenderGraph.h" />
+    <ClInclude Include="GFXSource\Renderer\GFX_Resource.h" />
+    <ClInclude Include="GFXSource\Renderer\GPU_ContentManager.h" />
+    <ClInclude Include="OpenGL4Source\IMGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="OpenGL4Source\IMGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="OpenGL4Source\IMGUI\IMGUI_OGL4.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_Core.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_Display.h" />
+    <ClInclude Include="OpenGL4Source\OGL4_ENUMs.h" />
+    <ClInclude Include="OpenGL4Source\OpenGL4_Includes.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_APICommands.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_GPUContentManager.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_Renderer_Core.h" />
+    <ClInclude Include="OpenGL4Source\Renderer\OGL4_RenderGraph.h" />
+    <ClInclude Include="TuranAPI\API_ENUMs.h" />
+    <ClInclude Include="TuranAPI\API_includes.h" />
+    <ClInclude Include="TuranAPI\FileSystem\DataFormats\TuranAPIFormats_generated.h" />
+    <ClInclude Include="TuranAPI\FileSystem\FileSystem_Core.h" />
+    <ClInclude Include="TuranAPI\FileSystem\GameObjects\GameComponents\GameComponent.h" />
+    <ClInclude Include="TuranAPI\FileSystem\GameObjects\GameComponents\GameComponentTypes.h" />
+    <ClInclude Include="TuranAPI\Logger\Logger_Core.h" />
+    <ClInclude Include="TuranAPI\MemoryManager\MemoryManager_Core.h" />
+    <ClInclude Include="TuranAPI\Profiler\Profiler_Core.h" />
+    <ClInclude Include="TuranAPI\TSTL\Bitset.h" />
+    <ClInclude Include="TuranAPI\TuranAPI_Core.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assimp.dll" />
+    <None Include="File_List.enginecont" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

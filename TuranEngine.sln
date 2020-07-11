@@ -1,41 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29123.88
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuranEngine", "TuranEngine\TuranEngine.vcxproj", "{2D4D9BD7-3CDD-4672-A2F5-2951457D4F0D}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuranEditor", "TuranEditor\TuranEditor.vcxproj", "{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GFX_API", "GFX_API\GFX_API.vcxproj", "{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuranAPI", "TuranAPI\TuranAPI.vcxproj", "{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL4", "OpenGL4\OpenGL4.vcxproj", "{FA27AE75-39F2-40A7-AA60-1092B7E3297D}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vulkan", "Vulkan\Vulkan.vcxproj", "{9B62A2C8-BAC5-41C9-BC46-6451A2925876}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuranEngine", "TuranEngine.vcxproj", "{29D235C1-946B-4EDF-A811-F11451E9A5D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2D4D9BD7-3CDD-4672-A2F5-2951457D4F0D}.Release|x64.ActiveCfg = Release|x64
-		{2D4D9BD7-3CDD-4672-A2F5-2951457D4F0D}.Release|x64.Build.0 = Release|x64
-		{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}.Release|x64.ActiveCfg = Release|x64
-		{75CAD0CE-263C-46D2-AD5D-5878CB8A3F08}.Release|x64.Build.0 = Release|x64
-		{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}.Release|x64.ActiveCfg = Release|x64
-		{3859B6EF-AEC4-48D8-B0BC-66B8D9F81B88}.Release|x64.Build.0 = Release|x64
-		{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}.Release|x64.ActiveCfg = Release|x64
-		{914F0AA8-3D8F-44DE-A2BF-A3A93B8A858E}.Release|x64.Build.0 = Release|x64
-		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Release|x64.ActiveCfg = Release|x64
-		{FA27AE75-39F2-40A7-AA60-1092B7E3297D}.Release|x64.Build.0 = Release|x64
-		{9B62A2C8-BAC5-41C9-BC46-6451A2925876}.Release|x64.ActiveCfg = Release|x64
+		{29D235C1-946B-4EDF-A811-F11451E9A5D4}.Release|x64.ActiveCfg = Release|x64
+		{29D235C1-946B-4EDF-A811-F11451E9A5D4}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {995FED8B-B3FE-40AE-B117-E3D8C03F16D7}
+		SolutionGuid = {601320E0-0BA8-4858-BE91-849001D8E252}
 	EndGlobalSection
 EndGlobal
