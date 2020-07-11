@@ -1,2 +1,4 @@
 TuranAPI: Logging Started!
+Model is nullptr!
+
 

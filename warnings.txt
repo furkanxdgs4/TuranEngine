@@ -1,2 +1,3 @@
 TuranAPI: Logging Started!
+There is no Static Model with ID: number->string isn't supported yet!
 

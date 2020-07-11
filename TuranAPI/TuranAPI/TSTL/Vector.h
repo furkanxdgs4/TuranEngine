@@ -4,7 +4,7 @@
 namespace TuranAPI {
 	namespace STL {
 		//To avoid unnecessary copies and wasting memory blocks, you should guess the optimum size for your buffer!
-		//Your class doesn't have to have a default constructor (except you use resize)
+		//Your class have to have a default constructor (except you use resize)
 		template <typename T>
 		class Vector {
 			T* pointer_toBuffer = nullptr;
@@ -14,6 +14,7 @@ namespace TuranAPI {
 			//Expanding size variable is used to know how much to expand the vector if it's reached its limits.
 			Vector(TuranAPI::MemoryManagement::IAllocator* Allocator, size_t expand_size, size_t size = 0);
 			Vector(TuranAPI::MemoryManagement::IAllocator* Allocator, size_t expand_size, std::initializer_list<T>& list);
+			Vector(const Vector<T>& from);
 			~Vector();
 			void push_back(const T& object);
 			void erase(size_t index);
@@ -26,9 +27,6 @@ namespace TuranAPI {
 			//Use this function when you have to access Vector with data()!
 			//This function uses default constructor for new elements!
 			void resize(size_t resize);
-			//Use this function when you have to create Vector with zero capacity!
-			//Doesn't create elements, only allocates buffer!
-			void grow(size_t new_size);
 
 			T* data();
 			T& Get(size_t index) const;
@@ -43,6 +41,11 @@ namespace TuranAPI {
 			pointer_toBuffer = (T*)Allocator->Allocate_MemoryBlock(size * sizeof(T));
 			if (pointer_toBuffer) {
 				buffer_size = size;
+
+				T default_element = {};
+				for (unsigned int i = 0; i < buffer_size; i++) {
+					push_back(default_element);
+				}
 				buffer_length = 0;
 			}
 			else {
@@ -54,6 +57,12 @@ namespace TuranAPI {
 			: Allocator(Allocator_), expand_size(expanding_size), buffer_size(list.size()) {
 			for (auto element : list) {
 				this->push_back(element);
+			}
+		}
+		template<class T>
+		Vector<T>::Vector(const Vector<T>& from) : Vector(from.Allocator, from.expand_size, from.size()){
+			for (unsigned int i = 0; i < from.size(); i++) {
+				push_back(from[i]);
 			}
 		}
 		template<class T>
@@ -71,8 +80,8 @@ namespace TuranAPI {
 			else if (!pointer_toBuffer) {
 				pointer_toBuffer = (T*)Allocator->Allocate_MemoryBlock((buffer_size) * sizeof(T));
 				if (pointer_toBuffer) {
-					memcpy(pointer_toBuffer, &object, sizeof(T));
-					buffer_length++;
+					pointer_toBuffer[0] = object;
+					buffer_length = 1;
 					return;
 				}
 				else {
@@ -88,7 +97,7 @@ namespace TuranAPI {
 					pointer_toBuffer = (T*)PTR;
 					buffer_size += expand_size;
 
-					memcpy(pointer_toBuffer + buffer_length, &object, sizeof(T));
+					pointer_toBuffer[buffer_length] = object;
 					buffer_length++;
 				}
 				else {
@@ -97,7 +106,7 @@ namespace TuranAPI {
 				}
 			}
 			else {
-				memcpy(pointer_toBuffer + buffer_length, &object, sizeof(T));
+				pointer_toBuffer[buffer_length] = object;
 				buffer_length++;
 			}
 		}
@@ -121,6 +130,7 @@ namespace TuranAPI {
 			memset(pointer_toBuffer + (buffer_length - 1), 0, sizeof(T));
 			--buffer_length;
 		}
+
 		template<class T>
 		void Vector<T>::clear() {
 			for (size_t i = 0; i < buffer_length; i++) {
@@ -148,11 +158,15 @@ namespace TuranAPI {
 		}
 		template<class T>
 		Vector<T>& Vector<T>::operator= (const Vector<T>& vector) {
-			buffer_size = vector.buffer_size;
-			buffer_length = vector.buffer_length;
-			expand_size = vector.expand_size;
-			pointer_toBuffer = (T*)Allocator->Allocate_MemoryBlock(buffer_size * sizeof(T));
-			memcpy(pointer_toBuffer, vector.pointer_toBuffer, buffer_size * sizeof(T));
+			clear();
+			if (!Allocator) {
+				Allocator = vector.Allocator;
+				expand_size = vector.expand_size;
+			}
+			resize(vector.size());
+			for (unsigned int i = 0; i < vector.size(); i++) {
+				push_back(vector[i]);
+			}
 			return *this;
 		}
 		template<class T>
@@ -168,63 +182,37 @@ namespace TuranAPI {
 			if (resize > buffer_size) {
 				T* PTR = (T*)Allocator->Allocate_MemoryBlock((resize) * sizeof(T));
 				if (PTR) {
+					Allocator->Delete_MemoryBlock(pointer_toBuffer);
+
 					memcpy(PTR, pointer_toBuffer, buffer_length * sizeof(T));
+					pointer_toBuffer = PTR;
+					buffer_size = resize;
+					int buflength = buffer_length;
 					//Construct new elements!
 					T default_element = {};
 					for (unsigned int i = 0; i < resize - buffer_length; i++) {
-						memcpy(PTR + buffer_length + i, &default_element, sizeof(T));
+						push_back(default_element);
 					}
-					Allocator->Delete_MemoryBlock(pointer_toBuffer);
-					pointer_toBuffer = PTR;
-					buffer_size = resize;
-					buffer_length = resize;
+					buffer_length = buflength;
 				}
 				else {
 					std::cout << "Resize operation has failed because Allocate_MemoryBlock has failed!\n";
 				}
 			}
 			else if (resize < buffer_size && resize > buffer_length) {
+				int buflength = buffer_length;
 				//Construct new elements!
 				T default_element = {};
 				for (unsigned int i = 0; i < resize - buffer_length; i++) {
-					memcpy(pointer_toBuffer + buffer_length + i, &default_element, sizeof(T));
+					push_back(default_element);
 				}
-				buffer_length = resize;
-			}
-			else if (buffer_length == resize || buffer_size == resize) {
-				//Construct new elements!
-				T default_element = {};
-				for (unsigned int i = 0; i < buffer_length; i++) {
-					memcpy(pointer_toBuffer + i, &default_element, sizeof(T));
-				}
-
-				//If buffer_size == resize
-				buffer_length = resize;
+				buffer_length = buflength;
 			}
 			else if (resize < buffer_length) {
-				memset(pointer_toBuffer + resize, 0, (buffer_length - resize) * sizeof(T));
-				buffer_length = resize;
+				for (unsigned int i = 0; i < buffer_length - resize; i++) {
+					erase(resize);
+				}
 			}
-		}
-		template<class T>
-		void Vector<T>::grow(size_t resize) {
-			if (resize <= buffer_length) {
-				std::cout << "Vector can't grow to a lower or equal size!\n";
-				return;
-			}
-			T* new_block = (T*)Allocator->Allocate_MemoryBlock(resize * sizeof(T));
-			if (pointer_toBuffer) {
-				memset(new_block, 0, resize * sizeof(T));
-				memcpy(new_block, pointer_toBuffer, buffer_length * sizeof(T));
-				Allocator->Delete_MemoryBlock(pointer_toBuffer);
-				pointer_toBuffer = new_block;
-				buffer_size = resize;
-				return;
-			}
-			memset(new_block, 0, resize * sizeof(T));
-			buffer_size = resize;
-			buffer_length = 0;
-			return;
 		}
 		template<class T>
 		T* Vector<T>::data() {
@@ -244,3 +232,4 @@ namespace TuranAPI {
 
 	}
 }
+

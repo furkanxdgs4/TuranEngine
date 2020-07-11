@@ -8,8 +8,22 @@ namespace OpenGL4 {
 
 	void OpenGL4_Renderer::Bind_Framebuffer(unsigned int FB_ID) {
 		if (FB_ID) {
-			glBindFramebuffer(GL_FRAMEBUFFER, ((GPU_ContentManager*)GFXContentManager)->Find_FrameBufferGLID_byGFXID(FB_ID));
-			TuranAPI::LOG_NOTCODED("Render Target's should be cleared here if it's necessary!\n", true);
+			OGL4_FB& FB = ((GPU_ContentManager*)GFXContentManager)->Find_OGLFB_byGFXID(FB_ID);
+			glBindFramebuffer(GL_FRAMEBUFFER, FB.OGL_ID);
+			std::cout << "RT Number: " << FB.FB_Properties.BOUND_RTs.size() << std::endl;
+			for (unsigned int i = 0; i < FB.FB_Properties.BOUND_RTs.size(); i++) {
+				auto RT = FB.FB_Properties.BOUND_RTs[i];
+				std::cout << "Clear Color: " << RT.CLEAR_COLOR.x << " " << RT.CLEAR_COLOR.y << " " << RT.CLEAR_COLOR.z << std::endl;
+				if (RT.RT_READTYPE == GFX_API::RT_READSTATE::CLEAR) {
+					glClearColor(RT.CLEAR_COLOR.x, RT.CLEAR_COLOR.y, RT.CLEAR_COLOR.z, 1);
+					if (RT.ATTACHMENT_TYPE == GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_COLOR0) {
+						glClear(GL_COLOR_BUFFER_BIT);
+					}
+					else if(RT.ATTACHMENT_TYPE == GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_DEPTH) {
+						glClear(GL_DEPTH_BUFFER_BIT);
+					}
+				}
+			}
 			return;
 		}
 		TuranAPI::LOG_CRASHING("Framebuffer's ID is 0! Framebuffer ID can't be zero in GFX!");

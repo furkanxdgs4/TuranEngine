@@ -73,14 +73,14 @@ namespace OpenGL4 {
 
 			//Get monitor name provided by OS! It is a driver based name, so it maybe incorrect!
 			const char* monitor_name = glfwGetMonitorName(monitor);
-			GFX_API::MONITOR* gfx_monitor = new GFX_API::MONITOR(monitor, monitor_name);
+			GFX_API::MONITOR gfx_monitor(monitor, monitor_name);
 
 			//Get videomode to detect at which resolution the OS is using the monitor
 			const GLFWvidmode* monitor_vid_mode = glfwGetVideoMode(monitor);
-			gfx_monitor->Set_Monitor_VidMode(monitor_vid_mode->width, monitor_vid_mode->height, monitor_vid_mode->blueBits, monitor_vid_mode->refreshRate);
+			gfx_monitor.Set_Monitor_VidMode(monitor_vid_mode->width, monitor_vid_mode->height, monitor_vid_mode->blueBits, monitor_vid_mode->refreshRate);
 
 			//Get monitor's physical size, developer may want to use it!
-			glfwGetMonitorPhysicalSize(monitor, &gfx_monitor->PHYSICAL_WIDTH, &gfx_monitor->PHYSICAL_HEIGHT);
+			glfwGetMonitorPhysicalSize(monitor, &gfx_monitor.PHYSICAL_WIDTH, &gfx_monitor.PHYSICAL_HEIGHT);
 
 			CONNECTED_Monitors.push_back(gfx_monitor);
 		}
@@ -91,7 +91,8 @@ namespace OpenGL4 {
 	void OpenGL4_Core::Create_MainWindow() {
 		//Create window as it will share resources with Renderer Context to get display texture!
 		GLFWwindow* window_id = glfwCreateWindow(1280, 720, "OpenGL Window", NULL, (GLFWwindow*)RENDERER->Renderer_Context);
-		Main_Window = new WINDOW(1280, 720, GFX_API::WINDOW_MODE::WINDOWED, CONNECTED_Monitors[0], CONNECTED_Monitors[0]->REFRESH_RATE, "OpenGL Window", GFX_API::V_SYNC::VSYNC_OFF);
+		std::cout << "What the fuck is this shitty bug!\n";
+		Main_Window = new WINDOW(1280, 720, GFX_API::WINDOW_MODE::WINDOWED, &CONNECTED_Monitors[0], CONNECTED_Monitors[0].REFRESH_RATE, "OpenGL Window", GFX_API::V_SYNC::VSYNC_OFF);
 		WINDOW* OGL4_WINDOW = (WINDOW*)Main_Window;
 		OGL4_WINDOW->GLFWWINDOW = window_id;
 		glfwSetWindowMonitor(window_id, NULL, 0, 0, Main_Window->Get_Window_Mode().x, Main_Window->Get_Window_Mode().y, Main_Window->Get_Window_Mode().z);
@@ -237,10 +238,7 @@ namespace OpenGL4 {
 
 	//GFX Resource Destroy Operations
 	void OpenGL4_Core::Destroy_GFX_Resources() {
-		for (unsigned int i = 0; i < CONNECTED_Monitors.size(); i++) {
-			GFX_API::MONITOR* monitor = CONNECTED_Monitors[i];
-			delete monitor;
-		}
+		CONNECTED_Monitors.clear();
 
 		//First, destroy window and its resources with glfwDestroyWindow
 		glfwDestroyWindow(((WINDOW*)Main_Window)->GLFWWINDOW);

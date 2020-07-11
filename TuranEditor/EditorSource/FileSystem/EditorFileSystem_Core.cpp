@@ -121,7 +121,7 @@ namespace TuranEditor {
 
 	Editor_FileSystem::Editor_FileSystem() : FileList("C:/dev/TuranEngine/TuranEditor/File_List.enginecont") {
 		TuranAPI::LOG_STATUS("Starting the Editor FileSystem! But this doesn't make anything!");
-		FileList.Load_FromDisk(LASTUSEDALLOCATOR);
+		//FileList.Load_FromDisk(LASTUSEDALLOCATOR);
 		ContentManager::SELF = &AssetManager;
 		SELF = this;
 	}

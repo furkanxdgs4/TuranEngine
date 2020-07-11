@@ -8,7 +8,7 @@ namespace TuranEditor {
 		unsigned int Scene_View_Texture = 0;
 		Game_RenderGraph* GameRenderGraph = nullptr;
 	public:
-		Main_Window(Game_RenderGraph* GameRenderGraph);
+		Main_Window(Game_RenderGraph* GameRenderGraph = nullptr);
 		virtual void Run_Window();
 	};
 

@@ -29,7 +29,7 @@ namespace GFX_API {
 		IMGUI_Core* IMGUI_o;
 
 		WINDOW* Main_Window;
-		Vector<MONITOR*> CONNECTED_Monitors;
+		Vector<MONITOR> CONNECTED_Monitors;
 
 		//Window Operations
 		virtual void Change_Window_Resolution(WINDOW* window, unsigned int width, unsigned int height) = 0;

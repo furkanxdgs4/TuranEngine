@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <iostream>
 
-
 namespace TuranAPI {
 	namespace MemoryManagement {
 		TAPIMemoryAllocator::TAPIMemoryAllocator() {

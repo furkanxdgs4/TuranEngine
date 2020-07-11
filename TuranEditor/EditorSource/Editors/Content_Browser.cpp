@@ -93,7 +93,7 @@ namespace TuranEditor {
 			
 			//Even if there is a importing proccess, show the contents!
 			int selected_list_item_index = -1;
-			if (item_names.size() != EDITOR_FILESYSTEM->Get_AssetList().size()) {
+			if (item_names.size() != EDITOR_FILESYSTEM->Get_AssetList().size() || item_names[0].length() == 0) {
 				item_names.clear();
 				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
 					TuranAPI::Resource_Type* RESOURCE = EDITOR_FILESYSTEM->Get_AssetList().Get(i);

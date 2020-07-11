@@ -13,7 +13,7 @@ Main_DrawPass::Main_DrawPass(const Vector<GFX_API::DrawCall>& RG_DrawCallBuffer_
 	Color0_SLOT.ATTACHMENT_TYPE = GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_COLOR0;
 	Color0_SLOT.RT_OPERATIONTYPE = GFX_API::OPERATION_TYPE::WRITE_ONLY;
 	Color0_SLOT.RT_READTYPE = GFX_API::RT_READSTATE::CLEAR;
-	Color0_SLOT.CLEAR_COLOR = vec3(0.2f, 0.3f, 0.3f);
+	Color0_SLOT.CLEAR_COLOR = vec3(0.8f, 0.3f, 0.3f);
 	//These should be set by RenderGraph!
 	Color0_SLOT.HEIGTH = 0; Color0_SLOT.WIDTH = 0; Color0_SLOT.RT_ID = 0;
 	Needed_RTSlots.push_back(Color0_SLOT);
@@ -44,7 +44,7 @@ void Main_DrawPass::ResourceUpdatePhase() {
 	if (!Is_SetupPhase_Called) {
 		TuranAPI::LOG_CRASHING("You should call RenderGraph_SetupPhase first!");
 	}
-	TuranAPI::LOG_NOTCODED("You forgot to code Update_Resources() of G_BUFFER_DrawPass!\n", true);
+	TuranAPI::LOG_NOTCODED("You forgot to code Update_Resources() of G_BUFFER_DrawPass!", false);
 }
 void Main_DrawPass::Execute() {
 	if (!Is_SetupPhase_Called) {

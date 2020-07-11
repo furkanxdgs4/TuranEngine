@@ -12,11 +12,7 @@ OpenGL 4 systems are started!
 TuranEngine's constructor has finished!
 Starting the Editor FileSystem! But this doesn't make anything!
 All meshes are verified!
-Render Graph object is created!
-Game RenderGraph object is created!
-Created a Render Target's OpenGL ID: 1
-Created a Render Target's OpenGL ID: 2
-
+There is no Static Model with ID: number->string isn't supported yet!
+Model is nullptr!
 
-G-Buffer Draw Pass Creation is done!
 

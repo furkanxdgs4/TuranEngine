@@ -56,7 +56,8 @@ namespace OpenGL4 {
 	}
 
 	GPU_ContentManager::GPU_ContentManager() : MESHBUFFERs(LASTUSEDALLOCATOR, 100, 1000), 
-		TEXTUREs(LASTUSEDALLOCATOR, 100, 1000), SHADERSOURCEs(LASTUSEDALLOCATOR, 100, 1000), SHADERPROGRAMs(LASTUSEDALLOCATOR, 100, 1000), RTs(LASTUSEDALLOCATOR, 10, 20), FBs(LASTUSEDALLOCATOR, 10, 30){
+		TEXTUREs(LASTUSEDALLOCATOR, 100, 1000), SHADERSOURCEs(LASTUSEDALLOCATOR, 100, 1000), SHADERPROGRAMs(LASTUSEDALLOCATOR, 100, 1000)
+		, RTs(LASTUSEDALLOCATOR, 10, 20), FBs(LASTUSEDALLOCATOR, 10, 30){
 
 	}
 
@@ -280,7 +281,7 @@ namespace OpenGL4 {
 		const GFX_API::RenderTarget& RT = Find_RenderTargetProperties_byID(RT_ID);
 		unsigned int RT_GLID = Find_RenderTargetID_byGFXID(RT.ID);
 
-		glBindFramebuffer(GL_FRAMEBUFFER, Find_FrameBufferGLID_byGFXID(FB_ID));
+		glBindFramebuffer(GL_FRAMEBUFFER, Find_OGLFB_byGFXID(FB_ID).OGL_ID);
 		if (RT.Usable_as_Texture) {
 			glBindTexture(GL_TEXTURE_2D, RT_GLID);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, Find_RenderTarget_AttachmentType(ATTACHMENT_TYPE), GL_TEXTURE_2D, RT_GLID, 0);
@@ -299,7 +300,7 @@ namespace OpenGL4 {
 	}
 
 	void GPU_ContentManager::Delete_Framebuffer(unsigned int Framebuffer_ID) {
-		glDeleteFramebuffers(1, &Find_FrameBufferGLID_byGFXID(Framebuffer_ID));
+		glDeleteFramebuffers(1, &Find_OGLFB_byGFXID(Framebuffer_ID).OGL_ID);
 	}
 
 
@@ -364,15 +365,6 @@ namespace OpenGL4 {
 			}
 		}
 		TuranAPI::LOG_CRASHING("Intended Render Target GL_ID isn't found in OpenGL::GPU_ContentManager!");
-	}
-	unsigned int& GPU_ContentManager::Find_FrameBufferGLID_byGFXID(unsigned int GFX_FB_ID) {
-		for (unsigned int i = 0; i < FBs.size(); i++) {
-			OGL4_FB& FB = FBs[i];
-			if (FB.FB_Properties.ID == GFX_FB_ID) {
-				return FB.OGL_ID;
-			}
-		}
-		TuranAPI::LOG_CRASHING("Intended Framebuffer GL_ID isn't found in OpenGL::GPU_ContentManager!");
 	}
 
 

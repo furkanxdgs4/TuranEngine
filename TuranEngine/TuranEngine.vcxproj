@@ -64,15 +64,16 @@
   <ItemGroup>
     <ClInclude Include="EngineSource\ENGINE_ENUMs.h" />
     <ClInclude Include="EngineSource\Engine_Includes.h" />
-    <ClInclude Include="EngineSource\FileSystem\Engine_FileSystem.h" />
     <ClInclude Include="EngineSource\TuranEngine.h" />
+    <ClInclude Include="EngineSource\TuranLang\TuranLang_Core.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineSource\FileSystem\Engine_FileSystem.cpp" />
     <ClCompile Include="EngineSource\TuranAPI\MemoryManager_Core.cpp" />
     <ClCompile Include="EngineSource\TuranAPI\TSTL_Core.cpp" />
     <ClCompile Include="EngineSource\TuranAPI\Vector.cpp" />
     <ClCompile Include="EngineSource\TuranEngine.cpp" />
+    <ClCompile Include="EngineSource\TuranLang\BasicCommands.cpp" />
+    <ClCompile Include="EngineSource\TuranLang\TuranLang_Core.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nsight_profiler.cfg" />

@@ -8,7 +8,7 @@ int main() {
 
 
 	Game_RenderGraph Scene;
-	Main_Window* main_window = new Main_Window(&Scene);
+	Main_Window* main_window = new Main_Window();
 	TuranAPI::WRITE_LOGs_toFILEs();
 	while (!TuranEngine->ShouldEngine_Close()) {
 

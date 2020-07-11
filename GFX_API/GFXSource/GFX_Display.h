@@ -8,18 +8,19 @@ namespace GFX_API {
 		friend class GFX_Core;
 
 		void* ID;
-		const String NAME;
+		String NAME;
 		unsigned int WIDTH, HEIGHT, COLOR_BITES, REFRESH_RATE;
 		int PHYSICAL_WIDTH, PHYSICAL_HEIGHT;	//milimeters
 		WINDOW_MODE DESKTOP_MODE;
 
 		void Set_Physical_Size(unsigned int physical_width, unsigned int physical_height);
-		MONITOR(void* monitor, const char* name);
+		MONITOR(void* monitor = nullptr, const char* name = "");
 	public:
 
 		const char* Get_Monitor_Name();
 		//Return WIDTH (x), HEIGHT (y) and REFRESH_RATE (<) as one vec3
 		vec3 Get_Monitor_VidMode();
+		MONITOR& operator= (const MONITOR& from);
 
 		void Set_Monitor_VidMode(unsigned int width, unsigned int height, unsigned int color_bites, unsigned int refrest_rate);
 	};

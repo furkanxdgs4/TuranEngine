@@ -24,7 +24,7 @@
     <ClInclude Include="EngineSource\ENGINE_ENUMs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineSource\FileSystem\Engine_FileSystem.h">
+    <ClInclude Include="EngineSource\TuranLang\TuranLang_Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,10 @@
     <ClCompile Include="EngineSource\TuranAPI\Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EngineSource\FileSystem\Engine_FileSystem.cpp">
+    <ClCompile Include="EngineSource\TuranLang\TuranLang_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSource\TuranLang\BasicCommands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

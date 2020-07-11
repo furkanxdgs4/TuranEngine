@@ -56,7 +56,6 @@ namespace Engine {
 		}
 	}
 
-	void Engine_Closing_Operations();
 
 	//Check if something called to Close_Engine() or check predefined circumstances!
 	bool TuranEngine_Core::ShouldEngine_Close() {
@@ -65,7 +64,6 @@ namespace Engine {
 				SELF->ShouldApplicationClose = true;
 				SELF->ApplicationClose_Reason = "IMGUI main window is closed!";
 				std::cout << SELF->ApplicationClose_Reason << std::endl;
-				Engine_Closing_Operations();
 				return true;
 			}
 
@@ -73,7 +71,6 @@ namespace Engine {
 			if (GFX->Main_Window == nullptr) {
 				SELF->ApplicationClose_Reason = "All windows are closed!";
 				std::cout << SELF->ApplicationClose_Reason << std::endl;
-				Engine_Closing_Operations();
 				return true;
 			}
 			std::cout << "Engine should run this frame!\n";
@@ -87,7 +84,6 @@ namespace Engine {
 			else {
 				std::cout << SELF->ApplicationClose_Reason << std::endl;
 			}
-			Engine_Closing_Operations();
 			return true;
 		}
 	}

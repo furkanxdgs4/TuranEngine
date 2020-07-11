@@ -1,7 +1,6 @@
 #pragma once
 #include "Engine_Includes.h"
 #include "GFXSource/GFX_Core.h"
-#include "FileSystem/Engine_FileSystem.h"
 
 namespace Engine {
 	using ShouldEngineWait_Callback = bool (*)();

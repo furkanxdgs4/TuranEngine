@@ -26,6 +26,14 @@ namespace GFX_API {
 		REFRESH_RATE = refrest_rate;
 		TuranAPI::LOG_STATUS("Monitor's Video Mode is set!");
 	}
+	MONITOR& MONITOR::operator= (const MONITOR& from) {
+		ID = from.ID;
+		NAME = from.NAME;
+		WIDTH = from.WIDTH; HEIGHT = from.HEIGHT; COLOR_BITES = from.COLOR_BITES; REFRESH_RATE = from.REFRESH_RATE;
+		PHYSICAL_WIDTH = from.PHYSICAL_WIDTH; PHYSICAL_HEIGHT = from.PHYSICAL_HEIGHT;	//milimeters
+		DESKTOP_MODE = from.DESKTOP_MODE;
+		return *this;
+	}
 
 
 	WINDOW::WINDOW(){}

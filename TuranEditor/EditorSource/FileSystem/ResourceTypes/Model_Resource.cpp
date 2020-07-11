@@ -96,7 +96,7 @@ namespace TuranEditor {
 		}*/
 
 		//We create Static Model file with 0 size Vector, so we should expand its size!
-		MESHes.grow(RESOURCE->MESHes()->size());
+		MESHes.resize(RESOURCE->MESHes()->size());
 
 		//For each mesh!
 		for (unsigned int mesh_index = 0; mesh_index < RESOURCE->MESHes()->Length(); mesh_index++) {

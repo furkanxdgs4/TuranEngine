@@ -14,7 +14,7 @@ using namespace TuranAPI;
 
 namespace TuranEditor {
 
-	Main_Window::Main_Window(Game_RenderGraph* game_rendergraph) : IMGUI_WINDOW("Main_Window"), GameRenderGraph(game_rendergraph) {
+	Main_Window::Main_Window(Game_RenderGraph* game_rendergraph) : IMGUI_WINDOW("Main_Window"), GameRenderGraph(nullptr) {
 		IMGUI_REGISTERWINDOW(this);
 	}
 
@@ -41,7 +41,6 @@ namespace TuranEditor {
 		String Used_Size = "Total In-Use: ";
 		Used_Size.append(std::to_string(LASTUSEDALLOCATOR->Get_NotFreeMemorySize()).c_str());
 		IMGUI->Text(Used_Size);
-
 
 		IMGUI->End_Window();
 	}
