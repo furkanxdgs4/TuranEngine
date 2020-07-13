@@ -25,7 +25,7 @@ namespace TuranEditor {
 
 		if (RESOURCE->TYPE == RESOURCETYPEs::EDITOR_STATICMODEL) {
 			RenderGraph = new Game_RenderGraph;
-			Static_Model* MODEL = (Static_Model*)RESOURCE;
+			Static_Model* MODEL = (Static_Model*)RESOURCE->DATA;
 			vector<unsigned int> MESHIDs = MODEL->Upload_toGPU();
 			for (unsigned int i = 0; i < MESHIDs.size(); i++) {
 				GFX_API::DrawCall Call;
@@ -64,7 +64,7 @@ namespace TuranEditor {
 			Show_MaterialInstance_Properties(RESOURCE);
 			break;
 		case RESOURCETYPEs::EDITOR_SCENE:
-			new Scene_Editor((Scene_Resource*)RESOURCE);
+			new Scene_Editor(RESOURCE);
 			Is_Window_Open = false;
 			IMGUI_DELETEWINDOW(this);
 			break;
@@ -132,8 +132,12 @@ namespace TuranEditor {
 
 	void Show_Texture_Properties(Resource_Identifier* resource) {
 		GFX_API::Texture_Resource* TEXTURE = (GFX_API::Texture_Resource*)resource->DATA;
-		std::cout << "ID: " << resource->ID << std::endl;
+		if (!TEXTURE) {
+			EDITOR_FILESYSTEM->Load_Resource(resource->ID);
+		}
+		IMGUI->Text(("ID: " + to_string(resource->ID)).c_str());
 		IMGUI->Text(GFX_API::Find_UNIFORM_VARTYPE_Name(TEXTURE->Properties.VALUE_TYPE));
+		GFXContentManager->Upload_Texture(TEXTURE, resource->ID, false);
 		IMGUI->Display_Texture(resource->ID, TEXTURE->WIDTH, TEXTURE->HEIGHT);
 	}
 
@@ -142,6 +146,7 @@ namespace TuranEditor {
 		string ModelName = "Model Name: ";
 		ModelName.append(resource->Get_Name());
 		IMGUI->Text(ModelName.c_str());
+		IMGUI->Text(("ID: " + to_string(resource->ID)).c_str());
 		string Mesh_Number = "Mesh Number: ";
 		Mesh_Number.append(std::to_string(model_data_resource->MESHes.size()).c_str());
 		IMGUI->Text(Mesh_Number.c_str());

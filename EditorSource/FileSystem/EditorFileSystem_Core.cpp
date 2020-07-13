@@ -13,27 +13,27 @@ namespace TuranEditor {
 	RESOURCETYPEs Convert_fromFB_ResourceType(EditorAsset::File_Type resource_type);
 
 	bool Verify_SceneResource(Resource_Identifier* IDENTIFIER);
-	void* Load_SceneResource(Resource_Identifier* IDENTIFIER);
+	void Load_SceneResource(Resource_Identifier* IDENTIFIER);
 	void Save_SceneResource(Resource_Identifier* IDENTIFIER);
 
 	bool Verify_StaticModel(Resource_Identifier* IDENTIFIER);
-	void* Load_StaticModel(Resource_Identifier* IDENTIFIER);
+	void Load_StaticModel(Resource_Identifier* IDENTIFIER);
 	void Save_StaticModel(Resource_Identifier* IDENTIFIER);
 
 	bool Verify_Texture(Resource_Identifier* IDENTIFIER);
-	void* Load_Texture(Resource_Identifier* IDENTIFIER);
+	void Load_Texture(Resource_Identifier* IDENTIFIER);
 	void Save_Texture(Resource_Identifier* IDENTIFIER);
 
 	bool Verify_ShaderSource(Resource_Identifier* IDENTIFIER);
-	void* Load_ShaderSource(Resource_Identifier* IDENTIFIER);
+	void Load_ShaderSource(Resource_Identifier* IDENTIFIER);
 	void Save_ShaderSource(Resource_Identifier* IDENTIFIER);
 
 	bool Verify_MatInst(Resource_Identifier* IDENTIFIER);
-	void* Load_MatInst(Resource_Identifier* IDENTIFIER);
+	void Load_MatInst(Resource_Identifier* IDENTIFIER);
 	void Save_MatInst(Resource_Identifier* IDENTIFIER);
 
 	bool Verify_MatType(Resource_Identifier* IDENTIFIER);
-	void* Load_MatType(Resource_Identifier* IDENTIFIER);
+	void Load_MatType(Resource_Identifier* IDENTIFIER);
 	void Save_MatType(Resource_Identifier* IDENTIFIER);
 
 
@@ -49,10 +49,6 @@ namespace TuranEditor {
 			return;
 		}
 		
-		if (!Verify_Resource(RESOURCE->ID)) {
-			TuranAPI::LOG_ERROR("Resource isn't added to FileList because it's not verified!");
-			return;
-		}
 		RESOURCE->ID = FileList.Create_Resource_ID();
 		FileList.ContentListvector.push_back(RESOURCE);
 		FileList.Write_ToDisk();
@@ -60,7 +56,7 @@ namespace TuranEditor {
 	void Editor_FileSystem::Delete_anAsset_fromFileList(unsigned int ID) {
 		for (unsigned int i = 0; i < FileList.Get_ContentListvector()->size(); i++) {
 			Resource_Identifier* ASSET = (*FileList.Get_ContentListvector())[i];
-			if (ID = ASSET->ID) {
+			if (ID == ASSET->ID) {
 				Unload_Resource(ASSET->ID);
 				FileList.Delete_Resource_ID(ASSET->ID);
 				FileList.Get_ContentListvector()->erase(FileList.Get_ContentListvector()->begin() + i);
@@ -75,9 +71,6 @@ namespace TuranEditor {
 		for (unsigned int i = 0; i < FileList.ContentListvector.size(); i++) {
 			Load_Resource(FileList.ContentListvector[i]->ID);
 		}
-	}
-	const vector<Resource_Identifier*>& Editor_FileSystem::Get_AssetList() {
-		return FileList.ContentListvector;
 	}
 	void Editor_FileSystem::Clear_AllFileList() {
 		for (unsigned int i = 0; i < FileList.ContentListvector.size(); i++) {
@@ -94,24 +87,30 @@ namespace TuranEditor {
 			TuranAPI::LOG_ERROR("Loading the resource has failed because Identifier isn't found!");
 			return;
 		}
+		
+		if (RESOURCE->DATA) {
+			std::cout << RESOURCE->DATA << std::endl;
+			TuranAPI::LOG_WARNING("Resource is already loaded!");
+			return;
+		}
 		switch (RESOURCE->TYPE) {
 		case RESOURCETYPEs::EDITOR_STATICMODEL:
-			RESOURCE->DATA = Load_StaticModel(RESOURCE);
+			Load_StaticModel(RESOURCE);
 			return ;
 		case RESOURCETYPEs::EDITOR_SCENE:
-			RESOURCE->DATA = Load_SceneResource(RESOURCE);
+			Load_SceneResource(RESOURCE);
 			return; 
 		case RESOURCETYPEs::GFXAPI_TEXTURE:
-			RESOURCE->DATA = Load_Texture(RESOURCE);
+			Load_Texture(RESOURCE);
 			return;
 		case RESOURCETYPEs::GFXAPI_SHADERSOURCE:
-			RESOURCE->DATA = Load_ShaderSource(RESOURCE);
+			Load_ShaderSource(RESOURCE);
 			return;
 		case RESOURCETYPEs::GFXAPI_MATINST:
-			RESOURCE->DATA = Load_MatInst(RESOURCE);
+			Load_MatInst(RESOURCE);
 			return;
 		case RESOURCETYPEs::GFXAPI_MATTYPE:
-			RESOURCE->DATA = Load_MatType(RESOURCE);
+			Load_MatType(RESOURCE);
 			return;
 		default:
 			TuranAPI::LOG_NOTCODED("Editor_FileSystem::Load_Resource() doesn't support to load this type of resource!", true);
@@ -169,7 +168,7 @@ namespace TuranEditor {
 			Save_ShaderSource(RESOURCE);
 			return;
 		default:
-			TuranAPI::LOG_NOTCODED("Verify_Resource() doesn't support this type of resource!", true);
+			TuranAPI::LOG_NOTCODED("Save_Resource() doesn't support this type of resource!", true);
 			return;
 		}
 	}
@@ -178,23 +177,17 @@ namespace TuranEditor {
 		Resource_Identifier* RESOURCE = Find_ResourceIdentifier_byID(ID);
 		switch (RESOURCE->TYPE) {
 		case RESOURCETYPEs::EDITOR_STATICMODEL:
-			Verify_StaticModel(RESOURCE);
-			return;
+			return Verify_StaticModel(RESOURCE);
 		case RESOURCETYPEs::EDITOR_SCENE:
-			Verify_SceneResource(RESOURCE);
-			return;
+			return Verify_SceneResource(RESOURCE);
 		case RESOURCETYPEs::GFXAPI_TEXTURE:
-			Verify_Texture(RESOURCE);
-			return;
+			return Verify_Texture(RESOURCE);
 		case RESOURCETYPEs::GFXAPI_MATINST:
-			Verify_MatInst(RESOURCE);
-			return;
+			return Verify_MatInst(RESOURCE);
 		case RESOURCETYPEs::GFXAPI_MATTYPE:
-			Verify_MatType(RESOURCE);
-			return;
+			return Verify_MatType(RESOURCE);
 		case RESOURCETYPEs::GFXAPI_SHADERSOURCE:
-			Save_ShaderSource(RESOURCE);
-			return;
+			return Verify_ShaderSource(RESOURCE);
 		default:
 			TuranAPI::LOG_NOTCODED("Verify_Resource() doesn't support this type of resource!", true);
 			return false;
@@ -222,6 +215,24 @@ namespace TuranEditor {
 		TuranAPI::LOG_ERROR("Find_ResourceIdentifier_byID has failed to find the resource!");
 		return nullptr;
 	}
+
+
+	const vector<Resource_Identifier*>& Editor_FileSystem::Get_AssetList() const {
+		return FileList.ContentListvector;
+	}
+	vector<Resource_Identifier*> Editor_FileSystem::Get_SpecificAssetType(RESOURCETYPEs TYPE) {
+		vector<Resource_Identifier*> All_Assets;
+		for (unsigned int i = 0; i < FileList.ContentListvector.size(); i++) {
+			Resource_Identifier* RESOURCE = FileList.ContentListvector[i];
+			if (RESOURCE->TYPE == TYPE) {
+				All_Assets.push_back(RESOURCE);
+			}
+		}
+		return All_Assets;
+	}
+
+
+
 
 
 

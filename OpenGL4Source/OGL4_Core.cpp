@@ -101,7 +101,6 @@ namespace OpenGL4 {
 	void OpenGL4_Core::Create_MainWindow() {
 		//Create window as it will share resources with Renderer Context to get display texture!
 		GLFWwindow* window_id = glfwCreateWindow(1280, 720, "OpenGL Window", NULL, (GLFWwindow*)RENDERER->Renderer_Context);
-		std::cout << "What the fuck is this shitty bug!\n";
 		Main_Window = new WINDOW(1280, 720, GFX_API::WINDOW_MODE::WINDOWED, &CONNECTED_Monitors[0], CONNECTED_Monitors[0].REFRESH_RATE, "OpenGL Window", GFX_API::V_SYNC::VSYNC_OFF);
 		WINDOW* OGL4_WINDOW = (WINDOW*)Main_Window;
 		OGL4_WINDOW->GLFWWINDOW = window_id;

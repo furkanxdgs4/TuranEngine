@@ -1,5 +1,6 @@
 #include "Material_Type_Resource.h"
 #include "GFXSource/GFX_FileSystem/DataFormats/GFXAPI_Resources_generated.h"
+#include "EditorSource/FileSystem/EditorFileSystem_Core.h"
 
 namespace GFX_API {
 
@@ -213,74 +214,6 @@ namespace GFX_API {
 	Material_Instance::Material_Instance() {
 
 	}
-	void Material_Instance::Write_ToDisk() {
-		flatbuffers::FlatBufferBuilder builder(1024);
-
-		std::vector<flatbuffers::Offset<GFXAsset::MATERIAL_INSTANCE_UNIFORM_TABLE>> MATERIAL_UNIFORMs;
-		//Add uniforms to Flatbuffer data!
-		Material_Uniform* material_uniform = nullptr;
-		for (unsigned int i = 0; i < UNIFORM_LIST.size(); i++) {
-			material_uniform = &UNIFORM_LIST[i];
-			std::cout << "Uniform is being proccessed: " << material_uniform->VARIABLE_NAME << std::endl;
-			MATERIAL_UNIFORMs.push_back(
-				GFXAsset::CreateMATERIAL_INSTANCE_UNIFORM_TABLE(builder,
-					Convert_to_Flatbufer_Uniform_Type(material_uniform->VARIABLE_TYPE),
-					Create_a_Uniform(&builder, material_uniform)
-				)
-			);
-		}
-		auto finished_UNIFORMs_vector = builder.CreateVector(MATERIAL_UNIFORMs);
-
-		auto finished_MaterialInstance = GFXAsset::CreateMATERIAL_INSTANCE(builder, Material_Type->ID, finished_UNIFORMs_vector);
-		auto finished_RESOURCE = GFXAsset::CreateResource(builder, GFXAsset::Resource_Type_Material_Instance, finished_MaterialInstance.Union());
-		builder.Finish(finished_RESOURCE);
-
-		unsigned int data_size = builder.GetSize();
-
-		std::cout << "Compiled Material Instance Resource to Flatbuffer type!\n";
-		void* data_ptr = builder.GetBufferPointer();
-
-		//Check if the data is complete!
-		flatbuffers::Verifier verifier((uint8_t*)data_ptr, data_size);
-		if (!GFXAsset::VerifyResourceBuffer(verifier)) {
-			std::cout << "Data isn't verified for name: " << NAME << std::endl;
-			assert(false && "Error while compiling data to disk!");
-		}
-
-		std::cout << "Exporting resource as a .matinstcont: " << PATH << std::endl;
-		TAPIFILESYSTEM::Overwrite_BinaryFile(PATH.c_str(), data_ptr, data_size);
-
-		std::cout << "Resource is successfully added to the Content_List.enginecont\n";
-	}
-	bool Material_Instance::Verify_Resource_Data() {
-		if (Material_Type != nullptr && NAME != "" && PATH != "") {
-			if (Material_Type->Verify_Resource_Data()) {
-				if (UNIFORM_LIST.size() == Material_Type->UNIFORMs.size()) {
-					for (unsigned int uniform_index = 0; uniform_index < UNIFORM_LIST.size(); uniform_index++) {
-						Material_Uniform* UNIFORM = &UNIFORM_LIST[uniform_index];
-
-						//Note: There should be uniform data storing for Material Instances
-					}
-				}
-				else {
-					std::cout << "Material Instance isn't verified because Uniform lists isn't match between Material Type and Instance!";
-					TuranAPI::Breakpoint();
-					return false;
-				}
-			}
-			else {
-				std::cout << "Material Instance isn't verified because Material Type isn't verified!";
-				TuranAPI::Breakpoint();
-				return false;
-			}
-		}
-		else {
-			std::cout << "Material Instance isn't verified because of Material Type or Resource Name or Resource Path!";
-			TuranAPI::Breakpoint();
-			return false;
-		}
-		return true;
-	}
 
 	void Material_Instance::Set_Uniform_Data(const char* uniform_name, void* pointer_to_data) {
 		Material_Uniform* uniform = &UNIFORM_LIST[Find_Uniform_byName(uniform_name)];
@@ -302,7 +235,7 @@ namespace GFX_API {
 			if (UNIFORM_LIST[i].VARIABLE_NAME == uniform_name)
 				return i;
 		}
-		std::cout << "Error: Intended uniform variable: " << uniform_name << " can't be found in Material Type: " << Material_Type->NAME << std::endl;
+		std::cout << "Error: Intended uniform variable: " << uniform_name << " can't be found in Material Type ID: " << Material_Type << std::endl;
 		TuranAPI::Breakpoint();
 		return -1;
 	}

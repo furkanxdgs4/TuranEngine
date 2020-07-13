@@ -225,17 +225,19 @@ namespace GFX_API {
 	void IMGUI_Core::CheckListBox(const char* name, Bitset* items_status, vector<string>* item_names) {
 		if (ImGui::ListBoxHeader(name)) {
 			for (unsigned int i = 0; i < item_names->size(); i++) {
-				std::cout << "Current Index: " << i << std::endl;
 				bool x = items_status->GetBit_Value(i);
 				Checkbox((*item_names)[i].c_str(), &x);
 				x ? items_status->SetBit_True(i) : items_status->SetBit_False(i);
+				std::cout << "Current Index: " << i << std::endl;
+				std::cout << "Current Name: " << (*item_names)[i] << std::endl;
+				std::cout << "Current Value: " << x << std::endl;
 			}
 			ImGui::ListBoxFooter();
 		}
 	}
 
-	void IMGUI_Core::Display_Texture(unsigned int TEXTURE_GFXID, const unsigned int& Display_WIDTH, const unsigned int& Display_HEIGHT, bool should_Flip_Vertically) {
-		unsigned int data = *(unsigned int*)GPUContentManager->Find_GFXTexture_byID(TEXTURE_GFXID)->GL_ID;
+	void IMGUI_Core::Display_Texture(unsigned int TEXTURE_AssetID, const unsigned int& Display_WIDTH, const unsigned int& Display_HEIGHT, bool should_Flip_Vertically) {
+		unsigned int data = *(unsigned int*)GPUContentManager->Find_GFXTexture_byID(TEXTURE_AssetID)->GL_ID;
 		if (should_Flip_Vertically) {
 			ImGui::Image((void*)(intptr_t)data, ImVec2(Display_WIDTH, Display_HEIGHT), ImVec2(0, 1), ImVec2(1, 0));
 		}

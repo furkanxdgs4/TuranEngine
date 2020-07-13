@@ -36,7 +36,7 @@ namespace TuranEditor {
 		return true;
 	}
 
-	void* Load_SceneResource(Resource_Identifier* IDENTIFIER) {
+	void Load_SceneResource(Resource_Identifier* IDENTIFIER) {
 		unsigned int data_size = 0;
 		void* file_data = TAPIFILESYSTEM::Read_BinaryFile(IDENTIFIER->PATH.c_str(), data_size, LASTUSEDALLOCATOR);
 		if (!file_data) {

@@ -2,6 +2,7 @@
 #include "EditorSource/Editor_Includes.h"
 #include "GFXSource/IMGUI/IMGUI_WINDOW.h"
 #include "EditorSource/FileSystem/ResourceTypes/Resource_Identifier.h"
+#include "GFXSource/GFX_FileSystem/Resource_Type/Material_Type_Resource.h"
 
 namespace TuranEditor {
 
@@ -19,7 +20,7 @@ namespace TuranEditor {
 
 	class Material_Type_Loader {
 	public:
-		static Resource_Identifier* Load_MaterialType(const char* vertex_path, const char* fragment_path, const char* output_path
+		static GFX_API::Material_Type* Load_MaterialType(unsigned int VertexShader_ID, unsigned int FragmentShader_ID
 			, vector<GFX_API::Material_Uniform>* material_inputs, string* compilation_status);
 	};
 

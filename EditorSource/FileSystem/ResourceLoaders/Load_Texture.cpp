@@ -49,17 +49,17 @@ namespace TuranEditor {
 	}
 
 
-	void* Load_Texture(Resource_Identifier* IDENTIFIER) {
+	void Load_Texture(Resource_Identifier* IDENTIFIER) {
 		unsigned int data_size = 0;
 		void* file_data = TAPIFILESYSTEM::Read_BinaryFile(IDENTIFIER->PATH.c_str(), data_size, LASTUSEDALLOCATOR);
 		if (!file_data) {
 			TuranAPI::LOG_ERROR("Loading failed! Texture file isn't found!");
-			return nullptr;
+			return;
 		}
 		auto RESOURCE_typeless = GFXAsset::GetResource(file_data);
 		if (RESOURCE_typeless == nullptr) {
 			TuranAPI::LOG_ERROR("Loading failed! Texture Type isn't a valid resource!");
-			return nullptr;
+			return;
 		}
 		std::cout << "Loading Texture Type ID: " << IDENTIFIER->ID << std::endl;
 		auto RESOURCE = RESOURCE_typeless->TYPE_as_Texture();
@@ -87,6 +87,8 @@ namespace TuranEditor {
 		for (unsigned int i = 0; i < TEXTURE->DATA_SIZE; i++) {
 			TEXTURE->DATA[i] = RESOURCE->DATA()->Get(i);
 		}
+
+		delete file_data;
 	}
 
 
@@ -96,10 +98,7 @@ namespace TuranEditor {
 		flatbuffers::FlatBufferBuilder builder(1024);
 
 		//Fill the textrue data to Flatbuffer from Texture_Resource!
-		std::vector<unsigned char> Texture_Naivevector_DATA;
-		Texture_Naivevector_DATA.resize(TEXTURE->DATA_SIZE);
-		memcpy(Texture_Naivevector_DATA.data(), TEXTURE->DATA, TEXTURE->DATA_SIZE);
-		auto TEXTURE_NaiveFlatbuffer_DATA = builder.CreateVector(Texture_Naivevector_DATA);
+		auto TEXTURE_NaiveFlatbuffer_DATA = builder.CreateVector(TEXTURE->DATA, TEXTURE->DATA_SIZE);
 
 		//Set texture properties and data to Flatbuffer!
 		auto FINISHED_TEXTURE_DATA = GFXAsset::CreateTEXTURE(builder, TEXTURE->WIDTH, TEXTURE->HEIGHT, TEXTURE_NaiveFlatbuffer_DATA,
@@ -117,7 +116,6 @@ namespace TuranEditor {
 		void* data_ptr = builder.GetBufferPointer();
 		std::cout << "Exporting resource as a .texturecont: " << IDENTIFIER->PATH << std::endl;
 		TAPIFILESYSTEM::Overwrite_BinaryFile(IDENTIFIER->PATH.c_str(), data_ptr, data_size);
-		Texture_Naivevector_DATA.clear();
 	}
 
 

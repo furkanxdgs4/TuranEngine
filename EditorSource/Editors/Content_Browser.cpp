@@ -33,7 +33,7 @@ namespace TuranEditor {
 				item_names.clear();
 				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
 					Resource_Identifier* RESOURCE = EDITOR_FILESYSTEM->Get_AssetList()[i];
-					item_names.push_back(RESOURCE->NAME);
+					item_names.push_back(RESOURCE->Get_Name());
 				}
 			}
 
@@ -49,13 +49,18 @@ namespace TuranEditor {
 					unsigned int expand_size = (EDITOR_FILESYSTEM->Get_AssetList().size() - (Asset_CheckList.GetByte_Length() * 8)) / 8;
 					Asset_CheckList.Expand(expand_size);
 				}
+				vector<Resource_Identifier*> Delete_List;
 				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
 					bool should_erase = Asset_CheckList.GetBit_Value(i);
 					if (should_erase) {
 						Resource_Identifier* resource_to_delete = EDITOR_FILESYSTEM->Get_AssetList()[i];
-						EDITOR_FILESYSTEM->Delete_anAsset_fromFileList(resource_to_delete);
-						std::cout << "Deleted an item!\n";
+						std::cout << "Deleted Resource Name: " << resource_to_delete->Get_Name() << std::endl;
+						std::cout << "Deleted Resource ID: " << resource_to_delete->ID << std::endl;
+ 						Delete_List.push_back(resource_to_delete);
 					}
+				}
+				for (unsigned int i = 0; i < Delete_List.size(); i++) {
+					EDITOR_FILESYSTEM->Delete_anAsset_fromFileList(Delete_List[i]->ID);
 				}
 				Asset_CheckList.Clear(false);
 				GameContent_EditMode = false;
@@ -97,7 +102,7 @@ namespace TuranEditor {
 				item_names.clear();
 				for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
 					Resource_Identifier* RESOURCE = EDITOR_FILESYSTEM->Get_AssetList()[i];
-					item_names.push_back(RESOURCE->NAME);
+					item_names.push_back(RESOURCE->Get_Name());
 				}
 			}
 			//Show selected content's properties!

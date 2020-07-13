@@ -29,7 +29,8 @@ namespace TuranEditor {
 		void Load_FileList();
 		void Clear_AllFileList();
 		bool Does_ResourceExist(unsigned int Resource_ID, RESOURCETYPEs TYPE) const;
-		const vector<Resource_Identifier*>& Get_AssetList();
+		const vector<Resource_Identifier*>& Get_AssetList() const;
+		vector<Resource_Identifier*> Get_SpecificAssetType(RESOURCETYPEs TYPE);
 
 
 		//RESOURCE LOADING AND VERIFYING OPERATIONs

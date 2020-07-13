@@ -16,7 +16,7 @@ namespace TuranAPI {
 			char* finaladdress = (char*)MemoryPool.address;
 			for (unsigned int blockindex = 0; blockindex < MAX_MEMORYBLOCKNUMBER; blockindex++) {
 				MemoryBlockInfo& MemoryBlock = Allocated_MemoryBlocks[blockindex];
-				if (size <= MemoryBlock.size) {
+				if (size <= MemoryBlock.size && size >= MemoryBlock.size * 3 / 5) {
 					if (!MemoryBlock.address) {
 						MemoryBlock.address = finaladdress;
 #ifdef MEMORY_DEBUGGING
@@ -183,7 +183,9 @@ namespace TuranAPI {
 }
 
 void* operator new(size_t size) {
-	//std::cout << "A memory block of " << size << " bytes will be allocated!\n";
+	if (size > 1000000) {
+		std::cout << "A memory block of " << size << " bytes will be allocated!\n";
+	}
 	return LASTUSEDALLOCATOR->Allocate_MemoryBlock(size);
 }
 void* operator new(size_t size, TuranAPI::MemoryManagement::IAllocator* Allocator) {

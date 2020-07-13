@@ -37,7 +37,7 @@ namespace TuranEditor {
 			return false;
 		}
 	}
-	void* Load_ShaderSource(Resource_Identifier* IDENTIFIER) {
+	void Load_ShaderSource(Resource_Identifier* IDENTIFIER) {
 		unsigned int data_size = 0;
 		void* file_data = TAPIFILESYSTEM::Read_BinaryFile(IDENTIFIER->PATH.c_str(), data_size, LASTUSEDALLOCATOR);
 		auto RESOURCE_typeless = GFXAsset::GetResource(file_data);
@@ -110,7 +110,7 @@ namespace TuranEditor {
 		//Material type's every uniform is verified!
 		return true;
 	}
-	void* Load_MatType(Resource_Identifier* IDENTIFIER) {
+	void Load_MatType(Resource_Identifier* IDENTIFIER) {
 		unsigned int data_size = 0;
 		void* file_data = TAPIFILESYSTEM::Read_BinaryFile(IDENTIFIER->PATH.c_str(), data_size, LASTUSEDALLOCATOR);
 		auto RESOURCE_typeless = GFXAsset::GetResource(file_data);
@@ -223,7 +223,7 @@ namespace TuranEditor {
 		}
 		return true;
 	}
-	void* Load_MatInst(Resource_Identifier* IDENTIFIER) {
+	void Load_MatInst(Resource_Identifier* IDENTIFIER) {
 		unsigned int data_size = 0;
 		void* file_data = TAPIFILESYSTEM::Read_BinaryFile(IDENTIFIER->PATH.c_str(), data_size, LASTUSEDALLOCATOR);
 		auto RESOURCE_typeless = GFXAsset::GetResource(file_data);

@@ -10,7 +10,7 @@ namespace TuranEditor {
 		unsigned int ID;
 		string PATH;
 		enum class RESOURCETYPEs TYPE;
-		void* DATA;
+		void* DATA = nullptr;
 		string Get_Name();
 	};
 }

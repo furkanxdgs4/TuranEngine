@@ -118,6 +118,9 @@ namespace OpenGL4 {
 	}
 
 	void GPU_ContentManager::Upload_Texture(GFX_API::Texture_Resource* ASSET, unsigned int Asset_ID, bool Generate_Mipmap) {
+		if (Find_GFXTexture_byID(Asset_ID)) {
+			return;
+		}
 		unsigned int TEXTURE_DIMENSION = Find_Texture_Dimension(ASSET->Properties.DIMENSION);
 		unsigned int TEXTURE_CHANNELs = Find_Texture_Channel_Type(ASSET->Properties.CHANNEL_TYPE);
 		unsigned int TEXTURE_WRAPPING = Find_Texture_Wrapping(ASSET->Properties.WRAPPING);

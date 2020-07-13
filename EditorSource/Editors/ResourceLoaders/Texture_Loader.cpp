@@ -38,6 +38,7 @@ namespace TuranEditor {
 			string PATH;
 			PATH = OUTPUT_FOLDER;
 			PATH.append(OUTPUT_NAME);
+			PATH.append(".texturecont");
 
 			//Check if this resource is already loaded to Content_List!
 			for (unsigned int i = 0; i < EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
@@ -84,7 +85,7 @@ namespace TuranEditor {
 		}
 		switch (CHANNELs) {
 		case 0:
-			new TuranEditor::Status_Window("Texture isn't loaded from source! Data is nullptr!");
+			new TuranEditor::Status_Window("Texture has 0 channels, that's not possible! Loading failed!");
 			return nullptr;
 		case 3:
 			CHANNEL_TYPE = GFX_API::TEXTURE_CHANNELs::API_TEXTURE_RGB;
@@ -93,7 +94,7 @@ namespace TuranEditor {
 			CHANNEL_TYPE = GFX_API::TEXTURE_CHANNELs::API_TEXTURE_RGBA;
 			break;
 		default:
-			new TuranEditor::Status_Window("Texture isn't loaded from source! Data is nullptr!");
+			new TuranEditor::Status_Window("Texture has unsupported number of channels, that's not possible! Loading failed!");
 			return nullptr;
 		}
 		//If application arrives here, loading is successful!
@@ -106,7 +107,7 @@ namespace TuranEditor {
 		texture_resource->DATA_SIZE = texture_resource->WIDTH * texture_resource->HEIGHT * CHANNELs;
 
 
-		new TuranEditor::Status_Window("Texture isn't loaded from source! Data is nullptr!");
+		new TuranEditor::Status_Window("Texture is loaded successfully!");
 		return texture_resource;
 	}
 }

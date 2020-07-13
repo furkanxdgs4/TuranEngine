@@ -1,7 +1,7 @@
 #include "TuranAPI_Core.h"
 
 namespace TuranAPI {
-	TAPI_SystemsBase::TAPI_SystemsBase() : MemoryManager(1024 * 1024 * 15) {
+	TAPI_SystemsBase::TAPI_SystemsBase() : MemoryManager(1024 * 1024 * 30) {
 
 	}
 	TAPI_SystemsBase::~TAPI_SystemsBase() {

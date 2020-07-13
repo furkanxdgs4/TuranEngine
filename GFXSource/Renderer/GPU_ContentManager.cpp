@@ -186,7 +186,8 @@ namespace GFX_API {
 				return &TEXTURE;
 			}
 		}
-		TuranAPI::LOG_CRASHING("Intended Texture isn't uploaded to GPU!");
+		TuranAPI::LOG_WARNING("Intended Texture isn't uploaded to GPU!");
+		return nullptr;
 	}
 	GFX_ShaderSource* GPU_ContentManager::Find_GFXShaderSource_byID(unsigned int ShaderSource_AssetID) {
 		for (unsigned int i = 0; i < SHADERSOURCEs.size(); i++) {
@@ -195,7 +196,7 @@ namespace GFX_API {
 				return &SHADERSOURCE;
 			}
 		}
-		TuranAPI::LOG_CRASHING("Intended Texture isn't uploaded to GPU!");
+		TuranAPI::LOG_CRASHING("Intended ShaderSource isn't uploaded to GPU!");
 	}
 	GFX_ShaderProgram* GPU_ContentManager::Find_GFXShaderProgram_byID(unsigned int ShaderProgram_AssetID) {
 		for (unsigned int i = 0; i < SHADERPROGRAMs.size(); i++) {
@@ -204,6 +205,6 @@ namespace GFX_API {
 				return &SHADERPROGRAM;
 			}
 		}
-		TuranAPI::LOG_CRASHING("Intended Texture isn't uploaded to GPU!");
+		TuranAPI::LOG_CRASHING("Intended ShaderProgram isn't uploaded to GPU!");
 	}
 }

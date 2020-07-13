@@ -38,24 +38,24 @@ namespace TuranEditor {
 		//There should be log!
 		return false;
 	}
-	void* Load_StaticModel(Resource_Identifier* IDENTIFIER) {
+	void Load_StaticModel(Resource_Identifier* IDENTIFIER) {
 		std::cout << "Loading a model, ID is: " << IDENTIFIER->ID << std::endl;
 		unsigned int data_size = 0;
 		void* file_data = TAPIFILESYSTEM::Read_BinaryFile(IDENTIFIER->PATH.c_str(), data_size, LASTUSEDALLOCATOR);
 		if (!file_data) {
 			TuranAPI::LOG_ERROR("Loading failed! Static Model's file isn't found!");
-			return nullptr;
+			return;
 		}
 		auto RESOURCE_typeless = EditorAsset::GetResource(file_data);
 		if (RESOURCE_typeless == nullptr) {
 			TuranAPI::LOG_ERROR("Loading failed! Model isn't a valid resource!");
-			return nullptr;
+			return;
 		}
 		auto RESOURCE = RESOURCE_typeless->TYPE_as_Static_Model();
 
 		if (!RESOURCE) {
 			TuranAPI::LOG_ERROR("Type isn't Static Model, Type definition is wrong!");
-			return nullptr;
+			return;
 		}
 
 		Static_Model* MODEL = new Static_Model;
@@ -87,8 +87,6 @@ namespace TuranEditor {
 			GetLayout_FromFlatbuffer(MESH->AttributeLayout(), Static_Mesh->DataLayout);
 			Static_Mesh->VERTEX_NUMBER = MESH->VertexNumber();
 		}
-
-		return MODEL;
 	}
 	void Save_StaticModel(Resource_Identifier* IDENTIFIER) {
 		Static_Model* MODEL = (Static_Model*)IDENTIFIER->DATA;

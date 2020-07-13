@@ -22,6 +22,7 @@ namespace GFX_API {
 		unsigned int WIDTH, HEIGHT, DATA_SIZE;
 		unsigned char* DATA;
 		Texture_Resource();
+		~Texture_Resource();
 	};
 }
 

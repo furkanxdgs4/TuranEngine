@@ -48,7 +48,8 @@ namespace TuranEditor {
 
 			string PATH = OUTPUT_FOLDER;
 			PATH.append(OUTPUT_NAME);
-			Static_Model* imported_resource = Model_Loader::Import_Model(MODEL_IMPORT_PATH.c_str(), PATH.c_str(), &status);
+			PATH.append(".meshcont");
+			Static_Model* imported_resource = Model_Loader::Import_Model(MODEL_IMPORT_PATH.c_str(), &status);
 			TuranEditor::Status_Window* error_window = new TuranEditor::Status_Window(status.c_str());
 			if (imported_resource) {
 				Resource_Identifier* RESOURCE = new Resource_Identifier;
@@ -266,7 +267,7 @@ namespace TuranEditor {
 
 
 	//Loads a model from a understandable format (OBJ, FBX...) for Asset Importer and Verifies Data.
-	Static_Model* Model_Loader::Import_Model(const char* path, const char* output_path, string* compilation_status) {
+	Static_Model* Model_Loader::Import_Model(const char* path, string* compilation_status) {
 		Assimp::Importer import;
 		const aiScene* Scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_CalcTangentSpace
 			| aiProcess_JoinIdenticalVertices | aiProcess_ValidateDataStructure | aiProcess_ImproveCacheLocality | aiProcess_FindInvalidData | aiProcess_RemoveRedundantMaterials
@@ -284,16 +285,9 @@ namespace TuranEditor {
 			return nullptr;
 		}
 
-		//Include resource data format too! (name.obj, name.fbx etc.)
-		string PATH = output_path; PATH.append(".meshcont");
-
-
-		std::string NAME = output_path;
-		NAME = NAME.substr(NAME.find_last_of('/') + 1);
-		NAME = NAME.substr(0, NAME.find_last_of('.'));
 		//Store mesh parts in a Model!
 		//Note: Now just merge all of the mesh parts in a model, no load operations!
-		Static_Model* Loaded_Model = new Static_Model(Scene->mNumMeshes);
+		Static_Model* Loaded_Model = new Static_Model;
 
 
 		vector<Attribute_BitMask> aiMesh_Attributes;
@@ -353,21 +347,9 @@ namespace TuranEditor {
 
 
 		//Finalization
-		compilation_status->append("Compiled the model name: ");
-		compilation_status->append(NAME.c_str());
-		Loaded_Model->PATH = PATH;
+		compilation_status->append("Compiled the model successfully!");
+
 		Loaded_Model->Material_Number = Scene->mNumMaterials;
-
-
-		if (Loaded_Model->Verify_Resource_Data()) {
-			//ID generation is handled while writing to a file!
-			Loaded_Model->Write_ToDisk(true);
-			compilation_status->append(" Successfully compiled and saved to disk!");
-			return Loaded_Model;
-		}
-		else {
-			compilation_status->append(" Loaded model data isn't verified successfully!");
-			return nullptr;
-		}
+		return Loaded_Model;
 	}
 }

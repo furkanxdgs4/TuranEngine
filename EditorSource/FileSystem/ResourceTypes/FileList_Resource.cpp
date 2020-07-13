@@ -5,6 +5,8 @@
 #include "GFXSource/GFX_FileSystem/Resource_Type/Texture_Resource.h"
 
 namespace TuranEditor {
+	EditorAsset::File_Type Convert_toFB_ResourceType(RESOURCETYPEs resource_type);
+	RESOURCETYPEs Convert_fromFB_ResourceType(EditorAsset::File_Type resource_type);
 	FileList_Resource::FileList_Resource(const char* path) : PATH(path), ID_BITSET(100, LASTUSEDALLOCATOR) {
 	}
 
@@ -56,18 +58,7 @@ namespace TuranEditor {
 			auto TYPE = FILE->TYPE();
 			size_t Asset_ID = FILE->ID();
 
-			void* data = nullptr;
-			unsigned int data_size;
-			std::cout << "Reading the file: " << PATH << std::endl;
-			data = TAPIFILESYSTEM::Read_BinaryFile(PATH, data_size, Allocator);
-
-			//If compiled resource isn't found!
-			if (data == nullptr) {
-				std::cout << "Resource isn't found in path: " << PATH << std::endl;
-				continue;
-			}
-			Resource_Identifier* loaded_resource = nullptr;
-			std::cout << "Data size: " << data_size << std::endl;
+			Resource_Identifier* loaded_resource = new Resource_Identifier;
 
 			Read_ID(Asset_ID);
 			loaded_resource->ID = Asset_ID;
@@ -78,8 +69,6 @@ namespace TuranEditor {
 		}
 
 	}
-	EditorAsset::File_Type Convert_toFB_ResourceType(RESOURCETYPEs resource_type);
-	RESOURCETYPEs Convert_fromFB_ResourceType(EditorAsset::File_Type resource_type);
 	void FileList_Resource::Write_ToDisk() {
 		//Create a flatbufferbuilder and FileList to build the data!
 		flatbuffers::FlatBufferBuilder builder(1024);
@@ -93,16 +82,13 @@ namespace TuranEditor {
 			if (RESOURCE == nullptr) {
 				continue;
 			}
-			std::cout << "Adding resource to GameContent List: " << RESOURCE->PATH << std::endl;
 			auto PATH = builder.CreateString(RESOURCE->PATH);
 			EditorAsset::FileBuilder file_build(builder);
 			file_build.add_PATH(PATH);
 			file_build.add_TYPE(Convert_toFB_ResourceType(RESOURCE->TYPE));
-			std::cout << "ID: " << RESOURCE->ID << std::endl;
 			file_build.add_ID(RESOURCE->ID);
 			auto finished_file = file_build.Finish();
 			Resources.push_back(finished_file);
-			std::cout << "Added resource to GameContent List: " << RESOURCE->PATH << std::endl;
 		}
 		auto finished_vector = builder.CreateVector(Resources);
 

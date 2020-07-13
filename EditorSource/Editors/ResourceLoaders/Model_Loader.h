@@ -16,6 +16,6 @@ namespace TuranEditor {
 
 	class Model_Loader {
 	public:
-		static Static_Model* Import_Model(const char* PATH, const char* output_path, string* compilation_status);
+		static Static_Model* Import_Model(const char* PATH, string* compilation_status);
 	};
 }

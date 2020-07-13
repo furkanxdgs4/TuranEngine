@@ -11,6 +11,9 @@ namespace GFX_API {
 	Texture_Resource::Texture_Resource() {
 
 	}
+	Texture_Resource::~Texture_Resource() {
+		delete DATA;
+	}
 
 
 }
