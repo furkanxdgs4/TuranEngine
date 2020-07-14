@@ -39,7 +39,7 @@ namespace GFX_API {
 	struct GFXAPI VertexAttributeLayout {
 		VertexAttributeLayout(unsigned char AttributeNumber);
 		VertexAttributeLayout& operator=(const VertexAttributeLayout& layout);
-		vector<VertexAttribute*> Attributes;
+		vector<VertexAttribute> Attributes;
 		//All of the attributes are per vertex, so this is the size of attribute data per vertex
 		unsigned int size_pervertex;
 		void Calculate_SizeperVertex();
@@ -105,7 +105,7 @@ namespace GFX_API {
 
 		virtual void Compile_ShaderSource(ShaderSource_Resource* SHADER, unsigned int Asset_ID, string* compilation_status) = 0;
 		virtual void Delete_ShaderSource(unsigned int Shader_ID) = 0;
-		virtual void Link_MaterialType(Material_Type* MATTYPE_ASSET, string* compilation_status) = 0;
+		virtual void Link_MaterialType(Material_Type* MATTYPE_ASSET, unsigned int Asset_ID, string* compilation_status) = 0;
 		virtual void Delete_MaterialType(unsigned int Asset_ID) = 0;
 
 

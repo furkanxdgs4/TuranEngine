@@ -97,7 +97,7 @@ table SCENE{
 
 
 //Please don't forget that, this should match Resource_Type!
-enum File_Type: ubyte { ERROR = 0, Material_Type = 1, Material_Instance, Texture, Static_Model, Scene}
+enum File_Type: ubyte { ERROR = 0, Material_Type = 1, Material_Instance, Texture, Static_Model, Scene, ShaderSource}
 
 table File{
     PATH: string;

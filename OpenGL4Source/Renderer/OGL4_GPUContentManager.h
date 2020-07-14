@@ -26,7 +26,7 @@ namespace OpenGL4 {
 
 		virtual void Compile_ShaderSource(GFX_API::ShaderSource_Resource* SHADER, unsigned int Asset_ID, string* compilation_status) override;
 		virtual void Delete_ShaderSource(unsigned int ASSET_ID) override;
-		virtual void Link_MaterialType(GFX_API::Material_Type* MATTYPE_ASSET, string* compilation_status) override;
+		virtual void Link_MaterialType(GFX_API::Material_Type* MATTYPE_ASSET, unsigned int Asset_ID, string* compilation_status) override;
 		virtual void Delete_MaterialType(unsigned int Asset_ID) override;
 
 

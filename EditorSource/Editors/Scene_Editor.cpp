@@ -163,6 +163,16 @@ namespace TuranEditor {
 		vector<string> Models_Names;						//Get Model names to choose one of them
 		vector<Resource_Identifier*> ALL_MODELASSETs = EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::EDITOR_STATICMODEL);
 		vector<Resource_Identifier*> ALL_MATINSTs = EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_MATINST);
+		if (!ALL_MODELASSETs.size()) {
+			IMGUI->Text("There is no Static Model, so you can't create a Static Model Component!");
+			IMGUI->End_Window();
+			return;
+		}
+		if (!ALL_MATINSTs.size()) {
+			IMGUI->Text("There is no Material Instance, so you can't create a Static Model Component!");
+			IMGUI->End_Window();
+			return;
+		}
 		for (unsigned int i = 0; i < ALL_MODELASSETs.size(); i++) {
 			Resource_Identifier* MODEL = ALL_MODELASSETs[i];
 			Models_Names.push_back(MODEL->Get_Name());
@@ -177,11 +187,6 @@ namespace TuranEditor {
 
 
 
-		if (ALL_MODELASSETs.size() == 0) {
-			IMGUI->Text("There is no Static Model, so you can't create a Static Model Component!\n");
-			IMGUI->End_Window();
-			return;
-		}
 		//If this is the first frame of window!
 		if (!SELECTED_MODEL) {
 			SELECTED_MODEL = ALL_MODELASSETs[0];

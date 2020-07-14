@@ -8,11 +8,17 @@ namespace TuranEditor {
 
 
 	class Material_Import_Window : public GFX_API::IMGUI_WINDOW {
-		string MATERIALTYPE_VERTEX_PATH = "", MATERIALTYPE_FRAGMENT_PATH = "", OUTPUT_FOLDER = "", OUTPUT_NAME = "", VERTEX_SOURCE = "", FRAGMENT_SOURCE = "";
+		string OUTPUT_FOLDER = "", OUTPUT_NAME = "";
 		bool is_Reading_Shaders = false;
+		vector<Resource_Identifier*> SHADERSOURCEs;
+		Resource_Identifier* VS, *FS;
 		vector<GFX_API::Material_Uniform> Material_Uniforms;
-		vector<int> selectlist_vector;
 		vector<const char*> UNIFORM_VAR_TYPE_NAMEs;
+		vector<string> vssource_names, fssource_names;
+
+		vector<int> typeindex_peruniform,
+			vssource_indexes, fssource_indexes;		//This indexes stores which elements of SHADERSOURCEs vector are Vertex Shader or Fragment Shader
+		unsigned int selected_vsindex, selected_fsindex;
 	public:
 		Material_Import_Window();
 		virtual void Run_Window();

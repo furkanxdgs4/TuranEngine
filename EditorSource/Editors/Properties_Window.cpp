@@ -36,6 +36,7 @@ namespace TuranEditor {
 			}
 		}
 	}
+	void Show_ShaderSource_Properties(Resource_Identifier* resource);
 	void Show_MaterialType_Properties(Resource_Identifier* resource);
 	void Show_Model_Properties(Resource_Identifier* resource);
 	void Show_MaterialInstance_Properties(Resource_Identifier* resource);
@@ -68,11 +69,24 @@ namespace TuranEditor {
 			Is_Window_Open = false;
 			IMGUI_DELETEWINDOW(this);
 			break;
+		case RESOURCETYPEs::GFXAPI_SHADERSOURCE:
+			Show_ShaderSource_Properties(RESOURCE);
+			break;
 		default:
 			new Status_Window("This type's properties can't be shown by Properties Window!");
 			Is_Window_Open = false;
 		}
 		IMGUI->End_Window();
+	}
+
+	void Show_ShaderSource_Properties(Resource_Identifier* resource) {
+		GFX_API::ShaderSource_Resource* SHADERSOURCE = (GFX_API::ShaderSource_Resource*)resource->DATA;
+		IMGUI->Text(("ID: " + to_string(resource->ID)).c_str());
+		IMGUI->Text(("Shader Stage: " + string(GFX_API::GetNameof_SHADERSTAGE(SHADERSOURCE->STAGE))).c_str());
+		IMGUI->Text(("Shader Language: " + string(GFX_API::GetNameof_SHADERLANGUAGE(SHADERSOURCE->LANGUAGE))).c_str());
+		IMGUI->Text("Code:");
+		IMGUI->Separator();
+		IMGUI->Text(SHADERSOURCE->SOURCE_CODE.c_str());
 	}
 
 	void Show_MaterialType_Properties(Resource_Identifier* resource) {

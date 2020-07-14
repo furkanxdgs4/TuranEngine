@@ -21,30 +21,30 @@ namespace GFX_API {
 	void VertexAttributeLayout::Calculate_SizeperVertex() {
 		size_pervertex = 0;
 		for (unsigned int i = 0; i < Attributes.size(); i++) {
-			VertexAttribute* Attribute = Attributes[i];
-			size_pervertex += Get_UNIFORMTYPEs_SIZEinbytes(Attribute->DATATYPE);
+			VertexAttribute& Attribute = Attributes[i];
+			size_pervertex += Get_UNIFORMTYPEs_SIZEinbytes(Attribute.DATATYPE);
 		}
 	}
 
 	bool VertexAttributeLayout::VerifyAttributeLayout() const {
 		int FirstContinuousAttributeIndex = -1;
 		for (unsigned int attribute_index = 0; attribute_index < Attributes.size(); attribute_index++) {
-			VertexAttribute* current_attribute = Attributes[attribute_index];
+			const VertexAttribute& current_attribute = Attributes[attribute_index];
 
 
 			//Wrong Index
-			if (current_attribute->Index != attribute_index) {
+			if (current_attribute.Index != attribute_index) {
 				string Error_Message = "Wrong Index in Attribute: ";
-				Error_Message.append(current_attribute->AttributeName);
-				std::cout << "Attribute's index: " << current_attribute->Index << " but should be: " << attribute_index << std::endl;
+				Error_Message.append(current_attribute.AttributeName);
+				std::cout << "Attribute's index: " << current_attribute.Index << " but should be: " << attribute_index << std::endl;
 				TuranAPI::LOG_ERROR(Error_Message);
 				return false;
 			}
 
 			//Find the first Continuous Attribute and check its Start_Offset
-			if (FirstContinuousAttributeIndex == -1 && current_attribute->Stride == 0 && attribute_index > 0) {
+			if (FirstContinuousAttributeIndex == -1 && current_attribute.Stride == 0 && attribute_index > 0) {
 				//First Continuous Attribute has to have a Start_Offset, because previous data is Interleaved!
-				if (current_attribute->Start_Offset == 0) {
+				if (current_attribute.Start_Offset == 0) {
 					TuranAPI::LOG_CRASHING("Please read the specification about vertex Attribute Layout! It's not allowed to have a interleaved attribute after an continuous attribute!");
 					return false;
 				}
@@ -52,21 +52,21 @@ namespace GFX_API {
 			}
 
 			//Layout starts with Continuous Attribute, there shouldn't be any Interleaved Attribute!
-			else if (FirstContinuousAttributeIndex == -1 && current_attribute->Stride == 0) {
+			else if (FirstContinuousAttributeIndex == -1 && current_attribute.Stride == 0) {
 				FirstContinuousAttributeIndex = attribute_index;
 			}
 
 			if (attribute_index > 0) {
-				VertexAttribute* previous_attribute = Attributes[attribute_index - 1];
+				const VertexAttribute& previous_attribute = Attributes[attribute_index - 1];
 
 				//Start Offset = 0 shouldn't be used if previous attribute isn't continous!
-				if (current_attribute->Start_Offset == 0 && previous_attribute->Stride != 0) {
+				if (current_attribute.Start_Offset == 0 && previous_attribute.Stride != 0) {
 					TuranAPI::LOG_CRASHING("Please read the specification about Vertex Attribute Layout! Start_Offset = 0 shouldn't be used if previous attribute isn't continuous!");
 					return false;
 				}
 
 				//It's not allowed to have a interleaved attribute after an continuous attribute!
-				else if (current_attribute->Stride != 0 && previous_attribute->Stride == 0) {
+				else if (current_attribute.Stride != 0 && previous_attribute.Stride == 0) {
 					TuranAPI::LOG_CRASHING("Please read the specification about vertex Attribute Layout! It's not allowed to have a interleaved attribute after an continuous attribute!");
 					return false;
 				}
@@ -88,8 +88,8 @@ namespace GFX_API {
 		}
 
 		for (unsigned int i = 0; i < Attributes.size(); i++) {
-			VertexAttribute* attribute = Attributes[i];
-			if (attribute->Start_Offset > datasize_inbytes) {
+			const VertexAttribute& attribute = Attributes[i];
+			if (attribute.Start_Offset > datasize_inbytes) {
 				TuranAPI::LOG_CRASHING("Attribute's start offset causes buffer overflow!");
 				return false;
 			}
@@ -100,7 +100,7 @@ namespace GFX_API {
 
 	char VertexAttributeLayout::Find_AttributeIndex_byName(const char* Attribute_Name) const {
 		for (unsigned char i = 0; i < Attributes.size(); i++) {
-			if (Attribute_Name == Attributes[i]->AttributeName) {
+			if (Attribute_Name == Attributes[i].AttributeName) {
 				return i;
 			}
 		}

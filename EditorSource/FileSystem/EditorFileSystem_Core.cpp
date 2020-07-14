@@ -249,6 +249,8 @@ namespace TuranEditor {
 			return EditorAsset::File_Type_Material_Instance;
 		case RESOURCETYPEs::EDITOR_SCENE:
 			return EditorAsset::File_Type_Scene;
+		case RESOURCETYPEs::GFXAPI_SHADERSOURCE:
+			return EditorAsset::File_Type_ShaderSource;
 		default:
 			TuranAPI::LOG_CRASHING("Intended resource type isn't found in FileList!");
 			return EditorAsset::File_Type_ERROR;
@@ -266,6 +268,8 @@ namespace TuranEditor {
 			return RESOURCETYPEs::GFXAPI_MATINST;
 		case EditorAsset::File_Type::File_Type_Material_Type:
 			return RESOURCETYPEs::GFXAPI_MATTYPE;
+		case EditorAsset::File_Type::File_Type_ShaderSource:
+			return RESOURCETYPEs::GFXAPI_SHADERSOURCE;
 		default:
 			TuranAPI::LOG_CRASHING("Convert_fromFB_ResourceType doesn't support this EditorAsset::File_Type!\n");
 		}

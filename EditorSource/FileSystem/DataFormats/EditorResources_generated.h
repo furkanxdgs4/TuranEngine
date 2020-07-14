@@ -139,37 +139,40 @@ enum File_Type {
   File_Type_Texture = 3,
   File_Type_Static_Model = 4,
   File_Type_Scene = 5,
+  File_Type_ShaderSource = 6,
   File_Type_MIN = File_Type_ERROR,
-  File_Type_MAX = File_Type_Scene
+  File_Type_MAX = File_Type_ShaderSource
 };
 
-inline const File_Type (&EnumValuesFile_Type())[6] {
+inline const File_Type (&EnumValuesFile_Type())[7] {
   static const File_Type values[] = {
     File_Type_ERROR,
     File_Type_Material_Type,
     File_Type_Material_Instance,
     File_Type_Texture,
     File_Type_Static_Model,
-    File_Type_Scene
+    File_Type_Scene,
+    File_Type_ShaderSource
   };
   return values;
 }
 
 inline const char * const *EnumNamesFile_Type() {
-  static const char * const names[7] = {
+  static const char * const names[8] = {
     "ERROR",
     "Material_Type",
     "Material_Instance",
     "Texture",
     "Static_Model",
     "Scene",
+    "ShaderSource",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameFile_Type(File_Type e) {
-  if (e < File_Type_ERROR || e > File_Type_Scene) return "";
+  if (e < File_Type_ERROR || e > File_Type_ShaderSource) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesFile_Type()[index];
 }

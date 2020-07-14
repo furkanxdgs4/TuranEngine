@@ -41,8 +41,6 @@ namespace GFX_API {
 		void End_Menu();
 		//Create a item for a menu! Shortcut argument is just use for the future support, nothing functional for now.
 		bool Menu_Item(const char* name, const char* Shortcut = nullptr);
-		//Show a paragraph text!
-		void Paragraph_Text(const char* name, const char* text);
 		//Write a paragraph text!
 		bool Input_Paragraph_Text(const char* name, string* Text);
 		//Put the next item to the same line with last created item
@@ -63,6 +61,11 @@ namespace GFX_API {
 		//Display a texture that is in the GPU memory, for example a Render Target or a Texture
 		void Display_Texture(unsigned int TEXTURE_ASSETID, const unsigned int& Display_WIDTH, const unsigned int& Display_HEIGHT, bool should_Flip_Vertically = false);
 		void Display_RenderTarget(unsigned int RT_GFXID, const unsigned int& Display_WIDTH, const unsigned int& Display_HEIGHT, bool should_Flip_Vertically = false);
+		bool Begin_TabBar();
+		void End_TabBar();
+		bool Begin_TabItem(const char* name);
+		void End_TabItem();
+		void Separator();
 
 		//Add here Unsigned Int, Unsigned Short & Short, Unsigned Char & Char sliders too!
 

@@ -11,10 +11,8 @@ namespace OpenGL4 {
 		if (FB_ID) {
 			FB = GFXContentManager->Find_Framebuffer_byGFXID(FB_ID);
 			glBindFramebuffer(GL_FRAMEBUFFER, *(unsigned int*)FB->GL_ID);
-			std::cout << "RT Number: " << FB->BOUND_RTs.size() << std::endl;
 			for (unsigned int i = 0; i < FB->BOUND_RTs.size(); i++) {
 				auto RT = FB->BOUND_RTs[i];
-				std::cout << "Clear Color: " << RT.CLEAR_COLOR.x << " " << RT.CLEAR_COLOR.y << " " << RT.CLEAR_COLOR.z << std::endl;
 				if (RT.RT_READTYPE == GFX_API::RT_READSTATE::CLEAR) {
 					glClearColor(RT.CLEAR_COLOR.x, RT.CLEAR_COLOR.y, RT.CLEAR_COLOR.z, 1);
 					if (RT.ATTACHMENT_TYPE == GFX_API::RT_ATTACHMENTs::TEXTURE_ATTACHMENT_COLOR0) {

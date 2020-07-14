@@ -152,14 +152,14 @@ namespace TuranEditor {
 		2) In summer, I will code an Editor to set Attribute Layout so the code below is a fixed way for now
 		*/
 		{
-			GFX_API::VertexAttribute* PositionAttribute = new GFX_API::VertexAttribute;
+			GFX_API::VertexAttribute PositionAttribute;
 			//Create Position Attribute!
+			PositionAttribute.AttributeName = "Positions";
+			PositionAttribute.Index = 0;
+			PositionAttribute.Stride = 0;
+			PositionAttribute.Start_Offset = 0;
+			PositionAttribute.DATATYPE = GFX_API::UNIFORMTYPE::VAR_VEC3;
 			MESH->DataLayout.Attributes.push_back(PositionAttribute);
-			PositionAttribute->AttributeName = "Positions";
-			PositionAttribute->Index = 0;
-			PositionAttribute->Stride = 0;
-			PositionAttribute->Start_Offset = 0;
-			PositionAttribute->DATATYPE = GFX_API::UNIFORMTYPE::VAR_VEC3;
 
 			//I don't want to try to support the other attributes for now but the code should be like that!
 			/*

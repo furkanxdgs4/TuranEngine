@@ -109,15 +109,20 @@ namespace GFX_API {
 		SPIRV	= 2,
 		TSL		= 3
 	};
+	GFXAPI const char* GetNameof_SHADERLANGUAGE(SHADER_LANGUAGEs LANGUAGE);
+	GFXAPI vector<const char*> GetNames_SHADERLANGUAGEs();
+	GFXAPI SHADER_LANGUAGEs GetSHADERLANGUAGE_byIndex(unsigned int Index);
 
 	enum class SHADER_STAGE : unsigned char {
 		VERTEXSTAGE		= 0,
-
 		//There should be TESSELATION etc.
-
 		FRAGMENTSTAGE	= 1,
 		COMPUTE			= 2
 	};
+	GFXAPI const char* GetNameof_SHADERSTAGE(SHADER_STAGE SHADERSTAGE);
+	GFXAPI vector<const char*> GetNames_SHADERSTAGEs();
+	GFXAPI SHADER_STAGE GetSHADERSTAGE_byIndex(unsigned int Index);
+
 
 
 

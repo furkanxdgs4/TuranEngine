@@ -159,6 +159,7 @@
     <ClCompile Include="EditorSource\Editors\ResourceLoaders\MaterialInstance_Import.cpp" />
     <ClCompile Include="EditorSource\Editors\ResourceLoaders\Material_Type_Loader.cpp" />
     <ClCompile Include="EditorSource\Editors\ResourceLoaders\Model_Loader.cpp" />
+    <ClCompile Include="EditorSource\Editors\ResourceLoaders\ShaderSource_Creater.cpp" />
     <ClCompile Include="EditorSource\Editors\ResourceLoaders\Texture_Loader.cpp" />
     <ClCompile Include="EditorSource\Editors\Scene_Editor.cpp" />
     <ClCompile Include="EditorSource\Editors\Status_Window.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="EditorSource\Editors\ResourceLoaders\MaterialInstance_Import.h" />
     <ClInclude Include="EditorSource\Editors\ResourceLoaders\Material_Type_Loader.h" />
     <ClInclude Include="EditorSource\Editors\ResourceLoaders\Model_Loader.h" />
+    <ClInclude Include="EditorSource\Editors\ResourceLoaders\ShaderSource_Creater.h" />
     <ClInclude Include="EditorSource\Editors\ResourceLoaders\Texture_Loader.h" />
     <ClInclude Include="EditorSource\Editors\Scene_Editor.h" />
     <ClInclude Include="EditorSource\Editors\Status_Window.h" />

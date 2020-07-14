@@ -135,16 +135,16 @@ namespace TuranEditor {
 
 	void GetLayout_FromFlatbuffer(const flatbuffers::Vector<flatbuffers::Offset<EditorAsset::VERTEX_ATTRIBUTE>>* Attributes, GFX_API::VertexAttributeLayout& Layout) {
 		for (unsigned int i = 0; i < Attributes->size(); i++) {
-			GFX_API::VertexAttribute* Attribute = new GFX_API::VertexAttribute;
-			Layout.Attributes.push_back(Attribute);
+			GFX_API::VertexAttribute Attribute;
 			auto FBAttribute = Attributes->Get(i);
 
 
-			Attribute->AttributeName = FBAttribute->AttributeName()->c_str();
-			Attribute->Index = FBAttribute->AttributeIndex();
-			Attribute->Stride = FBAttribute->Stride();
-			Attribute->Start_Offset = FBAttribute->Start_Offset();
-			Attribute->DATATYPE = GetDataType_FromFlatbuffer(FBAttribute->DataType());
+			Attribute.AttributeName = FBAttribute->AttributeName()->c_str();
+			Attribute.Index = FBAttribute->AttributeIndex();
+			Attribute.Stride = FBAttribute->Stride();
+			Attribute.Start_Offset = FBAttribute->Start_Offset();
+			Attribute.DATATYPE = GetDataType_FromFlatbuffer(FBAttribute->DataType());
+			Layout.Attributes.push_back(Attribute);
 		}
 		Layout.Calculate_SizeperVertex();
 
@@ -155,10 +155,10 @@ namespace TuranEditor {
 	flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<EditorAsset::VERTEX_ATTRIBUTE>>> ConvertLayout_toFlatbuffer(const GFX_API::VertexAttributeLayout& layout, flatbuffers::FlatBufferBuilder& builder) {
 		vector<flatbuffers::Offset<EditorAsset::VERTEX_ATTRIBUTE>> Attributes;
 		for (unsigned char i = 0; i < layout.Attributes.size(); i++) {
-			GFX_API::VertexAttribute* Attribute = layout.Attributes[i];
+			const GFX_API::VertexAttribute& Attribute = layout.Attributes[i];
 			Attributes.push_back(
-				EditorAsset::CreateVERTEX_ATTRIBUTE(builder, builder.CreateString(Attribute->AttributeName),
-					ConvertDataType_ToFlatbuffer(Attribute->DATATYPE), Attribute->Index, Attribute->Stride, Attribute->Start_Offset)
+				EditorAsset::CreateVERTEX_ATTRIBUTE(builder, builder.CreateString(Attribute.AttributeName),
+					ConvertDataType_ToFlatbuffer(Attribute.DATATYPE), Attribute.Index, Attribute.Stride, Attribute.Start_Offset)
 			);
 		}
 		return builder.CreateVector(Attributes.data(), Attributes.size());

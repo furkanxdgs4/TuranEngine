@@ -11,12 +11,12 @@ namespace OpenGL4 {
 		if (currentattribute_index == 0) {
 			return 0;
 		}
-		GFX_API::VertexAttribute* previous_attribute = attributelayout->Attributes[currentattribute_index - 1];
-		if (previous_attribute->Start_Offset == 0) {
-			return Get_WherePreviousAttribute_Ends(attributelayout, vertex_count, currentattribute_index - 1) + (GFX_API::Get_UNIFORMTYPEs_SIZEinbytes(previous_attribute->DATATYPE) * vertex_count);
+		const GFX_API::VertexAttribute& previous_attribute = attributelayout->Attributes[currentattribute_index - 1];
+		if (previous_attribute.Start_Offset == 0) {
+			return Get_WherePreviousAttribute_Ends(attributelayout, vertex_count, currentattribute_index - 1) + (GFX_API::Get_UNIFORMTYPEs_SIZEinbytes(previous_attribute.DATATYPE) * vertex_count);
 		}
 		else {
-			return previous_attribute->Start_Offset + (GFX_API::Get_UNIFORMTYPEs_SIZEinbytes(previous_attribute->DATATYPE) * vertex_count);
+			return previous_attribute.Start_Offset + (GFX_API::Get_UNIFORMTYPEs_SIZEinbytes(previous_attribute.DATATYPE) * vertex_count);
 		}
 	}
 	void OGL4_API Set_VertexAttribPointer(const GFX_API::VertexAttribute* attribute, size_t Start_Offset) {
@@ -76,23 +76,23 @@ namespace OpenGL4 {
 		glBufferData(GL_ARRAY_BUFFER, data_size, vertex_data, GL_STATIC_DRAW);
 
 		for (unsigned int attribute_index = 0; attribute_index < attributelayout.Attributes.size(); attribute_index++) {
-			GFX_API::VertexAttribute* attribute = attributelayout.Attributes[attribute_index];
+			const GFX_API::VertexAttribute& attribute = attributelayout.Attributes[attribute_index];
 			//Reporting status
 			{
 				string Status = "Uploading Vertex Attribute: ";
-				Status.append(attribute->AttributeName);
+				Status.append(attribute.AttributeName);
 				TuranAPI::LOG_STATUS(Status);
 			}
 
 
-			glEnableVertexAttribArray(attribute->Index);
+			glEnableVertexAttribArray(attribute.Index);
 			size_t Start_Offset = 0;
-			if (attribute->Start_Offset == 0) {
+			if (attribute.Start_Offset == 0) {
 				Start_Offset = Get_WherePreviousAttribute_Ends(&attributelayout, vertex_count, attribute_index);
-				Set_VertexAttribPointer(attribute, Start_Offset);
+				Set_VertexAttribPointer(&attribute, Start_Offset);
 			}
 			else {
-				Set_VertexAttribPointer(attribute, attribute->Start_Offset);
+				Set_VertexAttribPointer(&attribute, attribute.Start_Offset);
 			}
 		}
 		MESH.BUFFER_ID = Create_MeshBufferID();
@@ -153,29 +153,47 @@ namespace OpenGL4 {
 	void GPU_ContentManager::Unload_Texture(unsigned int TEXTURE_ID) {
 		glDeleteTextures(1, (unsigned int*)Find_GFXTexture_byID(TEXTURE_ID)->GL_ID);
 	}
-	void GPU_ContentManager::Link_MaterialType(GFX_API::Material_Type* MATTYPE_ASSET, string* compilation_status) {
+	void GPU_ContentManager::Link_MaterialType(GFX_API::Material_Type* MATTYPE_ASSET, unsigned int Asset_ID, string* compilation_status) {
 		//Link and return the Shader Program!
-		unsigned int SHADERPROGRAM = glCreateProgram();
+		unsigned int* program_id = new unsigned int;
+		*program_id = glCreateProgram();
 
+		void* VS_ID = Find_GFXShaderSource_byID(MATTYPE_ASSET->VERTEXSOURCE_ID)->GL_ID;
+		if (!VS_ID) {
+			TuranAPI::LOG_WARNING("Vertex Shader isn't uploaded to GPU, so Shader Program linking failed!");
+		}
+		void* FS_ID = Find_GFXShaderSource_byID(MATTYPE_ASSET->FRAGMENTSOURCE_ID)->GL_ID;
+		if (!FS_ID) {
+			TuranAPI::LOG_WARNING("Vertex Shader isn't uploaded to GPU, so Shader Program linking failed!");
+		}
 		//Link Vertex and Fragment Shader to Shader Program and set ID
-		glAttachShader(SHADERPROGRAM, MATTYPE_ASSET->VERTEXSOURCE_ID);
-		glAttachShader(SHADERPROGRAM, MATTYPE_ASSET->FRAGMENTSOURCE_ID);
-		glLinkProgram(SHADERPROGRAM);
+		glAttachShader(*program_id, *(unsigned int*)VS_ID);
+		glAttachShader(*program_id, *(unsigned int*)FS_ID);
+		glLinkProgram(*program_id);
 
 		//Check linking issues
 		int link_success;
 		char link_infolog[512];
-		glGetProgramiv(SHADERPROGRAM, GL_LINK_STATUS, &link_success);
+		glGetProgramiv(*program_id, GL_LINK_STATUS, &link_success);
 		if (!link_success) {
-			glGetProgramInfoLog(SHADERPROGRAM, 512, NULL, link_infolog);
+			glGetProgramInfoLog(*program_id, 512, NULL, link_infolog);
 			compilation_status->append(link_infolog);
 			TuranAPI::LOG_CRASHING(link_infolog);
 			return;
 		}
+		GFX_API::GFX_ShaderProgram SHADERPROGRAM;
+		SHADERPROGRAM.ASSET_ID = Asset_ID;
+		SHADERPROGRAM.GL_ID = program_id;
+		SHADERPROGRAMs.push_back(SHADERPROGRAM);
 		compilation_status->append("Succesfully linked!");
 	}
 	void GPU_ContentManager::Delete_MaterialType(unsigned int Asset_ID) {
-		glDeleteProgram(*(unsigned int*)Find_GFXShaderProgram_byID(Asset_ID)->GL_ID);
+		GFX_API::GFX_ShaderProgram* PROGRAM = Find_GFXShaderProgram_byID(Asset_ID);
+		if (PROGRAM->GL_ID) {
+			glDeleteProgram(*(unsigned int*)PROGRAM->GL_ID);
+			delete (unsigned int*)PROGRAM->GL_ID;
+		}
+		PROGRAM->GL_ID = nullptr;
 	}
 	void GPU_ContentManager::Compile_ShaderSource(GFX_API::ShaderSource_Resource* SHADER, unsigned int Asset_ID, string* compilation_status) {
 		unsigned int STAGE = Find_ShaderStage(SHADER->STAGE);

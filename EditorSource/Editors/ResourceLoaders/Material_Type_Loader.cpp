@@ -27,11 +27,32 @@ namespace TuranEditor {
 		}
 		if (!IMGUI->Create_Window(Window_Name.c_str(), Is_Window_Open, false)) {
 			IMGUI->End_Window();
+			return;
 		}
-		/*
-		std::cout << "Material Type Import screen is active!\n";
-		IMGUI->Input_Text("Vertex Resource Path", &MATERIALTYPE_VERTEX_PATH);
-		IMGUI->Input_Text("Fragment Resource Path", &MATERIALTYPE_FRAGMENT_PATH);
+
+		if (SHADERSOURCEs.size() != EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_SHADERSOURCE).size()) {
+			SHADERSOURCEs.clear();	vssource_indexes.clear(); vssource_names.clear();
+			fssource_indexes.clear();	fssource_names.clear();
+			SHADERSOURCEs = EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_SHADERSOURCE);
+			for (unsigned int i = 0; i < SHADERSOURCEs.size(); i++) {
+				ShaderSource_Resource* SHADERSOURCE = (ShaderSource_Resource*)SHADERSOURCEs[i]->DATA;
+				switch (SHADERSOURCE->STAGE) {
+				case SHADER_STAGE::VERTEXSTAGE:
+					vssource_indexes.push_back(i);
+					vssource_names.push_back(SHADERSOURCEs[i]->Get_Name());
+					break;
+				case SHADER_STAGE::FRAGMENTSTAGE:
+					fssource_indexes.push_back(i);
+					fssource_names.push_back(SHADERSOURCEs[i]->Get_Name());
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		IMGUI->SelectList_OneLine("Vertex Shader", &selected_vsindex, &vssource_names);
+		IMGUI->SelectList_OneLine("Fragment Shader", &selected_fsindex, &fssource_names);
 		IMGUI->Input_Text("Output Folder", &OUTPUT_FOLDER);
 		IMGUI->Input_Text("Output Name", &OUTPUT_NAME);
 
@@ -39,6 +60,7 @@ namespace TuranEditor {
 			string status;
 			string PATH = OUTPUT_FOLDER;
 			PATH.append(OUTPUT_NAME);
+			PATH.append(".mattypecont");
 
 			//Check if this resource is already loaded to Content_List!
 			for (size_t i = 0; i < TuranEditor::EDITOR_FILESYSTEM->Get_AssetList().size(); i++) {
@@ -46,6 +68,7 @@ namespace TuranEditor {
 				if (PATH == RESOURCE->PATH) {
 					status = "Resource is already loaded and is in the Resource List!";
 					TuranEditor::Status_Window* error_window = new TuranEditor::Status_Window(status.c_str());
+					IMGUI->End_Window();
 					return;
 				}
 			}
@@ -56,29 +79,50 @@ namespace TuranEditor {
 			for (unsigned int i = 0; i < Material_Uniforms.size(); i++) {
 				UNIFORM = &Material_Uniforms[i];
 				if (UNIFORM->VARIABLE_NAME == "") {
-					std::cout << "A uniform's name isn't set, please check all uniform names!\n";
+					TuranAPI::LOG_WARNING("A uniform's name isn't set, please check all uniform names!");
 					SLEEP_THREAD(8);
 					IMGUI->End_Window();
 					return;
 				}
 			}
-			Material_Type* imported_resource = Material_Type_Loader::Load_MaterialType(MATERIALTYPE_VERTEX_PATH.c_str(), MATERIALTYPE_FRAGMENT_PATH.c_str(), &Material_Uniforms, &status);
-			TuranEditor::Status_Window* error_window = new TuranEditor::Status_Window(status.c_str());
-			if (imported_resource) {
-				Resource_Identifier* RESOURCE = new Resource_Identifier;
-				RESOURCE->DATA = imported_resource;
-				RESOURCE->PATH = PATH;
-				RESOURCE->TYPE = RESOURCETYPEs::GFXAPI_MATTYPE;
-				EDITOR_FILESYSTEM->Add_anAsset_toFileList(RESOURCE);
-				//Add_anAsset_toFileList gave an ID to Resource, so we can save it!
-				EDITOR_FILESYSTEM->Save_Resource(RESOURCE->ID);
+
+			VS = SHADERSOURCEs[vssource_indexes[selected_vsindex]];
+			FS = SHADERSOURCEs[fssource_indexes[selected_fsindex]];
+
+			GFX_API::Material_Type* MATERIAL = new GFX_API::Material_Type;
+
+			Resource_Identifier* RESOURCE = new Resource_Identifier;
+			RESOURCE->PATH = PATH;
+			RESOURCE->DATA = MATERIAL;
+			RESOURCE->TYPE = RESOURCETYPEs::GFXAPI_MATTYPE;
+			EDITOR_FILESYSTEM->Add_anAsset_toFileList(RESOURCE);
+
+			MATERIAL->VERTEXSOURCE_ID = VS->ID;
+			MATERIAL->FRAGMENTSOURCE_ID = FS->ID;
+			//Add Material Uniforms to compiled resource
+			GFX_API::Material_Uniform* material_uniform = nullptr;
+			for (unsigned int i = 0; i < Material_Uniforms.size(); i++) {
+				material_uniform = &Material_Uniforms[i];
+				MATERIAL->UNIFORMs.push_back(*material_uniform);
 			}
 
-			Material_Uniforms.clear();
-			selectlist_vector.clear();
+			GFXContentManager->Link_MaterialType(MATERIAL, RESOURCE->ID, &status);
+			if ("Succesfully linked!" == status) {
+				EDITOR_FILESYSTEM->Save_Resource(RESOURCE->ID);
+			}
+			else {
+				GFXContentManager->Delete_MaterialType(RESOURCE->ID);
+				EDITOR_FILESYSTEM->Delete_anAsset_fromFileList(RESOURCE->ID);
+			}
+
+			TuranEditor::Status_Window* error_window = new TuranEditor::Status_Window(status.c_str());
+
+			Material_Uniforms.clear();	typeindex_peruniform.clear(); 
+			vssource_indexes.clear(); vssource_names.clear();
+			fssource_indexes.clear(); fssource_names.clear();
 
 
-			//Finish the window here! No status checking for now!
+			//Finish the window here!
 			Is_Window_Open = false;
 			IMGUI->End_Window();
 			return;
@@ -89,13 +133,13 @@ namespace TuranEditor {
 			Material_Uniforms.push_back(GFX_API::Material_Uniform());
 		}
 		IMGUI->Same_Line();
-		if (IMGUI->Button("Read Material Type")) {
-			VERTEX_SOURCE = *TuranAPI::FileSystem::Read_TextFile(MATERIALTYPE_VERTEX_PATH.c_str(), LASTUSEDALLOCATOR);
-			FRAGMENT_SOURCE = *TuranAPI::FileSystem::Read_TextFile(MATERIALTYPE_FRAGMENT_PATH.c_str(), LASTUSEDALLOCATOR);
+		if (IMGUI->Button("Read Shader Sources")) {
 			is_Reading_Shaders = true;
+			VS = SHADERSOURCEs[vssource_indexes[selected_vsindex]];
+			FS = SHADERSOURCEs[fssource_indexes[selected_fsindex]];
 		}
 
-		//selectlist_vector.resize(Material_Uniforms.size());
+		typeindex_peruniform.resize(Material_Uniforms.size());
 		GFX_API::Material_Uniform* UNIFORM = nullptr;
 		if (IMGUI->Begin_Tree("Uniform List")) {
 			for (unsigned int i = 0; i < Material_Uniforms.size(); i++) {
@@ -103,9 +147,9 @@ namespace TuranEditor {
 
 				if (IMGUI->Begin_Tree(std::to_string(i).c_str())) {
 					IMGUI->Input_Text("Uniform Name", &UNIFORM->VARIABLE_NAME);
-					unsigned int selected = selectlist_vector[i];
+					unsigned int selected = typeindex_peruniform[i];
 					if (IMGUI->SelectList_OneLine("Uniform Variable Type", &selected, &UNIFORM_VAR_TYPE_NAMEs)) {
-						UNIFORM->VARIABLE_TYPE = Find_in_Uniform_VarTypes(selectlist_vector[i]);
+						UNIFORM->VARIABLE_TYPE = Find_in_Uniform_VarTypes(typeindex_peruniform[i]);
 					}
 					IMGUI->End_Tree();
 				}
@@ -114,12 +158,11 @@ namespace TuranEditor {
 		}
 		if (is_Reading_Shaders) {
 			IMGUI->Text("Vertex Source:");
-			IMGUI->Text(VERTEX_SOURCE.c_str());
+			IMGUI->Text(((ShaderSource_Resource*)VS->DATA)->SOURCE_CODE.c_str());
 			IMGUI->Text("Fragment Source:");
-			IMGUI->Text(FRAGMENT_SOURCE.c_str());
+			IMGUI->Text(((ShaderSource_Resource*)FS->DATA)->SOURCE_CODE.c_str());
 		}
 
-		*/
 		IMGUI->End_Window();
 	}
 
@@ -129,39 +172,7 @@ namespace TuranEditor {
 	//Use this function to import a shader stage first time! Not for reloading a shader!
 	//Output Path defines DIRECTORY + NAME! Like "C:/dev/Content/First_Material". Every MatType has .mattypecont extension!
 	GFX_API::Material_Type* Material_Type_Loader::Load_MaterialType(unsigned int VertexShader_ID, unsigned int FragmentShader_ID, vector<GFX_API::Material_Uniform>* material_inputs, string* compilation_status) {
-		/*
-		string vertexshader_compilationstatus;
-		ShaderSource_Resource* vertex_shader = new ShaderSource_Resource;
-		vertex_shader->LANGUAGE = SHADER_LANGUAGEs::GLSL;
-		vertex_shader->STAGE = SHADER_STAGE::VERTEXSTAGE;
-		vertex_shader->SOURCE_CODE = *TuranAPI::FileSystem::Read_TextFile(vertex_path, LASTUSEDALLOCATOR);
 
-
-		string fragmentshader_compilationstatus;
-		ShaderSource_Resource* fragment_shader = new ShaderSource_Resource;
-		fragment_shader->LANGUAGE = SHADER_LANGUAGEs::GLSL;
-		fragment_shader->STAGE = SHADER_STAGE::VERTEXSTAGE;
-		fragment_shader->SOURCE_CODE = *TuranAPI::FileSystem::Read_TextFile(fragment_path, LASTUSEDALLOCATOR);
-		GFXContentManager->Compile_ShaderSource(vertex_shader, &fragmentshader_compilationstatus);*/
-
-
-
-		string link_status;
-		GFX_API::Material_Type* MATERIAL = new GFX_API::Material_Type;
-		MATERIAL->VERTEXSOURCE_ID = VertexShader_ID;
-		MATERIAL->FRAGMENTSOURCE_ID = FragmentShader_ID;
-		GFXContentManager->Link_MaterialType(MATERIAL, &link_status);
-
-
-		//Add Material Uniforms to compiled resource
-		GFX_API::Material_Uniform* material_uniform = nullptr;
-		for (unsigned int i = 0; i < material_inputs->size(); i++) {
-			material_uniform = &(*material_inputs)[i];
-			MATERIAL->UNIFORMs.push_back(*material_uniform);
-		}
-
-		compilation_status->append("Succesfully compiled and saved the resource to disk!");
-		return MATERIAL;
 	}
 
 

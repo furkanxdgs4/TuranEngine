@@ -135,11 +135,6 @@ namespace GFX_API {
 		return ImGui::MenuItem(name, shortcut);
 	}
 
-	void IMGUI_Core::Paragraph_Text(const char* name, const char* text) {
-		std::cout << "Nothing functional for now in Paragraph_Text!\n";
-		std::this_thread::sleep_for(std::chrono::seconds(5));
-	}
-
 	bool IMGUI_Core::Input_Paragraph_Text(const char* name, string* Text) {
 		if (ImGui::InputTextMultiline(name, Text, ImVec2(0,0), ImGuiInputTextFlags_EnterReturnsTrue)) {
 			return true;
@@ -254,6 +249,25 @@ namespace GFX_API {
 			ImGui::Image((void*)(intptr_t)data, ImVec2(Display_WIDTH, Display_HEIGHT));
 		}
 	}
+	bool IMGUI_Core::Begin_TabBar() {
+		return ImGui::BeginTabBar("");
+	}
+	void IMGUI_Core::End_TabBar() {
+		ImGui::EndTabBar();
+	}
+	bool IMGUI_Core::Begin_TabItem(const char* name) {
+		return ImGui::BeginTabItem(name);
+	}
+	void IMGUI_Core::End_TabItem() {
+		ImGui::EndTabItem();
+	}
+	void IMGUI_Core::Separator() {
+		ImGui::Separator();
+	}
+
+
+
+
 
 
 	bool IMGUI_Core::Slider_Int(const char* name, int* data, int min, int max) { return ImGui::SliderInt(name, data, min, max); }

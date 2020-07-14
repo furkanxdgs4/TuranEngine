@@ -216,6 +216,9 @@
     <ClCompile Include="EditorSource\FileSystem\ResourceLoaders\Load_Material_TypeandInst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditorSource\Editors\ResourceLoaders\ShaderSource_Creater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorSource\Editors\ResourceLoaders\Material_Type_Loader.h">
@@ -252,9 +255,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorSource\Editors\Status_Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorSource\FileSystem\DataFormats\EditorResources_generated.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorSource\FileSystem\GameObjects\Camera_Component.h">
@@ -300,9 +300,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineSource\TuranEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GFXSource\GFX_FileSystem\DataFormats\GFXAPI_Resources_generated.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GFXSource\GFX_FileSystem\Resource_Type\Material_Type_Resource.h">
@@ -441,6 +438,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorSource\FileSystem\ResourceTypes\Resource_Identifier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\Editors\ResourceLoaders\ShaderSource_Creater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXSource\GFX_FileSystem\DataFormats\GFXAPI_Resources_generated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\FileSystem\DataFormats\EditorResources_generated.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

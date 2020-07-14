@@ -59,6 +59,8 @@ namespace TuranEditor {
 		SHADERSOURCE->LANGUAGE = GetShaderLanguage_fromFB(RESOURCE->LANGUAGE());
 		SHADERSOURCE->STAGE = GetShaderStageType_fromFB(RESOURCE->STAGE());
 		SHADERSOURCE->SOURCE_CODE = RESOURCE->CODE()->c_str();
+		string dontcare_compilation;
+		GFXContentManager->Compile_ShaderSource(SHADERSOURCE, IDENTIFIER->ID, &dontcare_compilation);
 	}
 	void Save_ShaderSource(Resource_Identifier* IDENTIFIER) {
 		ShaderSource_Resource* SHADERSOURCE = (ShaderSource_Resource*)IDENTIFIER->DATA;
@@ -140,6 +142,8 @@ namespace TuranEditor {
 			uniform.VARIABLE_NAME = Get_UniformName_fromFlatbuffer(UNIFORM_typeless, uniform.VARIABLE_TYPE);
 			MATTYPE->UNIFORMs.push_back(uniform);
 		}
+		string dontcare_linking;
+		GFXContentManager->Link_MaterialType(MATTYPE, IDENTIFIER->ID, &dontcare_linking);
 	}
 	void Save_MatType(Resource_Identifier* IDENTIFIER) {
 		Material_Type* MATTYPE = (Material_Type*)IDENTIFIER->DATA;
