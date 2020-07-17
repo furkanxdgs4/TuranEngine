@@ -17,6 +17,6 @@ namespace TuranEditor {
 		mat4 Model_Transform;
 		Resource_Identifier* MODEL;
 		vector<Resource_Identifier*> MATERIALs;
-
+		StaticModel_Component();
 	};
 }

@@ -101,12 +101,21 @@ namespace OpenGL4 {
 		return MESH.BUFFER_ID;
 	}
 	void GPU_ContentManager::Unload_MeshBuffer(unsigned int MeshBuffer_ID) {
-		OGL4_MESH* MESHBUFFER = (OGL4_MESH*)Find_MeshBuffer_byBufferID(MeshBuffer_ID)->GL_ID;
-		if (MESHBUFFER) {
-			glDeleteVertexArrays(1, &MESHBUFFER->VAO);
-			glDeleteBuffers(1, &MESHBUFFER->VBO);
-			glDeleteBuffers(1, &MESHBUFFER->EBO);
-			Find_MeshBuffer_byBufferID(MeshBuffer_ID)->GL_ID = nullptr;
+		GFX_API::GFX_Mesh* MESH = nullptr;
+		MESH = Find_MeshBuffer_byBufferID(MeshBuffer_ID);
+		OGL4_MESH* OGL_MESH = (OGL4_MESH*)MESH->GL_ID;
+		if (OGL_MESH) {
+			glDeleteVertexArrays(1, &OGL_MESH->VAO);
+			glDeleteBuffers(1, &OGL_MESH->VBO);
+			glDeleteBuffers(1, &OGL_MESH->EBO);
+			delete OGL_MESH;
+			MESH->GL_ID = nullptr;
+			for (unsigned int i = 0; i < MESHBUFFERs.size(); i++) {
+				if (MESH->BUFFER_ID == MESHBUFFERs[i].BUFFER_ID) {
+					MESHBUFFERs.erase(MESHBUFFERs.begin() + i);
+					return;
+				}
+			}
 			return;
 		}
 
@@ -151,7 +160,18 @@ namespace OpenGL4 {
 		TEXTUREs.push_back(TEXTURE);
 	}
 	void GPU_ContentManager::Unload_Texture(unsigned int TEXTURE_ID) {
-		glDeleteTextures(1, (unsigned int*)Find_GFXTexture_byID(TEXTURE_ID)->GL_ID);
+		GFX_API::GFX_Texture* TEXTURE = Find_GFXTexture_byID(TEXTURE_ID);
+		if (TEXTURE->GL_ID) {
+			glDeleteTextures(1, (unsigned int*)TEXTURE->GL_ID);
+			delete (unsigned int*)TEXTURE->GL_ID;
+		}
+		TEXTURE->GL_ID = nullptr;
+		for (unsigned int i = 0; i < TEXTUREs.size(); i++) {
+			if (TEXTUREs[i].ASSET_ID == TEXTURE->ASSET_ID) {
+				TEXTUREs.erase(TEXTUREs.begin() + i);
+				return;
+			}
+		}
 	}
 	void GPU_ContentManager::Link_MaterialType(GFX_API::Material_Type* MATTYPE_ASSET, unsigned int Asset_ID, string* compilation_status) {
 		//Link and return the Shader Program!
@@ -188,12 +208,19 @@ namespace OpenGL4 {
 		compilation_status->append("Succesfully linked!");
 	}
 	void GPU_ContentManager::Delete_MaterialType(unsigned int Asset_ID) {
-		GFX_API::GFX_ShaderProgram* PROGRAM = Find_GFXShaderProgram_byID(Asset_ID);
+		GFX_API::GFX_ShaderProgram* PROGRAM = nullptr;
+		PROGRAM = Find_GFXShaderProgram_byID(Asset_ID);
 		if (PROGRAM->GL_ID) {
 			glDeleteProgram(*(unsigned int*)PROGRAM->GL_ID);
 			delete (unsigned int*)PROGRAM->GL_ID;
 		}
 		PROGRAM->GL_ID = nullptr;
+		for (unsigned int i = 0; i < SHADERPROGRAMs.size(); i++) {
+			if (SHADERPROGRAMs[i].ASSET_ID == PROGRAM->ASSET_ID) {
+				SHADERPROGRAMs.erase(SHADERPROGRAMs.begin() + i);
+				return;
+			}
+		}
 	}
 	void GPU_ContentManager::Compile_ShaderSource(GFX_API::ShaderSource_Resource* SHADER, unsigned int Asset_ID, string* compilation_status) {
 		unsigned int STAGE = Find_ShaderStage(SHADER->STAGE);
@@ -221,7 +248,19 @@ namespace OpenGL4 {
 		compilation_status->append("Succesfully compiled!");
 	}
 	void GPU_ContentManager::Delete_ShaderSource(unsigned int Asset_ID) {
-		glDeleteShader(*(unsigned int*)Find_GFXShaderSource_byID(Asset_ID)->GL_ID);
+		GFX_API::GFX_ShaderSource* SHADER = nullptr;
+		SHADER = Find_GFXShaderSource_byID(Asset_ID);
+		if (SHADER->GL_ID) {
+			glDeleteShader(*(unsigned int*)SHADER->GL_ID);
+			delete (unsigned int*)SHADER->GL_ID;
+		}
+		SHADER->GL_ID = nullptr;
+		for (unsigned int i = 0; i < SHADERSOURCEs.size(); i++) {
+			if (SHADERSOURCEs[i].ASSET_ID == SHADER->ASSET_ID) {
+				SHADERSOURCEs.erase(SHADERSOURCEs.begin() + i);
+				return;
+			}
+		}
 	}
 
 
@@ -276,7 +315,9 @@ namespace OpenGL4 {
 				else {
 					glDeleteRenderbuffers(1, (unsigned int*)RT->GL_ID);
 				}
+				delete (unsigned int*)RT->GL_ID;
 				RTs.erase(RTs.begin() + i);
+				return;
 			}
 		}
 	}
@@ -317,6 +358,18 @@ namespace OpenGL4 {
 
 
 	void GPU_ContentManager::Delete_Framebuffer(unsigned int Framebuffer_ID) {
-		glDeleteFramebuffers(1, (unsigned int*)Find_Framebuffer_byGFXID(Framebuffer_ID)->GL_ID);
+		GFX_API::Framebuffer* FB = nullptr;
+		FB = Find_Framebuffer_byGFXID(Framebuffer_ID);
+		if (FB->GL_ID) {
+			glDeleteFramebuffers(1, (unsigned int*)FB->GL_ID);
+			delete (unsigned int*)FB->GL_ID;
+		}
+		FB->GL_ID = nullptr;
+		for (unsigned int i = 0; i < FBs.size(); i++) {
+			if (FB->ID == FBs[i].ID) {
+				FBs.erase(FBs.begin() + i);
+				return;
+			}
+		}
 	}
 }

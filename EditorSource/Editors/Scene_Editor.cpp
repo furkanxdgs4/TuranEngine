@@ -9,7 +9,7 @@
 #include "EditorSource/RenderContext/Game_RenderGraph.h"
 
 #include "Status_Window.h"
-#include "Properties_Window.h"
+#include "GameComponent_Properties.h"
 using namespace TuranAPI;
 using namespace GFX_API;
 
@@ -88,19 +88,8 @@ namespace TuranEditor {
 
 		//Show selected content's properties!
 		if (IMGUI->Selectable_ListBox("Game Component List", &selected_list_item_index, &component_names)) {
-			new GameComponentProperties_Window(SCENE_DATA->ADDED_COMPONENTs[selected_list_item_index]);
+			new GameComponentProperties_Window(SCENE_to_EDIT, SCENE_DATA->ADDED_COMPONENTs[selected_list_item_index]);
 		}
-
-
-
-		/*
-		if (RenderGraph_forScene == nullptr) {
-			RenderGraph_forScene = new Game_RenderGraph;
-		}
-		else {
-			unsigned int RT_ID = RenderGraph_forScene->Get_FinalColor_Texture()->Get_ID();
-			IMGUI->Display_Texture(&RT_ID, 960, 540, true);
-		}*/
 
 
 
@@ -109,7 +98,10 @@ namespace TuranEditor {
 
 
 
-	Create_CameraComp::Create_CameraComp(Resource_Identifier* scene) : IMGUI_WINDOW("Create Camera Component"), SCENE(scene) { COMPONENT = new Camera_Component(vec3(0, 0, 0)); }
+	Create_CameraComp::Create_CameraComp(Resource_Identifier* scene) : IMGUI_WINDOW("Create Camera Component"), SCENE(scene) {
+		COMPONENT = new Camera_Component(vec3(0, 0, 0)); 
+		IMGUI_REGISTERWINDOW(this);
+	}
 	void Create_CameraComp::Run_Window() {
 		if (!Is_Window_Open) {
 			IMGUI_DELETEWINDOW(this);
@@ -120,7 +112,7 @@ namespace TuranEditor {
 			return;
 		}
 
-		//IMGUI->Input_Text("Camera Name: ", &COMP_NAME);
+		IMGUI->Input_Text("Camera Name: ", &COMP_NAME);
 
 		if (IMGUI->Button("Create")) {
 			COMPONENT->NAME = COMP_NAME;

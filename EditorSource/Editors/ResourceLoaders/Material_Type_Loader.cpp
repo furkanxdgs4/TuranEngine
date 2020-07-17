@@ -166,16 +166,6 @@ namespace TuranEditor {
 		IMGUI->End_Window();
 	}
 
-
-
-
-	//Use this function to import a shader stage first time! Not for reloading a shader!
-	//Output Path defines DIRECTORY + NAME! Like "C:/dev/Content/First_Material". Every MatType has .mattypecont extension!
-	GFX_API::Material_Type* Material_Type_Loader::Load_MaterialType(unsigned int VertexShader_ID, unsigned int FragmentShader_ID, vector<GFX_API::Material_Uniform>* material_inputs, string* compilation_status) {
-
-	}
-
-
 	GFX_API::UNIFORMTYPE Find_in_Uniform_VarTypes(const int& var_type) {
 		switch (var_type) {
 		case 0:

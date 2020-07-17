@@ -1,6 +1,6 @@
 #pragma once
 #include "TuranAPI/API_includes.h"
-enum class GameComponentType : char;
+enum class GameComponentType : unsigned char;
 
 namespace TuranAPI {
 	class TURANAPI GameComponent {
@@ -12,7 +12,7 @@ namespace TuranAPI {
 		vec3 POSITION, ROTATION, SCALE;
 		//Is component's transform changed this frame? Default is true because application starts!
 		bool is_TRANSFORM_CHANGED = true;
-		GameComponent();
+		GameComponent(enum class GameComponentType type);
 
 
 		//Transport a component to a new position!

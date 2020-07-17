@@ -70,11 +70,18 @@ namespace GFX_API {
 		API_TEXTURE_MIRRORED_REPEAT,
 		API_TEXTURE_CLAMP_TO_EDGE
 	};
+	GFXAPI const char* GetNameOf_TextureWRAPPING(TEXTURE_WRAPPING WRAPPING);
+	GFXAPI vector<const char*> GetNames_TextureWRAPPING();
+	GFXAPI TEXTURE_WRAPPING GetTextureWRAPPING_byIndex(unsigned int Index);
 
 	enum class TEXTURE_CHANNELs: unsigned char {
 		API_TEXTURE_RGB,
 		API_TEXTURE_RGBA
 	};
+	GFXAPI const char* GetNameOf_TextureCHANNELs(TEXTURE_CHANNELs CHANNEL);
+	GFXAPI vector<const char*> GetNames_TextureCHANNELs();
+	GFXAPI TEXTURE_CHANNELs GetTextureCHANNEL_byIndex(unsigned int Index);
+	GFXAPI unsigned int GetIndexOf_TextureCHANNEL(TEXTURE_CHANNELs CHANNEL);
 
 	enum class TEXTURE_TYPEs: unsigned char {
 		COLORTEXTURE,

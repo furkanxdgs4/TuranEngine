@@ -98,12 +98,13 @@ namespace TuranEditor {
 			return nullptr;
 		}
 		//If application arrives here, loading is successful!
-
+		GFX_API::Texture_Properties PROPERTIES = Properties;
+		PROPERTIES.CHANNEL_TYPE = CHANNEL_TYPE;
 		GFX_API::Texture_Resource* texture_resource = new GFX_API::Texture_Resource;
 		texture_resource->DATA = data;
 		texture_resource->WIDTH = WIDTH;
 		texture_resource->HEIGHT = HEIGHT;
-		texture_resource->Properties = Properties;
+		texture_resource->Properties = PROPERTIES;
 		texture_resource->DATA_SIZE = texture_resource->WIDTH * texture_resource->HEIGHT * CHANNELs;
 
 

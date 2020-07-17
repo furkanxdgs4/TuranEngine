@@ -1,7 +1,8 @@
 #include "Camera_Component.h"
+#include "TuranAPI/FileSystem/GameObjects/GameComponents/GameComponentTypes.h"
 
 namespace TuranEditor {
-	Camera_Component::Camera_Component(vec3 target) : Target(target) {}
+	Camera_Component::Camera_Component(vec3 target) : GameComponent(GameComponentType::CAMERA_C) , Target(target){}
 
 	void Camera_Component::Set_Camera_Properties(unsigned short fov_in_Angle, float aspect_Width, float aspect_Height, float near_plane, float far_plane) {
 		FOV_in_Angle = fov_in_Angle;

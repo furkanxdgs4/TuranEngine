@@ -1,8 +1,9 @@
 #include "GameComponent.h"
+#include "GameComponentTypes.h"
 
 namespace TuranAPI {
 
-	GameComponent::GameComponent() {}
+	GameComponent::GameComponent(GameComponentType type) : TYPE(type) {}
 
 	//Transport a component to a new position!
 	void GameComponent::Translate(vec3 new_position) {

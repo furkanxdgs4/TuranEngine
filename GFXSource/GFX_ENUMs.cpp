@@ -52,6 +52,80 @@ namespace GFX_API {
 		}
 	}
 
+
+	
+	GFXAPI const char* GetNameOf_TextureWRAPPING(TEXTURE_WRAPPING WRAPPING) {
+		switch (WRAPPING) {
+		case TEXTURE_WRAPPING::API_TEXTURE_REPEAT:
+			return "Repeat";
+		case TEXTURE_WRAPPING::API_TEXTURE_MIRRORED_REPEAT:
+			return "Mirrored Repeat";
+		case TEXTURE_WRAPPING::API_TEXTURE_CLAMP_TO_EDGE:
+			return "Clamp to Edge";
+		default:
+			TuranAPI::LOG_ERROR("GetNameOf_TextureWRAPPING doesn't support this wrapping type!");
+			return "ERROR";
+		}
+	}
+	GFXAPI vector<const char*> GetNames_TextureWRAPPING() {
+		return vector<const char*>{
+			GetNameOf_TextureWRAPPING(TEXTURE_WRAPPING::API_TEXTURE_REPEAT), GetNameOf_TextureWRAPPING(TEXTURE_WRAPPING::API_TEXTURE_MIRRORED_REPEAT),
+				GetNameOf_TextureWRAPPING(TEXTURE_WRAPPING::API_TEXTURE_CLAMP_TO_EDGE)
+		};
+	}
+	GFXAPI TEXTURE_WRAPPING GetTextureWRAPPING_byIndex(unsigned int Index) {
+		switch (Index) {
+		case 0:
+			return TEXTURE_WRAPPING::API_TEXTURE_REPEAT;
+		case 1:
+			return TEXTURE_WRAPPING::API_TEXTURE_MIRRORED_REPEAT;
+		case 2:
+			return TEXTURE_WRAPPING::API_TEXTURE_CLAMP_TO_EDGE;
+		default:
+			TuranAPI::LOG_ERROR("GetTextureWRAPPING_byIndex doesn't support this index!\n");
+		}
+	}
+
+
+	GFXAPI const char* GetNameOf_TextureCHANNELs(TEXTURE_CHANNELs CHANNEL) {
+		switch (CHANNEL) {
+		case TEXTURE_CHANNELs::API_TEXTURE_RGB:
+			return "RGB";
+		case TEXTURE_CHANNELs::API_TEXTURE_RGBA:
+			return "RGBA";
+		default:
+			TuranAPI::LOG_ERROR("GetNameOf_TextureCHANNELs doesn't support this channel type!");
+		}
+	}
+	GFXAPI vector<const char*> GetNames_TextureCHANNELs() {
+		return vector<const char*>{
+			GetNameOf_TextureCHANNELs(TEXTURE_CHANNELs::API_TEXTURE_RGB),
+			GetNameOf_TextureCHANNELs(TEXTURE_CHANNELs::API_TEXTURE_RGBA)
+		};
+	}
+	GFXAPI TEXTURE_CHANNELs GetTextureCHANNEL_byIndex(unsigned int Index) {
+		switch (Index) {
+		case 0:
+			return TEXTURE_CHANNELs::API_TEXTURE_RGB;
+		case 1:
+			return TEXTURE_CHANNELs::API_TEXTURE_RGBA;
+		default:
+			TuranAPI::LOG_ERROR("GetTextureCHANNEL_byIndex doesn't support this index!");
+		}
+	}
+	GFXAPI unsigned int GetIndexOf_TextureCHANNEL(TEXTURE_CHANNELs CHANNEL) {
+		switch (CHANNEL) {
+		case TEXTURE_CHANNELs::API_TEXTURE_RGB:
+			return 0;
+		case TEXTURE_CHANNELs::API_TEXTURE_RGBA:
+			return 1;
+		default:
+			TuranAPI::LOG_ERROR("GetIndexOf_TextureCHANNEL doesn't support this channel type!");
+		}
+	}
+
+
+
 	GFXAPI const char* GetNameof_SHADERLANGUAGE(SHADER_LANGUAGEs LANGUAGE) {
 		switch (LANGUAGE) {
 		case SHADER_LANGUAGEs::GLSL:
@@ -86,6 +160,9 @@ namespace GFX_API {
 			TuranAPI::LOG_ERROR("GetSHADERLANGUAGE_byIndex() doesn't support this index!");
 		}
 	}
+
+
+
 
 	GFXAPI const char* GetNameof_SHADERSTAGE(SHADER_STAGE SHADERSTAGE) {
 		switch (SHADERSTAGE) {

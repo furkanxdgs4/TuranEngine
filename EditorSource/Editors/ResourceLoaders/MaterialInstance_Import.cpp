@@ -25,6 +25,7 @@ namespace TuranEditor {
 		}
 		if (!IMGUI->Create_Window(Window_Name.c_str(), Is_Window_Open, false)) {
 			IMGUI->End_Window();
+			return;
 		}
 		if (!EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_MATTYPE).size()) {
 			IMGUI->Text("There is no Material Type, so you can't create  a Material Instance!");
@@ -43,38 +44,46 @@ namespace TuranEditor {
 
 
 		if (IMGUI->Button("Create")) {
+			selected_materialtype = ALL_MATTYPEs[selected_list_item_index];
+			GFX_API::Material_Type* MATTYPE = (GFX_API::Material_Type*)selected_materialtype->DATA;
+			UNIFORM_LIST.clear();
+			for (unsigned int i = 0; i < MATTYPE->UNIFORMs.size(); i++) {
+				UNIFORM_LIST.push_back(MATTYPE->UNIFORMs[i]);
+			}
 			Create_Instance_ofMaterialType(selected_materialtype, UNIFORM_LIST, PATH.c_str());
 		}
 
 
-		vector<const char*> item_names;
-		vector<Resource_Identifier*> ALL_MATTYPEs = EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_MATTYPE);
+		if (ALL_MATTYPEs.size() != EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_MATTYPE).size()) {
+			ALL_MATTYPEs.clear(); item_names.clear();
+			ALL_MATTYPEs = EDITOR_FILESYSTEM->Get_SpecificAssetType(RESOURCETYPEs::GFXAPI_MATTYPE);
 			for (unsigned int i = 0; i < ALL_MATTYPEs.size(); i++) {
-				Resource_Identifier* RESOURCE = ALL_MATTYPEs[i];
-				item_names.push_back(RESOURCE->Get_Name().c_str());
-			}
-		static int selected_list_item_index = 0;
-
-		const char* nameof_selectlistline = "Material Type List";
-		unsigned int selected_listitemindex = selected_list_item_index;
-
-		//Show Material Type list and if one of them is selected, create uniforms for the material instance
-		GFX_API::Material_Uniform* UNIFORM = nullptr;
-		if (IMGUI->SelectList_OneLine(nameof_selectlistline, &selected_listitemindex, &item_names)) {
-			selected_materialtype = ALL_MATTYPEs[selected_list_item_index];
-			GFX_API::Material_Type* MATTYPE = (GFX_API::Material_Type*)selected_materialtype->DATA;
-			for (unsigned int i = 0; i < MATTYPE->UNIFORMs.size(); i++) {
-				UNIFORM = &MATTYPE->UNIFORMs[i];
-				UNIFORM_LIST.push_back(*UNIFORM);
+				item_names.push_back(ALL_MATTYPEs[i]->Get_Name());
 			}
 		}
 
+		const char* nameof_selectlistline = "Material Type List";
+
+		//Show Material Type list and if one of them is selected, create uniforms for the material instance
+		GFX_API::Material_Uniform* UNIFORM = nullptr;
+		IMGUI->SelectList_OneLine(nameof_selectlistline, &selected_list_item_index, &item_names);
+
 		if (IMGUI->Begin_Tree("Uniform List")) {
+			//A different Material Type
+			if (selected_materialtype != ALL_MATTYPEs[selected_list_item_index]) {
+				selected_materialtype = ALL_MATTYPEs[selected_list_item_index];
+				GFX_API::Material_Type* MATTYPE = (GFX_API::Material_Type*)selected_materialtype->DATA;
+				UNIFORM_LIST.clear();
+				for (unsigned int i = 0; i < MATTYPE->UNIFORMs.size(); i++) {
+					UNIFORM_LIST.push_back(MATTYPE->UNIFORMs[i]);
+				}
+			}
+
 			for (unsigned int i = 0; i < UNIFORM_LIST.size(); i++) {
 				UNIFORM = &UNIFORM_LIST[i];
 
 				if (IMGUI->Begin_Tree(std::to_string(i).c_str())) {
-					IMGUI->Input_Text("Uniform Name", &UNIFORM_NAME);
+					IMGUI->Text("I don't know what to show here!");
 
 					IMGUI->End_Tree();
 				}
@@ -103,6 +112,7 @@ namespace TuranEditor {
 		EDITOR_FILESYSTEM->Add_anAsset_toFileList(RESOURCE);
 		//Add_anAsset_toFileList gave an ID to Resource, so we can save it now!
 		EDITOR_FILESYSTEM->Save_Resource(RESOURCE->ID);
+		new Status_Window("Successfully created!");
 	}
 	
 }

@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="EditorSource\Editor.cpp" />
     <ClCompile Include="EditorSource\Editors\Content_Browser.cpp" />
+    <ClCompile Include="EditorSource\Editors\GameComponent_Properties.cpp" />
     <ClCompile Include="EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.cpp" />
     <ClCompile Include="EditorSource\Editors\Main_Window.cpp" />
     <ClCompile Include="EditorSource\Editors\Profiling_Window.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="EditorSource\Editor.h" />
     <ClInclude Include="EditorSource\Editors\Content_Browser.h" />
     <ClInclude Include="EditorSource\Editors\EDITORs.h" />
+    <ClInclude Include="EditorSource\Editors\GameComponent_Properties.h" />
     <ClInclude Include="EditorSource\Editors\IMGUI_DEFAULT_WINDOWs.h" />
     <ClInclude Include="EditorSource\Editors\Main_Window.h" />
     <ClInclude Include="EditorSource\Editors\Profiling_Window.h" />

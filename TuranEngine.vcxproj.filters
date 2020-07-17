@@ -219,6 +219,9 @@
     <ClCompile Include="EditorSource\Editors\ResourceLoaders\ShaderSource_Creater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditorSource\Editors\GameComponent_Properties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorSource\Editors\ResourceLoaders\Material_Type_Loader.h">
@@ -447,6 +450,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorSource\FileSystem\DataFormats\EditorResources_generated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSource\Editors\GameComponent_Properties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

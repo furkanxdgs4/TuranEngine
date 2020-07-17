@@ -147,10 +147,6 @@ namespace TuranEditor {
 		MESH->Material_Index = data->mMaterialIndex;
 		MESH->VERTEX_NUMBER = data->mNumVertices;
 
-		/*Notes:
-		1) Only Position attribute is loaded for now
-		2) In summer, I will code an Editor to set Attribute Layout so the code below is a fixed way for now
-		*/
 		{
 			GFX_API::VertexAttribute PositionAttribute;
 			//Create Position Attribute!
@@ -162,7 +158,7 @@ namespace TuranEditor {
 			MESH->DataLayout.Attributes.push_back(PositionAttribute);
 
 			//I don't want to try to support the other attributes for now but the code should be like that!
-			/*
+			
 			//Use this index to set Attribute index for each attribute
 			unsigned int NextAttribute_Index = 1;
 
@@ -187,7 +183,7 @@ namespace TuranEditor {
 				default:
 					TuranAPI::LOG_CRASHING("There is a error in Texture Coordinate!");
 				}
-				AttributeLayout.Attributes.push_back(TextCoordAttribute);
+				MESH->DataLayout.Attributes.push_back(TextCoordAttribute);
 			}
 			NextAttribute_Index += Attribute_Info.TextCoords;
 
@@ -200,7 +196,7 @@ namespace TuranEditor {
 				VertColorAttribute.Stride = 0;
 				VertColorAttribute.Start_Offset = 0;
 				VertColorAttribute.DATATYPE = GFX_API::UNIFORMTYPE::VAR_VEC4;
-				AttributeLayout.Attributes.push_back(VertColorAttribute);
+				MESH->DataLayout.Attributes.push_back(VertColorAttribute);
 			}
 			NextAttribute_Index += Attribute_Info.VertexColors;
 
@@ -212,7 +208,7 @@ namespace TuranEditor {
 				NormalAttribute.Stride = 0;
 				NormalAttribute.Start_Offset = 0;
 				NormalAttribute.DATATYPE = GFX_API::UNIFORMTYPE::VAR_VEC3;
-				AttributeLayout.Attributes.push_back(NormalAttribute);
+				MESH->DataLayout.Attributes.push_back(NormalAttribute);
 			}
 			if (Attribute_Info.Tangent) {
 				GFX_API::VertexAttribute TangentAttribute;
@@ -222,7 +218,7 @@ namespace TuranEditor {
 				TangentAttribute.Stride = 0;
 				TangentAttribute.Start_Offset = 0;
 				TangentAttribute.DATATYPE = GFX_API::UNIFORMTYPE::VAR_VEC3;
-				AttributeLayout.Attributes.push_back(TangentAttribute);
+				MESH->DataLayout.Attributes.push_back(TangentAttribute);
 			}
 			if (Attribute_Info.Bitangent) {
 				GFX_API::VertexAttribute BitangentAttribute;
@@ -232,13 +228,12 @@ namespace TuranEditor {
 				BitangentAttribute.Stride = 0;
 				BitangentAttribute.Start_Offset = 0;
 				BitangentAttribute.DATATYPE = GFX_API::UNIFORMTYPE::VAR_VEC3;
-				AttributeLayout.Attributes.push_back(BitangentAttribute);
+				MESH->DataLayout.Attributes.push_back(BitangentAttribute);
 			}
 			if (Attribute_Info.Bones) {
 				TuranAPI::LOG_ERROR("Loader doesn't support to import Bone attribute of the meshes!");
 			}
 
-			*/
 
 			//Final Checks on Attribute Layout
 			if (!MESH->DataLayout.VerifyAttributeLayout()) {
@@ -297,13 +292,12 @@ namespace TuranEditor {
 		}
 
 
-
 		//WITH AVAILABLE ATTRIBUTE INFO, HERE I SHOULD WRITE THE EDITOR CODE TO MANIPULATE ATTRIBUTE LAYOUT!
 		//For now, I just use the default attribute layout (Stride = 0, Start_Offset = 0 for all attributes)
 		//So, I write the imported resource's attribute info to the Status Window!
 		Attribute_BitMask* bitmask = nullptr;
 		{
-			compilation_status->append("Note: Only Positions attribute is loaded for now because of limited time! In summer: I will support to load all of the attributes as the user wants!");
+			compilation_status->append("Compilation is successful!\n");
 			for (unsigned int i = 0; i < Scene->mNumMeshes; i++) {
 				bitmask = &aiMesh_Attributes[i];
 				compilation_status->append("Mesh Index: ");
@@ -313,28 +307,28 @@ namespace TuranEditor {
 				compilation_status->append(" Vertex Color Sets Number: ");
 				compilation_status->append(std::to_string(bitmask->VertexColors).c_str());
 				if (bitmask->Normal) {
-					compilation_status->append(" Vertex Normals're found");
+					compilation_status->append(" Vertex Normals're found\n");
 				}
 				else {
-					compilation_status->append(" Vertex Normals're not found");
+					compilation_status->append(" Vertex Normals're not found\n");
 				}
 				if (bitmask->Tangent) {
-					compilation_status->append(" Tangents're found");
+					compilation_status->append(" Tangents're found\n");
 				}
 				else {
-					compilation_status->append(" Tangents're not found");
+					compilation_status->append(" Tangents're not found\n");
 				}
 				if (bitmask->Bitangent) {
-					compilation_status->append(" Bitangents're found");
+					compilation_status->append(" Bitangents're found\n");
 				}
 				else {
-					compilation_status->append(" Bitangents're not found");
+					compilation_status->append(" Bitangents're not found\n");
 				}
 				if (bitmask->Bones) {
-					compilation_status->append(" Bones're found ");
+					compilation_status->append(" Bones're found\n");
 				}
 				else {
-					compilation_status->append(" Bones're not found ");
+					compilation_status->append(" Bones're not found\n");
 				}
 			}
 		}

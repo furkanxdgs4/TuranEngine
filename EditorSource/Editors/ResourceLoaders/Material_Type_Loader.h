@@ -23,11 +23,4 @@ namespace TuranEditor {
 		Material_Import_Window();
 		virtual void Run_Window();
 	};
-
-	class Material_Type_Loader {
-	public:
-		static GFX_API::Material_Type* Load_MaterialType(unsigned int VertexShader_ID, unsigned int FragmentShader_ID
-			, vector<GFX_API::Material_Uniform>* material_inputs, string* compilation_status);
-	};
-
 }

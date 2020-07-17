@@ -9,7 +9,6 @@ int main() {
 
 	Game_RenderGraph Scene;
 	Main_Window* main_window = new Main_Window(&Scene);
-	TuranAPI::WRITE_LOGs_toFILEs();
 	while (!TuranEngine->ShouldEngine_Close()) {
 		IMGUI->New_Frame();
 		IMGUI_RUNWINDOWS();
