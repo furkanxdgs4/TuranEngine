@@ -86,8 +86,8 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(ProjectName)</IntDir>
-    <IncludePath>C:\dev\TuranEngine-NonDLL\TuranEngine\3rdPartyLibraries\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\dev\TuranEngine-NonDLL\TuranEngine\3rdPartyLibraries\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)3rdPartyLibraries\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)3rdPartyLibraries\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,7 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\dev\TuranEngine-NonDLL\TuranEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
